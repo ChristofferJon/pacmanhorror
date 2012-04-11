@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{48477285-73e5-45f5-8b45-525dd6a50e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{5631187a-c788-4128-b51e-d66d9b87451e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{978851f1-78ae-4c91-8052-97d33a755ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{81b28933-be1b-4615-9a7c-bda1e1a58dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ScreenManager">
+      <UniqueIdentifier>{1f26bac8-8b58-4eb4-979e-818f3aaabfed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ScreenManager">
+      <UniqueIdentifier>{489043ae-94bd-421d-8759-91b8c7f12991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ScreenManager\Abstracts">
+      <UniqueIdentifier>{75d99ac0-a48a-4687-aaf7-c1814cce21f9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AppMain.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="winMain.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Ini_Util.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files\ScreenManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScreen.cpp">
+      <Filter>Source Files\ScreenManager</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppMain.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Ini_Util.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserLib.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files\ScreenManager\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreen.h">
+      <Filter>Header Files\ScreenManager\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DLibs.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

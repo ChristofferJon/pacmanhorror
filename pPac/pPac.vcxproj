@@ -79,21 +79,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="CFG.cpp" />
+    <ClCompile Include="CFG_Entry.cpp" />
+    <ClCompile Include="CFG_Link.cpp" />
     <ClCompile Include="D3DManager.cpp" />
+    <ClCompile Include="Dbg.cpp" />
     <ClCompile Include="GameScreen.cpp" />
-    <ClCompile Include="Ini_Util.cpp" />
-    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppMain.h" />
+    <ClInclude Include="CFG.h" />
+    <ClInclude Include="CfgLib.h" />
+    <ClInclude Include="CFG_Entry.h" />
+    <ClInclude Include="CFG_Link.h" />
     <ClInclude Include="D3DLibs.h" />
     <ClInclude Include="D3DManager.h" />
+    <ClInclude Include="Dbg.h" />
     <ClInclude Include="GameScreen.h" />
-    <ClInclude Include="Ini_Util.h" />
-    <ClInclude Include="Parser.h" />
-    <ClInclude Include="ParserLib.h" />
     <ClInclude Include="Screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

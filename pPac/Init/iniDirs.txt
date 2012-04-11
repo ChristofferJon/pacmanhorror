@@ -1,4 +1,0 @@
-# GFX.dat
-# SFX.dat
-# MODELS.dat
-# LEVELS.dat

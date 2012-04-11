@@ -3,8 +3,7 @@
 #include <Windows.h>
 #include <tchar.h>
 #include "AppMain.h"
-#include "Ini_Util.h"
-#include "Parser.h"
+#include "CFG.h"
 
 #pragma endregion
 
@@ -12,11 +11,11 @@
 
 // window attributes
 HWND				hWnd;
-const LPCSTR		appName =	"Pac 0.01";
+const LPCSTR		appName =	"Pac 0.02 - We can read and we can write, but we can't boogie... yet";
 
 // Instances
 AppMain main = AppMain();
-Parser* parser;
+CFG* cfg;
 
 #pragma endregion
 
@@ -89,19 +88,18 @@ bool initWindow( HWND &hWnd, HINSTANCE hInstance, int width, int height )
 
 int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow )
 {
-	// instance parser
-	parser = new Parser();
-	parser->Load("GFX.dat");
+	int width = cfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
+	int height = cfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
 
 	// set up window
 	if ( !initWindow (	hWnd, 
 						hInstance, 
-						parser->getIntOfKey("resx"), 
-						parser->getIntOfKey("resy") ) )
+						width, 
+						height ) )
 		return 0;
 
 	// intialize AppMain
-	if ( main.Initialize(parser) == false )
+	if ( main.Initialize() == false )
 		return 0;
 
 	// main message loop

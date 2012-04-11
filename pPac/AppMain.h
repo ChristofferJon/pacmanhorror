@@ -2,8 +2,8 @@
 #define __APPMAIN__
 
 #include <cstdlib>
-#include "Parser.h"
 #include "D3DManager.h"
+#include "CFG.h"
 
 /*
 Treated as a singleton since we'll only
@@ -18,12 +18,12 @@ public:
 	~AppMain();
 
 public:
-	bool		Initialize(Parser* _parser);
+	bool		Initialize();
 	void		Update();
 
 private:
-	Parser*		mParser;
 	D3DManager*	mD3DManager;
+	CFG*		mCfg;
 };
 
 #endif

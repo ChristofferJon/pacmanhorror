@@ -2,22 +2,21 @@
 
 AppMain::AppMain()
 {
-
+	mCfg->getCFG();
 }
 
 
 AppMain::~AppMain()
 {
-	if( mD3DManager) mD3DManager->~D3DManager();
+	if( mD3DManager ) mD3DManager->~D3DManager();
+	if ( mCfg ) mCfg->~CFG();
 }
 
-bool AppMain::Initialize(Parser* _parser)
+bool AppMain::Initialize()
 {
-	mParser = _parser;
-	mParser->Load("GFX");
 
-	mD3DManager = new D3DManager(	mParser->getIntOfKey("resx"), 
-									mParser->getIntOfKey("resy"));
+	//mD3DManager = new D3DManager(	mParser->getIntOfKey("resx"), 
+	//								mParser->getIntOfKey("resy"));
 	return true;
 }
 

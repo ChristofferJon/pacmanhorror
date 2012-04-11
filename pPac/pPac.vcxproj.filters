@@ -34,6 +34,12 @@
     <Filter Include="Header Files\ScreenManager\Abstracts">
       <UniqueIdentifier>{75d99ac0-a48a-4687-aaf7-c1814cce21f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utilities\CFG">
+      <UniqueIdentifier>{6a9d5c16-6837-4625-80bf-56c2ed88ae9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities\CFG">
+      <UniqueIdentifier>{edaae90f-344b-4002-b6b0-a0f7adce6fea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp">
@@ -41,12 +47,6 @@
     </ClCompile>
     <ClCompile Include="winMain.cpp">
       <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Ini_Util.cpp">
-      <Filter>Source Files\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Parser.cpp">
-      <Filter>Source Files\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Screen.cpp">
       <Filter>Source Files\ScreenManager</Filter>
@@ -57,19 +57,22 @@
     <ClCompile Include="D3DManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CFG.cpp">
+      <Filter>Source Files\Utilities\CFG</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Entry.cpp">
+      <Filter>Source Files\Utilities\CFG</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Link.cpp">
+      <Filter>Source Files\Utilities\CFG</Filter>
+    </ClCompile>
+    <ClCompile Include="Dbg.cpp">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppMain.h">
       <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Ini_Util.h">
-      <Filter>Header Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="ParserLib.h">
-      <Filter>Header Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Parser.h">
-      <Filter>Header Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Screen.h">
       <Filter>Header Files\ScreenManager\Abstracts</Filter>
@@ -81,6 +84,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D3DLibs.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG.h">
+      <Filter>Header Files\Utilities\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Entry.h">
+      <Filter>Header Files\Utilities\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Link.h">
+      <Filter>Header Files\Utilities\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="CfgLib.h">
+      <Filter>Header Files\Utilities\CFG</Filter>
+    </ClInclude>
+    <ClInclude Include="Dbg.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,10 @@
 
 CFG* instance = NULL;
 
+//-------------------------
+// constructor, destructor
+// & getter()
+//-------------------------
 #pragma region Initialization
 
 CFG::CFG()
@@ -59,7 +63,6 @@ void CFG::WriteTemplate()
 }
 
 #pragma endregion
-
 
 //-------------------------------------------
 // Read/Write to specified file or structure
@@ -303,6 +306,10 @@ DATA_CONTAINER* CFG::GetContainer(std::string _file)
 
 #pragma endregion
 
+//---------------------
+// getters, setters &
+// cleaners
+//---------------------
 #pragma region Misc
 
 /*	return existing entry	*/

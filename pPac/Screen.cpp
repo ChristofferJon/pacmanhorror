@@ -2,7 +2,7 @@
 
 Screen::Screen()
 {
-
+	mScreenState = SS_ACTIVE;
 }
 
 Screen::~Screen()

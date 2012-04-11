@@ -18,11 +18,13 @@
 	mContainer separates all the unique directories so they can be accessed and treated separately.
 
 	While class CFG is a singleton, it can both hold global data and load active data and then
-	discard it. It is up to the discretion of the user.
-*/
+	discard it. It is up to the discretion of the user.	This way the user can choose to keep
+	specific data at all times while adding/subtracting various other data at command, or just
+	flush out all the data and start fresh.	*/
 
 #pragma endregion
 
+/* data holder of links and linked entries	*/
 #pragma region Container Struct
 
 struct DATA_CONTAINER
@@ -45,7 +47,7 @@ public:
 	{
 		for each ( CFG_Link* l in mLinks )
 			if ( l->name() == _name )
-				return true;		// duplicate exist
+				return true;		// duplicate link exist
 
 		return false;	// unique link
 	}

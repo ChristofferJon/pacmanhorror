@@ -3,13 +3,18 @@
 
 #include <cstdlib>
 #include "D3DManager.h"
+#include "ScreenManager.h"
+
 #include "CFG.h"
 
-/*
-Treated as a singleton since we'll only
-need one instance during the entire duration
-of the application
-*/
+#include "InGameScreen.h"
+#include "PrototypeScreen.h"
+
+#pragma region Class Description
+
+/*	Main updater and initializer for all managers.	*/
+
+#pragma endregion
 
 class AppMain
 {
@@ -22,7 +27,8 @@ public:
 	void		Update();
 
 private:
-	D3DManager*	mD3DManager;
+	D3DManager*		mD3DManager;
+	ScreenManager*	mScreenManager;
 	CFG*		mCfg;
 };
 

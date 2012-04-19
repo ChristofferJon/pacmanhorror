@@ -3,6 +3,7 @@
 AppMain::AppMain()
 {
 	mCfg->getCFG();
+	input = new InputManager();
 }
 
 

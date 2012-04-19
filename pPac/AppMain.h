@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include "D3DManager.h"
 #include "ScreenManager.h"
+#include "InputManager.h"
 
 #include "CFG.h"
 
@@ -30,6 +31,7 @@ private:
 	D3DManager*		mD3DManager;
 	ScreenManager*	mScreenManager;
 	CFG*		mCfg;
+	InputManager* input;
 };
 
 #endif

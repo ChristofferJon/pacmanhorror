@@ -24,7 +24,7 @@ public:
 	~AppMain();
 
 public:
-	bool		Initialize();
+	bool		Initialize(HWND* _hWnd, HINSTANCE _hInstance);
 	void		Update();
 
 private:

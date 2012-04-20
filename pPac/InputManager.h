@@ -6,6 +6,9 @@
 #include <D3DX10.h>
 #include <D3D10.h>
 
+#pragma comment (lib, "d3d10.lib")
+#pragma comment (lib, "dxguid.lib")
+
 class InputManager
 {
 private:
@@ -38,6 +41,15 @@ public:
 	bool initialize(HINSTANCE, int _screenWidth, int _screenHeight);
 	void shutDown();
 	bool frame();
+
+	bool isEsc();
+	bool isEnter();
+	bool isSpace();
+	bool isMLeftButton();
+	bool isNewMLeftButton();
+	bool isMRightButton();
+	bool isShift();
+	bool isCtrl();
 
 	POINT pt;
 	POINT mOldMousePos;

@@ -99,7 +99,7 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 		return 0;
 
 	// intialize AppMain
-	if ( main.Initialize() == false )
+	if ( main.Initialize(&hWnd, hInstance) == false )
 		return 0;
 
 	// main message loop

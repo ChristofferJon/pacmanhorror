@@ -40,3 +40,21 @@ void InputManager::shutDown()
 	}
 }
 
+bool InputManager::frame()
+{
+	bool resultK = readKeyboard();
+
+	if(!resultK)
+		return false;
+
+	bool resultM = readMouse();
+
+	if (!resultM)
+		return false;
+	
+	GetCursorPos(&pt);
+	ScreenToClient(*m_hWnd, &pt);
+
+	return true;
+}
+

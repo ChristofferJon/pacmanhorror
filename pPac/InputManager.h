@@ -23,6 +23,9 @@ private:
 	int	m_screenHeight;
 	int m_screenWidth;
 
+	bool readKeyboard();
+	bool readMouse();
+
 	bool InitiateKeyBoard(HINSTANCE hInstance);
 	bool InitiateMouse(HINSTANCE hInstance);
 
@@ -34,6 +37,7 @@ public:
 
 	bool initialize(HINSTANCE, int _screenWidth, int _screenHeight);
 	void shutDown();
+	bool frame();
 
 	POINT pt;
 	POINT mOldMousePos;

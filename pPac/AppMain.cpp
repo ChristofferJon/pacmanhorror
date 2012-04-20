@@ -1,5 +1,4 @@
 
-E:\Programmering\Github\pacmanhorror>@git.exe %*
 #include "AppMain.h"
 
 AppMain::AppMain()
@@ -45,8 +44,3 @@ void AppMain::Update()
 	// update screenManager
 	mScreenManager->GetSM()->Update(dt);
 }
-E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
-
-E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
-
-E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

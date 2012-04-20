@@ -13,6 +13,7 @@ private:
 public:
 	Dbg*	getDbg();
 	void	print(const char* arg, ...);
+	bool	fatalError(HWND _hWnd, LPCSTR msg);
 };
 
 #endif

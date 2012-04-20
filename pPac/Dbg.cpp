@@ -27,3 +27,9 @@ void Dbg::print(const char* arg, ...)
 	vsprintf(buf, arg, ptr);
 	OutputDebugString(buf);
 }
+
+bool Dbg::fatalError(HWND _hWnd, LPCSTR msg)
+{
+	MessageBox( _hWnd, msg, "fatal error: ", MB_ICONERROR );
+	return false;
+}

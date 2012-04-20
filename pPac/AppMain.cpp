@@ -1,15 +1,22 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 #include "AppMain.h"
 
 AppMain::AppMain()
 {
+	mGameTime->getInstance();	
 	mCfg->getCFG();
-	input = new InputManager();
 }
 
 
 AppMain::~AppMain()
 {
-	if( mD3DManager ) mD3DManager->~D3DManager();
+	if( mD3DManager != NULL ) 
+	{
+		mD3DManager->~D3DManager();
+		delete mD3DManager;
+		mD3DManager = NULL;
+	}
 	if ( mCfg ) mCfg->~CFG();
 	if ( mScreenManager ) mScreenManager->~ScreenManager();
 }
@@ -17,19 +24,29 @@ AppMain::~AppMain()
 bool AppMain::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 {
 
-	//mD3DManager = new D3DManager(	mParser->getIntOfKey("resx"), 
-	//								mParser->getIntOfKey("resy"));
+	mD3DManager = new D3DManager();
+
+	// if initialization failes, shutdown application
+	if( mD3DManager->Initialize( _hWnd, _hInstance ) == false )
+		return false;
+
 	mScreenManager->GetSM()->AddScreen( new InGameScreen() );
 	mScreenManager->GetSM()->AddScreen( new PrototypeScreen() );
-	int width = mCfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
-	int height = mCfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
-	input->initialize(_hInstance, width, height);
+	mGameTime->getInstance()->start();
 	return true;
 }
 
 void AppMain::Update()
 {
-	mScreenManager->GetSM()->Update();
-	input->frame();
-	int test = input->getMousePos()->x;
+	// update gametime
+	mGameTime->getInstance()->tick();
+	float dt = mGameTime->getInstance()->deltaTime();
+
+	// update screenManager
+	mScreenManager->GetSM()->Update(dt);
 }
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

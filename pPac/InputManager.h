@@ -1,3 +1,5 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 #ifndef __INPUTMANAGER__
 #define __INPUTMANAGER__
 
@@ -61,3 +63,8 @@ public:
 
 
 #endif
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

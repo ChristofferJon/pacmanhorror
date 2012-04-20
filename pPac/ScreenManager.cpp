@@ -37,8 +37,9 @@ void ScreenManager::RemoveScreen(Screen* _screen)
 		_screen->~Screen();
 }
 
-void ScreenManager::Update()
+void ScreenManager::Update(float deltaTime)
 {
+	dbg->getDbg()->print("%f\n", deltaTime);
 	mScreensToUpdate.clear();
 
 	for each (Screen* screen in mScreens)
@@ -49,11 +50,11 @@ void ScreenManager::Update()
 		Screen* screen = mScreensToUpdate[mScreensToUpdate.size() - 1];
 		mScreensToUpdate.erase(mScreensToUpdate.end()- 1);
 
-		screen->Update();
-
 		if ( screen->mScreenState == screen->SS_ACTIVE )
 		{
-			screen->CheckForInput();
+			//screen->Update();
 		}
+
+		//screen->Draw();
 	}
 }

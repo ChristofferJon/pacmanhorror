@@ -1,12 +1,15 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 #ifndef __APPMAIN__
 #define __APPMAIN__
 
 #include <cstdlib>
 #include "D3DManager.h"
 #include "ScreenManager.h"
-#include "InputManager.h"
 
 #include "CFG.h"
+
+#include "GameTimer.h"
 
 #include "InGameScreen.h"
 #include "PrototypeScreen.h"
@@ -30,8 +33,13 @@ public:
 private:
 	D3DManager*		mD3DManager;
 	ScreenManager*	mScreenManager;
-	CFG*		mCfg;
-	InputManager* input;
+	CFG*			mCfg;
+	GameTimer*		mGameTime;
 };
 
 #endif
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

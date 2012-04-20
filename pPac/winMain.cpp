@@ -11,7 +11,7 @@
 
 // window attributes
 HWND				hWnd;
-const LPCSTR		appName =	"Pac 0.02 - We can read and we can write, but we can't boogie... yet";
+const LPCSTR		appName =	"Pac 0.03 - Prepare to boogie!";
 
 // Instances
 AppMain main = AppMain();
@@ -26,6 +26,8 @@ LRESULT CALLBACK wndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 	switch( message )
 	{
 		case WM_DESTROY :	PostQuitMessage( 0 );
+							// ShutDown
+							main.~AppMain();
 		break;
 	}
 
@@ -112,12 +114,9 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 			TranslateMessage( &msg );
 			DispatchMessage( &msg );
 		}		
-
+		// update AppMain
 		main.Update();
 	}
-
-	// ShutDown
-	main.~AppMain();
 
 	return ( int )msg.wParam;
 }

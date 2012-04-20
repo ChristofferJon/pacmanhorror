@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CFG.cpp" />
     <ClCompile Include="CFG_Entry.cpp" />
     <ClCompile Include="CFG_Link.cpp" />
@@ -86,7 +87,9 @@
     <ClCompile Include="Dbg.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
+    <ClCompile Include="MenuEntry.cpp" />
     <ClCompile Include="PrototypeScreen.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
@@ -94,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppMain.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CFG.h" />
     <ClInclude Include="CfgLib.h" />
     <ClInclude Include="CFG_Entry.h" />
@@ -103,10 +107,15 @@
     <ClInclude Include="Dbg.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="InGameScreen.h" />
+    <ClInclude Include="MenuEntry.h" />
     <ClInclude Include="PrototypeScreen.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\menuEffect.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

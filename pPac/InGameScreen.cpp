@@ -25,7 +25,7 @@ void InGameScreen::Update()
 	dbg->getDbg()->print("%s\n", "INGAMESCREEN->UPDATE()");
 }
 
-void InGameScreen::Render()
+void InGameScreen::Draw()
 {
-
+	dbg->getDbg()->print("%s\n", "INGAMESCREEN->DRAW()");
 }

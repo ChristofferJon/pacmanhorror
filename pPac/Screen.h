@@ -3,8 +3,6 @@
 
 #include "Dbg.h"
 
-
-
 class Screen
 {
 public:
@@ -22,14 +20,15 @@ public:
 	~Screen();
 
 public:
-	virtual void Render() = 0;
+	virtual void Draw() = 0;
 	virtual void Update() = 0;
 	virtual void Initialize() = 0;
 	virtual void CheckForInput() = 0;
 
+	bool		IsActive()const;
+
 protected:
 	Dbg*	dbg;
-
 };
 
 #endif

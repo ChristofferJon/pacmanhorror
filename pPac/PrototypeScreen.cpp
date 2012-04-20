@@ -25,7 +25,7 @@ void PrototypeScreen::Update()
 	dbg->getDbg()->print("%s\n", "PROTOTYPESCREEN->UPDATE()");
 }
 
-void PrototypeScreen::Render()
+void PrototypeScreen::Draw()
 {
-
+	dbg->getDbg()->print("%s\n", "PROTOTYPESCREEN->DRAW()");
 }

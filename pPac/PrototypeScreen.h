@@ -9,7 +9,7 @@ public:
 	PrototypeScreen();
 	~PrototypeScreen();
 
-	virtual void Render();
+	virtual void Draw();
 	virtual void Update();
 	virtual void Initialize();
 	virtual void CheckForInput();

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Screen.h"
+#include "Dbg.h"
 
 class ScreenManager
 {
@@ -17,10 +18,11 @@ public:
 	std::vector<Screen*> mScreensToUpdate;
 
 public:
-	void		AddScreen(Screen* _screen);
-	void		RemoveScreen(Screen* _screen);
-	void		Update();
+	void			AddScreen(Screen* _screen);
+	void			RemoveScreen(Screen* _screen);
+	void			Update(float deltaTime);
 	ScreenManager*	GetSM();
+	Dbg*			dbg;
 };
 
 #endif

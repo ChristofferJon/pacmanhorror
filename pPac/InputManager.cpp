@@ -1,3 +1,5 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 #include "InputManager.h"
 
 #pragma region Initialization
@@ -241,3 +243,9 @@ POINT* InputManager::getMousePos()
 
 #pragma endregion
 
+
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

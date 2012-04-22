@@ -93,6 +93,7 @@
     <ClCompile Include="PrototypeScreen.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="TEST.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +114,7 @@
     <ClInclude Include="PrototypeScreen.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="TEST.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\menuEffect.fx" />

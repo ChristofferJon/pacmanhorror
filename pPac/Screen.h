@@ -2,6 +2,7 @@
 #define __SCREEN__
 
 #include "Dbg.h"
+#include "TEST.h"
 
 class Screen
 {
@@ -29,6 +30,7 @@ public:
 
 protected:
 	Dbg*	dbg;
+	TEST*	t;
 };
 
 #endif

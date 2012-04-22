@@ -16,6 +16,8 @@ ScreenManager* ScreenManager::GetSM()
 	if (instance == NULL)
 		instance = new ScreenManager();
 
+	instance->dbg->getDbg()->print("%s", "hello");
+
 	return instance;
 }
 

@@ -3,7 +3,7 @@
 #include "ScreenManager.h"
 
 
-TEST::TEST(void)
+TEST::TEST(Screen* _screen)
 {
 	sm->GetSM();
 }

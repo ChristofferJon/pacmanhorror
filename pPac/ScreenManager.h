@@ -5,6 +5,8 @@
 #include "Screen.h"
 #include "Dbg.h"
 
+#include <string>
+
 class ScreenManager
 {
 private:

@@ -3,7 +3,7 @@
 Screen::Screen()
 {
 	mScreenState = SS_TRANSITION_ON;
-	t = new TEST();
+	t = new TEST(this);
 }
 
 Screen::~Screen()

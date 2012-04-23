@@ -3,10 +3,12 @@
 
 class ScreenManager;
 
+class Screen;
+
 class TEST
 {
 public:
-	TEST(void);
+	TEST(Screen* _screen);
 	~TEST(void);
 
 	ScreenManager* sm;

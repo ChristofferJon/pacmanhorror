@@ -178,10 +178,16 @@ bool InputManager::isEsc()
 
 bool InputManager::isEnter()
 {
-	if (m_kbState[DIK_RETURN] & 0x80)
-		return true;
-
-	return false;
+	bool isPushed;
+	bool isEnter = false;
+	if (!m_kbState[DIK_RETURN] & 0x80)
+		isPushed = false;
+	if (m_kbState[DIK_RETURN] & 0x80 && !isPushed)
+	{
+		isPushed = true;
+		isEnter = true;
+	}
+	return isEnter;
 }
 
 bool InputManager::isSpace()

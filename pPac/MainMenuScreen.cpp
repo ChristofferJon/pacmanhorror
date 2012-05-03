@@ -6,6 +6,12 @@ void NewGameSelected(Screen* _screen)
 	me->OnNewGame(me);
 }
 
+void CreditSelected( Screen* _screen)
+{
+	MainMenuScreen* me = (MainMenuScreen*)_screen;
+	me->OnCredits(me);
+}
+
 void ExitSelected(Screen* _screen)
 {
 	MainMenuScreen* me = (MainMenuScreen*)_screen;
@@ -28,7 +34,7 @@ MainMenuScreen::MainMenuScreen(string _name, D3DManager* _D3DManager, InputManag
 
 	newGame->Selected.add( NewGameSelected );
 	//
-	//
+	credits->Selected.add( CreditSelected );
 	exit->Selected.add( ExitSelected );
 
 	mMenuEntries.push_back( newGame );
@@ -49,14 +55,23 @@ MainMenuScreen::MainMenuScreen(string _name, D3DManager* _D3DManager, InputManag
 
 MainMenuScreen::~MainMenuScreen()
 {
+	MenuScreen::~MenuScreen();
 }
 
 void MainMenuScreen::OnNewGame(MainMenuScreen* _me)
 {
-
+	mScreenMediator->RemoveAll();	// not sure this actually works as intended
+	mScreenMediator->AddNewScreen( new InGameScreen( "InGame", mD3DManager, mInput ) );
 }
 
 void MainMenuScreen::OnExit(MainMenuScreen* _me)
 {
 	exit ( 0 );
+}
+
+void MainMenuScreen::OnCredits( MainMenuScreen* _me )
+{
+	// we dont remove ourself here because the mainmenu acts as a hub
+	// for the other menus
+	mScreenMediator->AddNewScreen( new CreditScreen( "Credit Roll", mD3DManager, mInput ) );
 }

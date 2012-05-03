@@ -226,6 +226,8 @@ void ResourceHandler::Test()
 	mBuffers.push_back( new VertexBuffer( 110 ) );
 
 	mTextures.push_back( new Texture( 110, ".\\Resources\\GFX\\Textures\\Assets\\button2.png", md3dManager ) );
+	mTextures.push_back( new Texture( 111, ".\\Resources\\GFX\\Textures\\Assets\\dolan.png", md3dManager ) );
 	mSprites.push_back( Sprite( 110, mTextures[0], mBuffers[0] ) );
+	mSprites.push_back( Sprite( 111, mTextures[1], mBuffers[0] ) );
 	InstanceBuffer( mBuffers[0]->mBuffer );
 }

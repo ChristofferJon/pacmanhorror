@@ -2,11 +2,17 @@
 
 FontLoader::FontLoader()
 {
+	mFontSprite = NULL;
 }
 
 
 FontLoader::~FontLoader()
 {
+	mFont->Release();
+	mFont = NULL;
+
+	mFontSprite->Release();
+	mFontSprite = NULL;
 }
 
 void FontLoader::CreateFont(string _fontType, ID3D10Device* _mD3DDevice)

@@ -1,20 +1,19 @@
 #include "Screen.h"
 
 Screen::Screen(string _name, D3DManager* _D3DManager, InputManager* _inputManager)
+	: mName(_name)
 {
 	mScreenState = SS_ACTIVE;
-	t = new TEST(this);
-	mName = _name;
 
 	mD3DManager = _D3DManager;
 	mD3DDevice = mD3DManager->mD3DDevice;
-	mFontLoader = FontLoader();
+	mFontLoader = new FontLoader();
 	mInput = _inputManager;
 }
 
 Screen::~Screen()
 {
-
+	mFontLoader->~FontLoader();
 }
 
 void Screen::Update(float dt)

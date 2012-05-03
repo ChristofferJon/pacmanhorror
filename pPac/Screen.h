@@ -2,11 +2,12 @@
 #define __SCREEN__
 
 #include "Dbg.h"
-#include "TEST.h"
 
 #include "ResourceHandler.h"
 #include "FontLoader.h"
 #include "InputManager.h"
+
+#include "ScreenMediator.h"
 
 using std::string;
 
@@ -33,18 +34,20 @@ public:
 	virtual void CheckForInput() = 0;
 
 	bool		IsActive()const;
+	ScreenMediator* mScreenMediator;
 
 protected:
 	Dbg*	dbg;
-	TEST*	t;
-	string  mName;
+	const string  mName;
 
 	ID3DX10Sprite*	mFontSprite;
 	LPD3DX10FONT	mFont;
-	FontLoader		mFontLoader;
+	FontLoader*		mFontLoader;
 	ID3D10Device*	mD3DDevice;
 	D3DManager*		mD3DManager;
 	InputManager*	mInput;
+
+
 
 private:
 	ResourceHandler* resources;

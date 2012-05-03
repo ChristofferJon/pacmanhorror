@@ -10,3 +10,19 @@ GameScreen::GameScreen(string _name, D3DManager* _D3DManager, InputManager* _inp
 GameScreen::~GameScreen()
 {
 }
+
+void GameScreen::Draw()
+{
+}
+
+void GameScreen::Update(float dt)
+{
+}
+
+void GameScreen::Initialize()
+{
+}
+
+void GameScreen::CheckForInput()
+{
+}

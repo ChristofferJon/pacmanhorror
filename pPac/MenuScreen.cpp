@@ -14,9 +14,9 @@ MenuScreen::MenuScreen(string _name, D3DManager* _D3DManager, InputManager* _inp
 	mSprite = NULL;
 
 	// fonts
-	mFontLoader.CreateFontA("Lucida Sans", mD3DDevice);
-	mFont = *mFontLoader.getFont();
-	mFontSprite = mFontLoader.getSpriteFont();
+	mFontLoader->CreateFontA("Lucida Sans", mD3DDevice);
+	mFont = *mFontLoader->getFont();
+	mFontSprite = mFontLoader->getSpriteFont();
 }
 
 
@@ -24,6 +24,8 @@ MenuScreen::~MenuScreen()
 {
 	for each (MenuEntry* m in mMenuEntries)
 		m->~MenuEntry();
+
+	Screen::~Screen();
 }
 
 void MenuScreen::Initialize()

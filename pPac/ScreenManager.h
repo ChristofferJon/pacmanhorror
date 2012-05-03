@@ -23,6 +23,7 @@ public:
 public:
 	void			AddScreen(Screen* _screen);
 	void			RemoveScreen(Screen* _screen);
+	void			ClearAllScreens();
 	void			Update(float deltaTime);
 	void			Draw(float deltaTime);
 	Dbg*			dbg;

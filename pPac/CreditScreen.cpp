@@ -3,7 +3,7 @@
 void BackSelected(Screen* _screen)
 {
 	CreditScreen* me = (CreditScreen*)_screen;
-	me->OnExit(me);
+	me->OnBack(me);
 }
 
 
@@ -11,12 +11,12 @@ CreditScreen::CreditScreen(string _name, D3DManager* _D3DManager, InputManager* 
 	: MenuScreen( _name, _D3DManager, _inputManager )
 {
 	ResourceHandler* rm = new ResourceHandler(mD3DManager);
-	mSprite = rm->getSprite( 110 );
+	mSprite = rm->getSprite( 111 );
 
 	// entries & events
 	MenuEntry* credJ = new MenuEntry("Christoffer", NULL, 110);
 	MenuEntry* credP = new MenuEntry("Christopher", NULL, 110);
-	MenuEntry* credH = new MenuEntry("Penk H", NULL, 110);
+	MenuEntry* credH = new MenuEntry("Penkman", NULL, 110);
 	MenuEntry* credL = new MenuEntry("Brony J", NULL, 110);
 	MenuEntry* credS = new MenuEntry("Emperor V", NULL, 110);
 	MenuEntry* back = new MenuEntry("Back", NULL, 110);
@@ -43,10 +43,12 @@ CreditScreen::CreditScreen(string _name, D3DManager* _D3DManager, InputManager* 
 
 CreditScreen::~CreditScreen()
 {
+	MenuScreen::~MenuScreen();
 }
 
 
-void CreditScreen::OnExit(CreditScreen* _me)
+void CreditScreen::OnBack(CreditScreen* _me)
 {
-	exit ( 0 );
+	//mScreenMediator->AddNewScreen( new MainMenuScreen( "Main Menu", mD3DManager, mInput ) );
+	mScreenMediator->RemoveMe( this );
 }

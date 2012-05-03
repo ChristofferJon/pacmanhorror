@@ -2,6 +2,8 @@
 #define __MAINMENUSCREEN__
 
 #include "MenuScreen.h"
+#include "CreditScreen.h"
+#include "InGameScreen.h"
 
 class MainMenuScreen : public MenuScreen
 {
@@ -11,6 +13,8 @@ public:
 
 	void OnNewGame(MainMenuScreen* _me);
 	void OnExit(MainMenuScreen* _me);
+
+	void OnCredits( MainMenuScreen* _me );
 };
 
 #endif

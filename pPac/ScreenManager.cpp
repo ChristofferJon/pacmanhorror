@@ -24,6 +24,7 @@ ScreenManager::~ScreenManager()
 void ScreenManager::AddScreen(Screen* _screen)
 {
 	mScreens.push_back(_screen);
+	_screen->mScreenMediator = new ScreenMediator( this );
 }
 
 void ScreenManager::RemoveScreen(Screen* _screen)
@@ -35,28 +36,60 @@ void ScreenManager::RemoveScreen(Screen* _screen)
 			mScreens.shrink_to_fit();
 		}
 
+		for (int i = 0; i < mScreensToUpdate.size(); i++)
+			if (mScreensToUpdate[i] == _screen)
+			{
+				mScreensToUpdate.erase(mScreensToUpdate.begin() + i);
+				mScreensToUpdate.shrink_to_fit();
+			}
+
 	if (_screen != NULL)
 		_screen->~Screen();
+}
+
+void ScreenManager::ClearAllScreens()
+{
+	for each (Screen* s in mScreens)
+		s->~Screen();
+
+	mScreens.clear();
 }
 
 void ScreenManager::Update(float deltaTime)
 {
 	dbg->getDbg()->print("%f\n", deltaTime);
+
+	// make a copy of the mScreens instead of
+	// directly working with the master list
 	mScreensToUpdate.clear();
 
 	for each (Screen* screen in mScreens)
 		mScreensToUpdate.push_back(screen);
 
+	// insures that only the original topmost screen
+	// handles input
+	bool otherScreenHasFocus = false;
+
+	// iterate through all screens
 	while ( mScreensToUpdate.size() > 0)
 	{
+		// process and then pop the topmost screen
+		// in the temporary screen list
 		Screen* screen = mScreensToUpdate[mScreensToUpdate.size() - 1];
 		mScreensToUpdate.erase(mScreensToUpdate.end()- 1);
 
+		// update
 		screen->Update( deltaTime );
 
-		if ( screen->mScreenState == screen->SS_ACTIVE )
-		{		
-			screen->CheckForInput();
+		if ( screen->mScreenState == screen->SS_TRANSITION_ON ||
+			 screen->mScreenState == screen->SS_ACTIVE )
+		{	
+			// handle input for the first active screen only
+			if ( !otherScreenHasFocus )
+			{
+				screen->CheckForInput();
+				otherScreenHasFocus = true;
+			}
 		}
 	}
 }

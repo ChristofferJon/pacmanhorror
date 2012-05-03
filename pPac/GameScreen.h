@@ -10,10 +10,10 @@ public:
 	~GameScreen();
 
 protected:
-	virtual void Draw() = 0;
-	virtual void Update(float dt) = 0;
-	virtual void Initialize() = 0;
-	virtual void CheckForInput() = 0;
+	virtual void Draw();
+	virtual void Update(float dt);
+	virtual void Initialize();
+	virtual void CheckForInput();
 };
 
 #endif

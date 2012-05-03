@@ -10,6 +10,7 @@ MenuEntry::MenuEntry(string _text, Sprite* _sprite, int _sfxId)
 
 MenuEntry::~MenuEntry()
 {
+	delete mSprite;
 }
 
 void MenuEntry::Initialize( int _indX, int _indY )

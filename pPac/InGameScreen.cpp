@@ -10,23 +10,3 @@ InGameScreen::InGameScreen(string _name, D3DManager* _D3DManager, InputManager* 
 InGameScreen::~InGameScreen()
 {
 }
-
-void InGameScreen::Initialize()
-{
-
-}
-
-void InGameScreen::CheckForInput()
-{
-
-}
-
-void InGameScreen::Update(float dt)
-{
-	dbg->getDbg()->print("%s\n", "INGAMESCREEN->UPDATE()");
-}
-
-void InGameScreen::Draw()
-{
-	dbg->getDbg()->print("%s\n", "INGAMESCREEN->DRAW()");
-}

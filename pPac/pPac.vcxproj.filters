@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="TEST.cpp" />
     <ClCompile Include="ResourceHandler.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
@@ -86,14 +85,20 @@
     <ClCompile Include="MenuEntry.cpp">
       <Filter>Screen Framework\Screens\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="MainMenuScreen.cpp">
       <Filter>Screen Framework\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="CreditScreen.cpp" />
+    <ClCompile Include="ScreenMediator.cpp">
+      <Filter>Screen Framework\Screens\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="FontLoader.cpp">
+      <Filter>Screen Framework\Screens\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditScreen.cpp">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TEST.h" />
     <ClInclude Include="ResourceHandler.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -181,12 +186,21 @@
     <ClInclude Include="MenuEntry.h">
       <Filter>Screen Framework\Screens\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="FontLoader.h" />
     <ClInclude Include="MainMenuScreen.h">
       <Filter>Screen Framework\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="event.h" />
-    <ClInclude Include="CreditScreen.h" />
+    <ClInclude Include="ScreenMediator.h">
+      <Filter>Screen Framework\Screens\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="FontLoader.h">
+      <Filter>Screen Framework\Screens\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditScreen.h">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

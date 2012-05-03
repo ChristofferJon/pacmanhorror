@@ -1,12 +1,12 @@
 #include "D3DManager.h"
 
-
 D3DManager::D3DManager()	:	mD3DDevice(NULL),
 								mSwapChain(NULL),
 								mRenderTargetView(NULL),
 								pRS(0),
 								mMenuEffect(NULL),
-								mMenuLayout(0)
+								mMenuLayout(0),
+								mColorMap(NULL)
 {
 	mWidth = cfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
 	mHeight = cfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
@@ -15,9 +15,17 @@ D3DManager::D3DManager()	:	mD3DDevice(NULL),
 
 D3DManager::~D3DManager()
 {
-	if ( mRenderTargetView) mRenderTargetView->Release();
-	if ( mSwapChain )		mSwapChain->SetFullscreenState(FALSE, NULL);
-	if ( mSwapChain )		mSwapChain->Release();
+	if ( mRenderTargetView != NULL )
+	{
+		mRenderTargetView->Release();
+		mRenderTargetView = NULL;
+	}
+	if ( mSwapChain != NULL )
+	{
+		mSwapChain->SetFullscreenState(FALSE, NULL);
+		mSwapChain->Release();
+		mSwapChain = NULL;
+	}
 	if ( mD3DDevice )		mD3DDevice->Release();
 	if ( pRS )				
 	{
@@ -72,6 +80,9 @@ bool D3DManager::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 	// rasterizerstate
 	SetRasterizerState();
 
+	//sprite test
+	mColorMap = mMenuEffect->GetVariableByName( "colorMap" )->AsShaderResource();
+
 	return true;
 }
 
@@ -99,7 +110,7 @@ bool D3DManager::CreateSwapChain(UINT _width, UINT _height)
 	swapChainDesc.OutputWindow = *hWnd;
 
 	if ( FAILED ( isFullScreen = cfg->getCFG()->GetBoolOfKey("SCREENMODE", "GFX", "Setup") ) )
-		return dbg->getDbg()->fatalError(*hWnd, "Setup.dat corrup");
+		return dbg->getDbg()->fatalError(*hWnd, "Setup.dat corrupt");
 
 	swapChainDesc.Windowed = isFullScreen;
 	swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
@@ -173,6 +184,7 @@ bool D3DManager::CreateLayouts()
 	return true;
 }
 
+// note, parameter does not work, reverted to mRenderTargetView
 bool D3DManager::CreateRenderTarget(ID3D10RenderTargetView* _renderTargetView)
 {
 	ID3D10Texture2D* backBuffer;
@@ -183,10 +195,10 @@ bool D3DManager::CreateRenderTarget(ID3D10RenderTargetView* _renderTargetView)
 
 	if ( FAILED(	mD3DDevice->CreateRenderTargetView(	backBuffer,
 														NULL,
-														&_renderTargetView ) ) )
+														&mRenderTargetView ) ) )
 														return dbg->getDbg()->fatalError(*hWnd, "Could not create renderTarget");
 
-	mD3DDevice->OMSetRenderTargets(1, &_renderTargetView, NULL);
+	mD3DDevice->OMSetRenderTargets(1, &mRenderTargetView, NULL);
 	backBuffer->Release();
 
 	return true;

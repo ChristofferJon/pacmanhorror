@@ -12,6 +12,7 @@ class D3DManager
 public:
 	D3DManager();
 	~D3DManager();
+	D3DManager* getInstance();
 
 public:
 	HWND*	hWnd;
@@ -46,7 +47,7 @@ public:
 	ID3D10EffectMatrixVariable*		mMenuWorld;
 
 
-private:
+public:
 	ID3D10RasterizerState*			pRS;
 	D3D10_RASTERIZER_DESC			pRasterizerState;
 
@@ -68,6 +69,10 @@ private:
 	bool	CreateDepthStencil(UINT _width, UINT _height, ID3D10RenderTargetView* _renderTargetView);
 	void	CreateViewPorts(UINT _width, UINT _height, D3D10_VIEWPORT _viewPort);
 	void	SetRasterizerState();
+
+public:
+	//sprite test
+	ID3D10EffectShaderResourceVariable* mColorMap;
 };
 
 #endif

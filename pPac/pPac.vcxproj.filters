@@ -1,45 +1,255 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="AppMain.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CFG.cpp" />
-    <ClCompile Include="CFG_Entry.cpp" />
-    <ClCompile Include="CFG_Link.cpp" />
-    <ClCompile Include="D3DManager.cpp" />
-    <ClCompile Include="Dbg.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="GameScreen.cpp" />
-    <ClCompile Include="GameTimer.cpp" />
-    <ClCompile Include="InGameScreen.cpp" />
-    <ClCompile Include="MenuEntry.cpp" />
-    <ClCompile Include="PrototypeScreen.cpp" />
-    <ClCompile Include="Screen.cpp" />
-    <ClCompile Include="ScreenManager.cpp" />
-    <ClCompile Include="winMain.cpp" />
     <ClCompile Include="TEST.cpp" />
+    <ClCompile Include="ResourceHandler.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Resources\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Resources\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Resources\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPackage.cpp">
+      <Filter>Resources\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="AppMain.cpp">
+      <Filter>Screen Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Screen Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScreen.cpp">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="PrototypeScreen.cpp">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Screen Framework\Screens\Abstracts</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScreen.cpp">
+      <Filter>Screen Framework\Screens\Abstracts</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DManager.cpp">
+      <Filter>Main Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Main Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG.cpp">
+      <Filter>Parser &amp; Data handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Resources\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Resources\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>Screen Framework\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Link.cpp">
+      <Filter>Parser &amp; Data handler\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="CFG_Entry.cpp">
+      <Filter>Parser &amp; Data handler\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Dbg.cpp">
+      <Filter>System\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Screen Framework\Screens\Abstracts</Filter>
+    </ClCompile>
+    <ClCompile Include="winMain.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="GFS.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>Game\GameEntities\Abstracts</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticGameEntity.cpp">
+      <Filter>Game\GameEntities\Abstracts</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Game\GameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuEntry.cpp">
+      <Filter>Screen Framework\Screens\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="FontLoader.cpp" />
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppMain.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CFG.h" />
-    <ClInclude Include="CfgLib.h" />
-    <ClInclude Include="CFG_Entry.h" />
-    <ClInclude Include="CFG_Link.h" />
-    <ClInclude Include="D3DLibs.h" />
-    <ClInclude Include="D3DManager.h" />
-    <ClInclude Include="Dbg.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="GameScreen.h" />
-    <ClInclude Include="GameTimer.h" />
-    <ClInclude Include="InGameScreen.h" />
-    <ClInclude Include="MenuEntry.h" />
-    <ClInclude Include="PrototypeScreen.h" />
-    <ClInclude Include="Screen.h" />
-    <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="TEST.h" />
+    <ClInclude Include="ResourceHandler.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Resources\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Resources\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Resources\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPackage.h">
+      <Filter>Resources\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="AppMain.h">
+      <Filter>Screen Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Screen Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScreen.h">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="PrototypeScreen.h">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Screen Framework\Screens\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreen.h">
+      <Filter>Screen Framework\Screens\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DManager.h">
+      <Filter>Main Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Main Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG.h">
+      <Filter>Parser &amp; Data handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Resources\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Resources\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>Screen Framework\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CfgLib.h">
+      <Filter>Parser &amp; Data handler\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Link.h">
+      <Filter>Parser &amp; Data handler\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="CFG_Entry.h">
+      <Filter>Parser &amp; Data handler\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Dbg.h">
+      <Filter>System\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DLibs.h">
+      <Filter>Main Managers\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Screen Framework\Screens\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="GFS.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>Game\GameEntities\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticGameEntity.h">
+      <Filter>Game\GameEntities\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Game\GameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuEntry.h">
+      <Filter>Screen Framework\Screens\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="FontLoader.h" />
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>Screen Framework\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h" />
+    <ClInclude Include="CreditScreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\menuEffect.fx" />
+    <Filter Include="Resources">
+      <UniqueIdentifier>{8ad28715-49b6-4665-9742-bd913c7be257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Assets">
+      <UniqueIdentifier>{fa4547ac-e624-4067-bf26-7683b6ab0c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen Framework">
+      <UniqueIdentifier>{9791ab02-04f5-48e3-98d2-7211219cc6b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen Framework\Screens">
+      <UniqueIdentifier>{d95954c7-f87d-4f14-be97-ea5287e94e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen Framework\Screens\Abstracts">
+      <UniqueIdentifier>{3a2f95e8-2cd0-422a-97be-f9385cfb9ac8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{cd57a4da-10cf-4075-9a32-f84b6cccbf09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main Managers">
+      <UniqueIdentifier>{20d7b073-9ef7-4a47-bf14-391a68ef871b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser &amp; Data handler">
+      <UniqueIdentifier>{21137867-e27f-4726-ab81-2ab94c812a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL">
+      <UniqueIdentifier>{aa659b28-ae51-4bff-adb0-337f3c4f7fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Objects">
+      <UniqueIdentifier>{ea18fb69-f081-4c8a-82ac-32e8f43ad9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{6ba9bdb8-40e2-4d74-914c-9f01cfc4bdaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen Framework\Utilities">
+      <UniqueIdentifier>{3a2dc53c-31c2-4514-8ae0-888770c7066f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser &amp; Data handler\Utilities">
+      <UniqueIdentifier>{e721ba69-f99a-43ac-a813-812b8985b877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser &amp; Data handler\Assets">
+      <UniqueIdentifier>{e27cf1ce-1013-476f-8251-0e1fd5ae513c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Debug">
+      <UniqueIdentifier>{158a5c2f-3451-4650-bcb7-fa627e2bd67e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main Managers\Utilities">
+      <UniqueIdentifier>{eff3d316-f68b-4500-90f4-a0e7869e1c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameEntities">
+      <UniqueIdentifier>{9709ba48-61c0-4249-970e-2ed9b85f5047}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameEntities\Abstracts">
+      <UniqueIdentifier>{5650d42a-3017-414c-afaa-7211be145ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen Framework\Screens\Utilities">
+      <UniqueIdentifier>{116f5ad6-ade8-4e42-a1c3-939e852a26b5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\menuEffect.fx">
+      <Filter>HLSL</Filter>
+    </None>
   </ItemGroup>
 </Project>

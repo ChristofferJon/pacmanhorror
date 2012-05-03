@@ -10,28 +10,32 @@ AppMain::AppMain()
 
 AppMain::~AppMain()
 {
-	if( mD3DManager != NULL ) 
-	{
-		mD3DManager->~D3DManager();
-		delete mD3DManager;
-		mD3DManager = NULL;
-	}
+	mScreenManager.~ScreenManager();
+
+	mD3DManager.~D3DManager();
 	if ( mCfg ) mCfg->~CFG();
-	if ( mScreenManager ) mScreenManager->~ScreenManager();
 }
 
-bool AppMain::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
+bool AppMain::Initialize(HWND _hWnd, HINSTANCE _hInstance)
 {
+	// create d3dManager
+	mD3DManager = D3DManager();
+	if( mD3DManager.Initialize( &_hWnd, _hInstance ) == false )
+		return false;	// if initialization fails, shutdown application
 
-	mD3DManager = new D3DManager();
+	// create inputManager
+	mInputManager = InputManager();
+	if ( mInputManager.Initialize( _hWnd, _hInstance, mD3DManager.mWidth, mD3DManager.mHeight ) == false )	// change to read from either file or global access
+		return false;	// if initialization fails, shutdown application
 
-	// if initialization failes, shutdown application
-	if( mD3DManager->Initialize( _hWnd, _hInstance ) == false )
-		return false;
+	// create screenManager and add first screen
+	mScreenManager = ScreenManager( &mD3DManager );
+	mScreenManager.AddScreen( new MainMenuScreen("Main Menu", &mD3DManager, &mInputManager) );
 
-	mScreenManager->GetSM()->AddScreen( new InGameScreen() );
-	mScreenManager->GetSM()->AddScreen( new PrototypeScreen() );
+	// initiate gametimer
 	mGameTime->getInstance()->start();
+
+	// everything's golden
 	return true;
 }
 
@@ -41,6 +45,9 @@ void AppMain::Update()
 	mGameTime->getInstance()->tick();
 	float dt = mGameTime->getInstance()->deltaTime();
 
-	// update screenManager
-	mScreenManager->GetSM()->Update(dt);
+	// update screens
+	mScreenManager.Update(dt);
+
+	// draw screens
+	mScreenManager.Draw(dt);
 }

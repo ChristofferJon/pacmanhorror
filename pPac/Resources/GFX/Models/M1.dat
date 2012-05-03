@@ -1,0 +1,6 @@
+#BASE
+ID = 1 ;
+TEXTUREID = 1 ;
+BUFFERID = 1 ;
+MATERIALID = 1 ;
+RENDERID = 1 ;

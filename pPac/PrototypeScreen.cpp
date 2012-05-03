@@ -1,7 +1,8 @@
 #include "PrototypeScreen.h"
 
 
-PrototypeScreen::PrototypeScreen() : GameScreen()
+PrototypeScreen::PrototypeScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager)
+	: GameScreen(_name, _D3DManager, _inputManager)
 {
 }
 
@@ -20,7 +21,7 @@ void PrototypeScreen::CheckForInput()
 
 }
 
-void PrototypeScreen::Update()
+void PrototypeScreen::Update(float dt)
 {
 	dbg->getDbg()->print("%s\n", "PROTOTYPESCREEN->UPDATE()");
 }

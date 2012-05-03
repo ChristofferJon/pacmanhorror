@@ -21,7 +21,6 @@ private:
 	IDirectInput8* m_directInput;
 	IDirectInputDevice8* m_kb;
 	IDirectInputDevice8* m_ms;
-	unsigned char m_kbState[256];
 
 	int	m_screenHeight;
 	int m_screenWidth;
@@ -32,31 +31,35 @@ private:
 	bool InitiateKeyBoard(HINSTANCE hInstance);
 	bool InitiateMouse(HINSTANCE hInstance);
 
-	HWND* m_hWnd;
+	unsigned char m_oldKbState[256];
+	unsigned char m_kbState[256];
+
+	void ClearKeys();
 
 public:
 	InputManager();
 	~InputManager();
 
-	bool initialize(HINSTANCE, int _screenWidth, int _screenHeight);
+	bool Initialize(HWND _hWnd, HINSTANCE, int _screenWidth, int _screenHeight);
 	void shutDown();
 	bool frame();
 
-	bool isEsc();
-	bool isEnter();
-	bool isSpace();
 	bool isMLeftButton();
 	bool isNewMLeftButton();
 	bool isMRightButton();
-	bool isShift();
-	bool isCtrl();
 
 	POINT pt;
 	POINT mOldMousePos;
 	POINT* getMousePos();
+	POINT* getOldMousePos();
 
 	DIMOUSESTATE m_oldMouseState;
 	DIMOUSESTATE getMouseState()const;
+
+	void UpdateOldStates();
+	bool IsNewKeyPress(unsigned char _key);
+	bool IsContinousKeyPress(unsigned char _key);
+	bool IsMouseIdle();
 };
 
 

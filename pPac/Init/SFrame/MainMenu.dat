@@ -1,0 +1,6 @@
+#BASE
+CAT = 		MENU ;
+BGRSPRITE = 	1 ;
+MSXID = 	1 ;
+ENTRYSFXID = 	1 ;
+ENTRYSPRITE = 	11 ;

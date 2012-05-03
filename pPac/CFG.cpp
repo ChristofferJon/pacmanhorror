@@ -241,9 +241,13 @@ bool CFG::KeyExists(std::string &_key, std::string _link, std::string _file)
 {
 	// grab the specified container's link
 	std::string tempLink = GetContainer( _file )->getLink( _link )->name();
+
+	if (tempLink == "RDATA")	//change
+		return false;
+
 	for each ( CFG_Entry* e in GetContainer( _file )->getLink( tempLink )->entries() )
-			if ( e->key() == _key )
-				return true;
+		if ( e->key() == _key )
+			return true;
 
 	return false;
 }

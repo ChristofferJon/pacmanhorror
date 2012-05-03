@@ -7,12 +7,13 @@
 
 #include <string>
 
+#include "D3DManager.h"
+
 class ScreenManager
 {
-private:
-	ScreenManager();
-
 public:
+	ScreenManager();
+	ScreenManager(D3DManager* _D3DManager);
 	~ScreenManager();
 
 public:
@@ -23,8 +24,12 @@ public:
 	void			AddScreen(Screen* _screen);
 	void			RemoveScreen(Screen* _screen);
 	void			Update(float deltaTime);
-	ScreenManager*	GetSM();
+	void			Draw(float deltaTime);
 	Dbg*			dbg;
+
+private:
+	D3DManager*		mD3DManager;
+	ID3D10Device*	mD3DDevice;
 };
 
 #endif

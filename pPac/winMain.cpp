@@ -17,6 +17,9 @@ const LPCSTR		appName =	"Pac 0.03 - Prepare to boogie!";
 AppMain main = AppMain();
 CFG* cfg;
 
+// solve dammit!
+bool justOnceYouPOS = true;
+
 #pragma endregion
 
 #pragma region Procedures
@@ -27,7 +30,11 @@ LRESULT CALLBACK wndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 	{
 		case WM_DESTROY :	PostQuitMessage( 0 );
 							// ShutDown
+			if( justOnceYouPOS == true)
+			{
 							main.~AppMain();
+							justOnceYouPOS = false;
+			}
 		break;
 	}
 
@@ -101,7 +108,7 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 		return 0;
 
 	// intialize AppMain
-	if ( main.Initialize(&hWnd, hInstance) == false )
+	if ( main.Initialize(hWnd, hInstance) == false )
 		return 0;
 
 	// main message loop
@@ -115,7 +122,9 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 			DispatchMessage( &msg );
 		}		
 		// update AppMain
-		main.Update();
+		// solve dammit!
+		if (justOnceYouPOS == true)
+			main.Update();
 	}
 
 	return ( int )msg.wParam;

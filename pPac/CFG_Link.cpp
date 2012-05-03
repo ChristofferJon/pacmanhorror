@@ -42,8 +42,11 @@ void CFG_Link::addEntry(std::string _key, std::string _value)
 
 bool CFG_Link::Duplicate(std::string _key)
 {
+	if (mName == "RDATA")	//change
+		return false;
+
 	for each ( CFG_Entry* e in mEntries )
-		if ( e->key() == _key )
+		if ( e->key() == _key)
 			return true;
 
 	return false;

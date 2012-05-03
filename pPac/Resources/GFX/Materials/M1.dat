@@ -1,0 +1,6 @@
+#DATA
+ID = 1 ;
+AMBIENT = 0.2 ;
+DIFFUSE = 0.5 ;
+SPECULAR = 1.0 ;
+SHINY = 30 ;

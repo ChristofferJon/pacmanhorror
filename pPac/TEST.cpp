@@ -5,7 +5,7 @@
 
 TEST::TEST(Screen* _screen)
 {
-	sm->GetSM();
+	//sm->GetSM();
 }
 
 

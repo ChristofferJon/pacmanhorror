@@ -4,13 +4,15 @@
 #include <cstdlib>
 #include "D3DManager.h"
 #include "ScreenManager.h"
+#include "ResourceHandler.h"
+#include "InputManager.h"
 
 #include "CFG.h"
 
 #include "GameTimer.h"
 
-#include "InGameScreen.h"
-#include "PrototypeScreen.h"
+#include "MainMenuScreen.h"
+#include "CreditScreen.h"
 
 #pragma region Class Description
 
@@ -25,14 +27,17 @@ public:
 	~AppMain();
 
 public:
-	bool		Initialize(HWND* _hWnd, HINSTANCE _hInstance);
+	bool		Initialize(HWND _hWnd, HINSTANCE _hInstance);
 	void		Update();
 
 private:
-	D3DManager*		mD3DManager;
-	ScreenManager*	mScreenManager;
+	D3DManager		mD3DManager;
+	ScreenManager	mScreenManager;
+	InputManager	mInputManager;
 	CFG*			mCfg;
 	GameTimer*		mGameTime;
+
+	ResourceHandler* resourceHandler;
 };
 
 #endif

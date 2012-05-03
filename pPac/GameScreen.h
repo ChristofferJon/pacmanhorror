@@ -6,12 +6,12 @@
 class GameScreen : public Screen
 {
 public:
-	GameScreen();
+	GameScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager);
 	~GameScreen();
 
 protected:
 	virtual void Draw() = 0;
-	virtual void Update() = 0;
+	virtual void Update(float dt) = 0;
 	virtual void Initialize() = 0;
 	virtual void CheckForInput() = 0;
 };

@@ -6,11 +6,11 @@
 class PrototypeScreen : public GameScreen
 {
 public:
-	PrototypeScreen();
+	PrototypeScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager);
 	~PrototypeScreen();
 
 	virtual void Draw();
-	virtual void Update();
+	virtual void Update(float dt);
 	virtual void Initialize();
 	virtual void CheckForInput();
 };

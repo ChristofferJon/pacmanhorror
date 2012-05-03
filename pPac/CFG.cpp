@@ -10,24 +10,13 @@ CFG* instance = NULL;
 
 CFG::CFG()
 {
-	MapDirectories(".\\Init\\InitFiles.dat");	// read all initial files directories
+	MapDirectories(".\\Init\\", "InitFiles.dat");	// read all initial files directories
 	
 	if ( GetContainer( "Setup" ) == NULL)		// if no setup.dat exist, create a bare template
 		WriteTemplate();
 
 	for each (DATA_CONTAINER* d in mContainers)
-		ReadFromFile( d->name() );
-
-	for each ( DATA_CONTAINER* d in mContainers)
-	{
-		dbg->getDbg()->print("%s\n", d->name().c_str());
-		for each ( CFG_Link* l in d->links())
-		{
-			dbg->getDbg()->print("%s:\n", l->name().c_str());
-			for each ( CFG_Entry* e in l->entries())
-				dbg->getDbg()->print("\t%s = %s\n", e->key().c_str(), e->value().c_str());
-		}
-	}
+		ReadFromFile( ".\\Init\\", d->name() );
 }
 
 CFG::~CFG()
@@ -73,11 +62,11 @@ void CFG::WriteTemplate()
 	Each entry is added to mContainers so each directory
 	maintains independent links and directories
 */
-void CFG::MapDirectories(std::string _baseFile)
+void CFG::MapDirectories(string _root, string _baseFile)
 {
 	std::string line;
 
-	std::ifstream inFile( _baseFile );
+	std::ifstream inFile( _root + _baseFile );
 
 	if ( !inFile )
 		dbg->getDbg()->print("%s %s %s %s\n", "CFG:\t", "Base directory", _baseFile.c_str(), "does not exist!");
@@ -102,7 +91,7 @@ void CFG::MapDirectories(std::string _baseFile)
 /*	Write all links and subsequent entries to specified file
 	(if it exists). dat-file will be formatted correctly but
 	any previous comment in the file will be lost.	*/
-void CFG::MapToFile(std::string _file)
+void CFG::MapToFile(string _file)
 {
 	std::ofstream outFile( ".\\Init\\" + _file + ".dat" );
 
@@ -130,9 +119,9 @@ void CFG::MapToFile(std::string _file)
 	and entries. A temporary link is upheld to map entries
 	to correct link.
 */
-void CFG::ReadFromFile(std::string _file)
+void CFG::ReadFromFile(string _root, string _file)
 {
-	std::ifstream inFile( ".\\Init\\" + _file + ".dat");
+	std::ifstream inFile( _root + _file + ".dat");
 	std::string line;
 	std::string tempLink;
 	size_t lineNo = 0;
@@ -164,7 +153,6 @@ void CFG::ReadFromFile(std::string _file)
 			}
 		}
 	}
-
 	inFile.close();
 }
 

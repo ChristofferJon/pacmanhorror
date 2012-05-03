@@ -1,0 +1,3 @@
+#DATA
+ID = 100 ;
+FILE = DEF_SB_FULL ; generate a buffer that will cover the whole screen

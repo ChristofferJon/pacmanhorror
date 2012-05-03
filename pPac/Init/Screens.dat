@@ -1,5 +1,4 @@
 #FRAMES
 ROOT = .\\Init\\SFrame\\ ;
 MAINMENU = MainMenu.dat ;
-PROTOTYPE = Prototype.dat ;
-INGAME = InGame.dat ;
+CREDITMENU = CreditMenu.dat ;

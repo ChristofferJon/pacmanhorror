@@ -223,11 +223,72 @@ if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_buffer ) ) )
 
 void ResourceHandler::Test()
 {
-	mBuffers.push_back( new VertexBuffer( 110 ) );
+	mBuffers.push_back( new VertexBuffer( 100 ) );
+	
+	InstanceBuffer( getBuffer( 100 )->mBuffer );
 
-	mTextures.push_back( new Texture( 110, ".\\Resources\\GFX\\Textures\\Assets\\button2.png", md3dManager ) );
-	mTextures.push_back( new Texture( 111, ".\\Resources\\GFX\\Textures\\Assets\\dolan.png", md3dManager ) );
-	mSprites.push_back( Sprite( 110, mTextures[0], mBuffers[0] ) );
-	mSprites.push_back( Sprite( 111, mTextures[1], mBuffers[0] ) );
-	InstanceBuffer( mBuffers[0]->mBuffer );
+	LoadLowLevel( "SpriteBase" );
+
+	
+}
+
+void ResourceHandler::LoadLowLevel( string _file )
+{
+	// create dolan texture
+	CreateTexture( ".\\Resources\\GFX\\Textures\\", "TextureBase" );
+
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( "SpriteBase" );
+
+	string _root = ".\\Resources\\GFX\\Sprites\\";
+	// grab the filename from InitFiles.dat and map it to a container
+	mCfg->getCFG()->MapDirectories( _root, _file );
+	mCfg->getCFG()->ReadFromFile( _root, _file );
+
+	for each ( CFG_Entry* e in d->getLink("RDATA")->entries() )
+	{
+		string file = "default";
+
+		if ( e->key() == "FILE" )
+		{
+			file = e->value();
+
+			mCfg->getCFG()->MapDirectories( _root, file + ".dat" );
+			mCfg->getCFG()->ReadFromFile( _root, file );
+
+			int id = mCfg->getCFG()->GetIntOfKey("ID", file, file);
+			int tId = mCfg->getCFG()->GetIntOfKey("TEXTUREID", file, file);
+			int bId = mCfg->getCFG()->GetIntOfKey("BUFFERID", file, file);
+
+			CreateSprite( id, tId , bId ); //id:textureId:bufferId
+		}
+	}
+}
+
+// This will load all textures defined in the parameter file
+void ResourceHandler::CreateTexture( string _root, string _file )
+{
+	// grab the filename from InitFiles.dat and map it to a container
+	mCfg->getCFG()->MapDirectories( _root, _file );
+	mCfg->getCFG()->ReadFromFile( _root, _file );
+
+	// set up a temporary pointer to get access for all entries
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( _file );
+
+	for each ( CFG_Entry* e in d->getLink("RDATA")->entries() )
+	{
+		string file = "default";
+
+		if ( e->key() == "FILE" )
+		{
+			file = e->value();
+
+			mCfg->getCFG()->MapDirectories( _root, file + ".dat" );
+			mCfg->getCFG()->ReadFromFile( _root, file );
+
+			int id = mCfg->getCFG()->GetIntOfKey("ID", file, file);
+			string directory = mCfg->getCFG()->GetStringOfKey("FILE", file, file);
+
+			mTextures.push_back( new Texture( id, directory, md3dManager ) );
+		}
+	}
 }

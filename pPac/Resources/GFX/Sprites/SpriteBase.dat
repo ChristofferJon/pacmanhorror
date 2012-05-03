@@ -1,0 +1,5 @@
+#RDATA
+FILE = Background1 ;
+DIR = .\\Resources\\GFX\\Sprites\\ ;
+FILE = Background2 ;
+DIR = .\\Resources\\GFX\\Sprites\\ ;

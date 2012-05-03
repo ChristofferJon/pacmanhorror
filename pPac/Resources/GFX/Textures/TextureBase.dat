@@ -1,0 +1,5 @@
+#RDATA
+FILE = dolan ;
+DIR = .\\Resources\\GFX\\Textures\\ ;
+FILE = button1 ;
+DIR = .\\Resources\\GFX\\Textures\\ ;

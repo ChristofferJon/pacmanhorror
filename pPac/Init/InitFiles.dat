@@ -3,3 +3,6 @@
 #Levels
 #GraphicResources
 #SoundResources
+#SpriteBase
+#TextureBase
+#Buffers

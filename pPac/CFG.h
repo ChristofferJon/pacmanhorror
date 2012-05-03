@@ -5,6 +5,8 @@
 #include "CFG_Link.h"
 #include "Dbg.h"
 
+using std::string;
+
 #pragma region Class Description
 
 /*	CFG reads and writes .dat files and maps the information to a custom data structure (CFG_Link).
@@ -96,41 +98,44 @@ private:
 
 //public methods
 public:	
-	void		MapToFile(std::string _file);
-	void		ReadFromFile(std::string _file);
-	void		RemoveContainerEntry(std::string _file);
+	void		MapToFile(string _file);
+	void		ReadFromFile(string _root, string _file);
+	void		RemoveContainerEntry(string _file);
 
-	void		ChangeEntry(std::string _key, std::string _value,  std::string _link, std::string _file);
-	std::string GetStringOfKey(std::string _key, std::string _link, std::string _file);
-	int			GetIntOfKey(std::string _key, std::string _link, std::string _file);
-	bool		GetBoolOfKey(std::string _key, std::string _link, std::string _file);
-	float		GetFloatOfKey(std::string _key, std::string _link, std::string _file);
+	void		ChangeEntry(string _key, string _value,  string _link, string _file);
+	std::string GetStringOfKey(string _key, string _link, string _file);
+	int			GetIntOfKey(string _key, string _link, string _file);
+	bool		GetBoolOfKey(string _key, string _link, string _file);
+	float		GetFloatOfKey(string _key, string _link, string _file);
+
+	void		MapDirectories(string _root, string _baseFile);
 
 //private methods
 private:
 	//read/write
 	void		WriteTemplate();
-	void		MapDirectories(std::string _baseFile);
+	
 
 	//cleaning
-	void		RemoveComment(std::string &line);
-	bool		IsWhiteSpace(std::string &line);
+	void		RemoveComment(string &line);
+	bool		IsWhiteSpace(string &line);
 
 	//validation
-	bool		Duplicate(std::string _file);
-	bool		IsLink(std::string &line);
-	bool		ValidLine(std::string &line);
-	bool		KeyExists(std::string &_key, std::string _link, std::string _file);
+	bool		Duplicate(string _file);
+	bool		IsLink(string &line);
+	bool		ValidLine(string &line);
+	bool		KeyExists(string &_key, string _link, string _file);
 
 	//extraction
-	void		ParseLine(std::string &line, size_t lineNo, std::string &_link, std::string _file);
-	void		ExtractContent(std::string &line, std::string &_link, std::string _file);
-	void		ExtractKey(std::string &key, size_t &sepPos, std::string &line);
-	void		ExtractValue(std::string &value, size_t &sepPos, std::string &line);
+	void		ParseLine(string &line, size_t lineNo, string &_link, string _file);
+	void		ExtractContent(string &line, string &_link, string _file);
+	void		ExtractKey(string &key, size_t &sepPos, string &line);
+	void		ExtractValue(string &value, size_t &sepPos, string &line);
 	
+public:
 	//get/set
-	DATA_CONTAINER*		GetContainer(std::string _name);	
-	CFG_Entry*			GetEntry(std::string _key, std::string _link, std::string _file);
+	DATA_CONTAINER*		GetContainer(string _name);	
+	CFG_Entry*			GetEntry(string _key, string _link, string _file);
 };
 
 #endif

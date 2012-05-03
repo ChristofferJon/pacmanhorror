@@ -11,7 +11,7 @@ CreditScreen::CreditScreen(string _name, D3DManager* _D3DManager, InputManager* 
 	: MenuScreen( _name, _D3DManager, _inputManager )
 {
 	ResourceHandler* rm = new ResourceHandler(mD3DManager);
-	mSprite = rm->getSprite( 111 );
+	mSprite = rm->getSprite( 701 );
 
 	// entries & events
 	MenuEntry* credJ = new MenuEntry("Christoffer", NULL, 110);
@@ -49,6 +49,5 @@ CreditScreen::~CreditScreen()
 
 void CreditScreen::OnBack(CreditScreen* _me)
 {
-	//mScreenMediator->AddNewScreen( new MainMenuScreen( "Main Menu", mD3DManager, mInput ) );
 	mScreenMediator->RemoveMe( this );
 }

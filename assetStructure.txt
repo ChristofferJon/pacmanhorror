@@ -1,0 +1,61 @@
+...............
+.. ENCODINGS ..
+...............
+
+TYPE:		: ASSETNO
+
+low level:
+Buffer		: 100
+Material	: 200
+Texture		: 300
+RenderPackage	: 400
+Music		: 500
+Sound		: 600
+
+high level:
+Sprite		: 700
+Model		: 800
+
+
+...............
+.. HighLevel ..
+...............
+
+//	ex CreditMenu backgroundSprite pointer:
+	BGRSPRITE = 701 (Sprite:Id)
+
+//	ex InGame music pointer
+	MSXID = 501 (Music:Id)
+
+NOTE: 
+*	For AssetNo '00' is always reserved for a default file.
+	This way we create a failsafe in case a requested
+	id doesn't exist.
+*	For Type '0' means something has gone terribly wrong.
+	Never label type as '0'.
+
+PROS:
+*	Each Screen instance can support up to 99 different
+	assets (exluding the default).
+*	Different types of assets can share the same id
+	ex, sprites, textures, sounds etc
+
+CONS:
+*	Only 9 types of assets can be supported by 
+	the application
+
+..............
+.. LowLevel ..
+..............
+
+//	ex Sprite
+	ID = 701	// type: sprite AssetNo: 01
+	TEXTUREID = 202	// type: texture AssetNo: 02
+	BUFFERID = 101	// type: buffer AssetNo: 01
+
+//	ex default Model
+	ID = 800	
+	TEXTUREID = 200	
+	BUFFERID = 100	
+	MATERIALID = 400
+	RENDERID = 300

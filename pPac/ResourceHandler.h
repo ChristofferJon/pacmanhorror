@@ -70,6 +70,9 @@ public:
 	D3DManager* md3dManager;
 
 	Dbg* mDbg;
+
+	void LoadLowLevel(string _file);
+	void CreateTexture( string _root, string _file );
 };
 
 #endif

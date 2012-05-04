@@ -97,6 +97,8 @@
     <ClCompile Include="CreditScreen.cpp">
       <Filter>Screen Framework\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="Node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceHandler.h">
@@ -201,6 +203,8 @@
     <ClInclude Include="event.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Graph.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

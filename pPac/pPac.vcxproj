@@ -89,6 +89,7 @@
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GFS.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameTimer.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="MenuEntry.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="PrototypeScreen.cpp" />
     <ClCompile Include="RenderPackage.cpp" />
     <ClCompile Include="ResourceHandler.cpp" />
@@ -126,6 +128,7 @@
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GFS.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameTimer.h" />
@@ -135,6 +138,7 @@
     <ClInclude Include="MenuEntry.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="PrototypeScreen.h" />
     <ClInclude Include="RenderPackage.h" />
     <ClInclude Include="ResourceHandler.h" />

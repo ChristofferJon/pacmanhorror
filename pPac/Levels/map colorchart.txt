@@ -1,0 +1,7 @@
+0 	= svart 		= hål
+16	= nästan svart 		= vägg
+32	= mörk grå		= piller
+48	= lite mindre mörk grå	= super piller
+64	= mindre mörk grå	= spöke
+80	= grå			= pacman
+96	= lite ljusare grå	= golv

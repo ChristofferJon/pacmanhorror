@@ -29,10 +29,11 @@ protected:
 	vector<MenuEntry*> mMenuEntries;
 	ResourceHandler* rc;
 	Sprite* mSprite;
+	RenderPackage* mRP;
 	void OnSelectEntry(int _index);
-
-private:
 	int selectedEntry;
+private:
+	
 	bool Intersect( int _index, POINT* _mousePos );
 	RECT mRec;
 };

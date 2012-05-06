@@ -4,7 +4,9 @@
 #include "D3DLibs.h"
 #include "CFG.h"
 #include "Dbg.h"
+#include <vector>
 
+using std::vector;
 using std::string;
 
 class D3DManager
@@ -73,6 +75,8 @@ public:
 public:
 	//sprite test
 	ID3D10EffectShaderResourceVariable* mColorMap;
+	vector<ID3D10Effect*> mEffects;
+	vector<ID3D10EffectTechnique*> mTechniques;
 };
 
 #endif

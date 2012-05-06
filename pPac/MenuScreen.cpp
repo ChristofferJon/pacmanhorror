@@ -38,7 +38,7 @@ void MenuScreen::Draw()
 	mD3DManager->mColorMap->SetResource( mSprite->mTexture->pSRView );
 
 	D3D10_TECHNIQUE_DESC techDesc;
-	ID3D10EffectTechnique* mTech = mD3DManager->mMenuTechnique;
+	ID3D10EffectTechnique* mTech = mRP->mTechnique;
 	mTech->GetDesc(&techDesc);
 
 	for (UINT p = 0; p < techDesc.Passes; ++p)

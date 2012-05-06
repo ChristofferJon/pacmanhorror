@@ -1,7 +1,0 @@
-#DATA
-ROOT = .\\Resources\\GFX\\ ;
-MODELS = Models\\ ;
-MATERIALS = Materials\\;
-RENDERPACKAGES = RenderPackages\\ ;
-BUFFERS = Buffers\\ ;
-TEXTURES = Textures\\ ;

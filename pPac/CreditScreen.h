@@ -11,6 +11,7 @@ public:
 	~CreditScreen();
 
 	void OnBack(CreditScreen* _me);
+	void OnSelect();
 };
 
 #endif

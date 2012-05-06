@@ -1,8 +1,8 @@
 #Setup
-#Screens
 #Levels
-#GraphicResources
 #SoundResources
-#SpriteBase
-#TextureBase
-#Buffers
+#SpriteCollection
+#TextureCollection
+#BufferCollection
+#RenderCollection
+#MaterialCollection

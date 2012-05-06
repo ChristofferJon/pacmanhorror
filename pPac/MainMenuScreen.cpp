@@ -23,6 +23,7 @@ MainMenuScreen::MainMenuScreen(string _name, D3DManager* _D3DManager, InputManag
 {
 	ResourceHandler* rm = new ResourceHandler(mD3DManager);
 	mSprite = rm->getSprite( 702 );
+	mRP = rm->getRenderPackage( 901 );
 
 	// entries & events
 	MenuEntry* newGame = new MenuEntry("New Game", NULL, 110);

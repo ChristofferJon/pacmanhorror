@@ -1,0 +1,6 @@
+#DEFAULT
+ID = 200 ;
+AMBIENT = 0.2 ;
+DIFFUSE = 0.5 ;
+SPECULAR = 0.5 ;
+SHINY = 30 ;

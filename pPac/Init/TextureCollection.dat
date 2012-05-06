@@ -1,0 +1,9 @@
+#TEXTURE1
+ID = 200 ;
+FILE = .\\Resources\\GFX\\Textures\\fb1.png ;
+#TEXTURE2
+ID = 201 ;
+FILE = .\\Resources\\GFX\\Textures\\Ehr2Z.png ;
+#BUTTON1
+ID = 203 ;
+FILE = .\\Resources\\GFX\\Textures\\button2.png ;

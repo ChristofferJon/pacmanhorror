@@ -113,15 +113,11 @@ VertexBuffer* ResourceHandler::getBuffer(int _id)
 
 RenderPackage* ResourceHandler::getRenderPackage(int _id)
 {
-	RenderPackage* temp = &mRenderPackages[0];
-	for each (RenderPackage r in mRenderPackages)
-		if (_id == r.mId)
-		{
-			temp = &r;
-			break;
-		}
+	for ( int i = 0; i < mRenderPackages.size(); i++ )
+		if ( _id == mRenderPackages[i].mId )
+			return &mRenderPackages[i];
 
-	return temp;
+	return &mRenderPackages[0];
 }
 
 vector<D3DXVECTOR3>& ResourceHandler::CreateCube(int _width, int _height, int _length)
@@ -190,105 +186,235 @@ inline float convertPixelsToClipSpaceDistance( const int pixelDimension, const i
 	return (float)pixels/pixelDimension*2;
 }
 
-void ResourceHandler::InstanceBuffer(ID3D10Buffer* _buffer)
+void ResourceHandler::InstanceSpriteBuffer(VertexBuffer* _vBuffer)
 {
-		spriteVertex vert;
+	spriteVertex vert;
 
 	vert.topLeft[0] = convertPixelsToClipSpace(1200,0);
 	vert.topLeft[1] = -convertPixelsToClipSpace(720,0);
 	vert.dimensions[0] = convertPixelsToClipSpaceDistance(1200,1200);
-	vert.dimensions[1] = convertPixelsToClipSpaceDistance(1200,1200);
+	vert.dimensions[1] = convertPixelsToClipSpaceDistance(720,720);
 	vert.opacity = 1;
 
 	D3D10_SUBRESOURCE_DATA initData;
-initData.pSysMem = &vert;
+	initData.pSysMem = &vert;
 
-D3D10_BUFFER_DESC bd;
-bd.Usage = D3D10_USAGE_DEFAULT;
-bd.ByteWidth = sizeof( spriteVertex ) * 1;
-bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
-bd.CPUAccessFlags = 0;
-bd.MiscFlags = 0;
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof( spriteVertex ) * 1;
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
 		
-if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_buffer ) ) )
-	int i = 42;
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
 
-	// Set vertex buffer
+	//	Set vertex buffer
 	UINT stride = sizeof( spriteVertex );
 	UINT offset = 0;
-	mD3DDevice->IASetVertexBuffers( 0, 1, &_buffer, &stride, &offset );
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+}
 
-	mBuffers[0]->setBuffer(*_buffer);
+void ResourceHandler::InstanceSpriteBuffer( VertexBuffer* _vBuffer, float xDim, float yDim )
+{
+	spriteVertex vert;
+
+	float XRU = 800;
+	float YRU = 10;
+	float XLU = 600;
+	float YLU = 80;
+
+	float XDIM = 160;
+	float YDIM = 42;
+
+	vert.topLeft[0] = convertPixelsToClipSpace( XRU, YRU );
+	vert.topLeft[1] = -convertPixelsToClipSpace( XLU, YLU );
+	vert.dimensions[0] = convertPixelsToClipSpaceDistance( XRU, xDim );
+	vert.dimensions[1] = convertPixelsToClipSpaceDistance( XLU, yDim );
+	vert.opacity = 1;
+
+	D3D10_SUBRESOURCE_DATA initData;
+	initData.pSysMem = &vert;
+
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof( spriteVertex ) * 1;
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+		
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
+
+	//	Set vertex buffer
+	UINT stride = sizeof( spriteVertex );
+	UINT offset = 0;
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+}
+
+void ResourceHandler::CreateVBuffer( string _file )
+{
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( _file );
+
+	for each ( CFG_Link* l in d->links() )
+	{
+		int id = -1;
+		for each ( CFG_Entry* e in l->entries() )
+		{
+			if ( e->key() == "FILE" )
+			{
+				id = mCfg->getCFG()->GetIntOfKey("ID", l->name() , d->name() );
+				string directory = mCfg->getCFG()->GetStringOfKey( "FILE", l->name()  , d->name() );
+
+				// push back
+				mBuffers.push_back( new VertexBuffer( id ) );
+
+				// instance depending on file reference
+				if ( directory == "SB_FULL" ) // no file, cover the entire window
+				{
+					InstanceSpriteBuffer( getBuffer( id ) );
+				}
+				else if ( directory == "SB_DEF" ) // no file but x & y defined
+				{
+					//instance buffer ( id, x, y )
+				}
+				else if ( directory == "SB_3DEF" ) // no file but x, y & z defined
+				{
+					// instance buffer ( id, x, y, z )
+				}
+				else	// obj file referensed
+				{
+					// load obj
+					// instance buffer ( id, obj )
+				}
+			}
+		}
+	}
 }
 
 void ResourceHandler::Test()
 {
-	mBuffers.push_back( new VertexBuffer( 100 ) );
-	
-	InstanceBuffer( getBuffer( 100 )->mBuffer );
-
-	LoadLowLevel( "SpriteBase" );
-
-	
+	LoadLowLevel( "SpriteCollection" );
+	LoadHighLevel( "SpriteCollection" );
 }
 
-void ResourceHandler::LoadLowLevel( string _file )
+void ResourceHandler::LoadHighLevel( string _file )
 {
-	// create dolan texture
-	CreateTexture( ".\\Resources\\GFX\\Textures\\", "TextureBase" );
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( _file );
 
-	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( "SpriteBase" );
-
-	string _root = ".\\Resources\\GFX\\Sprites\\";
-	// grab the filename from InitFiles.dat and map it to a container
-	mCfg->getCFG()->MapDirectories( _root, _file );
-	mCfg->getCFG()->ReadFromFile( _root, _file );
-
-	for each ( CFG_Entry* e in d->getLink("RDATA")->entries() )
+	for each ( CFG_Link* l in d->links() )
 	{
-		string file = "default";
-
-		if ( e->key() == "FILE" )
+		for each ( CFG_Entry* e in l->entries() )
 		{
-			file = e->value();
-
-			mCfg->getCFG()->MapDirectories( _root, file + ".dat" );
-			mCfg->getCFG()->ReadFromFile( _root, file );
-
-			int id = mCfg->getCFG()->GetIntOfKey("ID", file, file);
-			int tId = mCfg->getCFG()->GetIntOfKey("TEXTUREID", file, file);
-			int bId = mCfg->getCFG()->GetIntOfKey("BUFFERID", file, file);
+			int id = mCfg->getCFG()->GetIntOfKey("ID", l->name() , d->name() );
+			int tId = mCfg->getCFG()->GetIntOfKey("TEXTUREID", l->name(), d->name() );
+			int bId = mCfg->getCFG()->GetIntOfKey("BUFFERID", l->name(), d->name());
 
 			CreateSprite( id, tId , bId ); //id:textureId:bufferId
 		}
 	}
 }
 
-// This will load all textures defined in the parameter file
-void ResourceHandler::CreateTexture( string _root, string _file )
+void ResourceHandler::LoadLowLevel( string _file )
 {
-	// grab the filename from InitFiles.dat and map it to a container
-	mCfg->getCFG()->MapDirectories( _root, _file );
-	mCfg->getCFG()->ReadFromFile( _root, _file );
+	// create dolan texture
+	CreateTexture( "TextureCollection" );	
 
+	CreateVBuffer( "BufferCollection" );
+
+	CreateRenderPackage( "RenderCollection" );
+
+	CreateMaterial( "MaterialCollection" );
+}
+
+// This will load all textures defined in the parameter file
+void ResourceHandler::CreateTexture( string _file )
+{
 	// set up a temporary pointer to get access for all entries
 	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( _file );
 
-	for each ( CFG_Entry* e in d->getLink("RDATA")->entries() )
+	for each ( CFG_Link* l in d->links() )
 	{
-		string file = "default";
+		int id = -1;
 
-		if ( e->key() == "FILE" )
+		for each ( CFG_Entry* e in l->entries() )
 		{
-			file = e->value();
+			// texture class is defined by an image FILE and an ID
+			if ( e->key() == "ID" )
+				id = mCfg->getCFG()->GetIntOfKey("ID", l->name(), d->name() );
 
-			mCfg->getCFG()->MapDirectories( _root, file + ".dat" );
-			mCfg->getCFG()->ReadFromFile( _root, file );
+			if ( e->key() == "FILE" )
+			{
+				string directory = mCfg->getCFG()->GetStringOfKey("FILE", l->name() , d->name() );
 
-			int id = mCfg->getCFG()->GetIntOfKey("ID", file, file);
-			string directory = mCfg->getCFG()->GetStringOfKey("FILE", file, file);
+				mTextures.push_back( new Texture( id, directory, md3dManager ) );
+			}
+		}
+	}
+}
 
-			mTextures.push_back( new Texture( id, directory, md3dManager ) );
+// there is a slight difference with setting up a renderpackage
+// as we need to directly reference data from the d3dManager
+// note: this make initialisation error prone so use carefully
+void ResourceHandler::CreateRenderPackage( string _file )
+{
+	// set up a temporary pointer to get access for all entries
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( _file );
+
+	for each ( CFG_Link* l in d->links() )
+	{
+		int id = -1;
+
+		for each ( CFG_Entry* e in l->entries() )
+		{
+			// texture class is defined by an image FILE and an ID
+			if ( e->key() == "ID" )
+				id = mCfg->getCFG()->GetIntOfKey("ID", l->name(), d->name() );
+
+			if ( e->key() == "FILE" )
+			{
+				int index = mCfg->getCFG()->GetIntOfKey("FILE", l->name() , d->name() );
+
+				mRenderPackages.push_back( RenderPackage( id, md3dManager->mEffects[index], md3dManager->mTechniques[index] ) );
+			}
+		}
+	}
+}
+
+void ResourceHandler::CreateMaterial( string _file )
+{
+	// set up a temporary pointer to get access for all entries
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( _file );
+
+	for each ( CFG_Link* l in d->links() )
+	{
+		int id = -1;
+		float amb = 0.0 ;
+		float diff = 0.0f;
+		float spec = 0.0f;
+		float shin = 0.0f;
+
+		for each ( CFG_Entry* e in l->entries() )
+		{
+			if ( e->key() == "ID" )
+				id = mCfg->getCFG()->GetIntOfKey("ID", l->name(), d->name() );
+
+			if ( e->key() == "AMBIENT" )
+				amb = mCfg->getCFG()->GetFloatOfKey("AMBIENT", l->name() , d->name() );
+
+			if ( e->key() == "DIFFUSE" )
+				diff = mCfg->getCFG()->GetFloatOfKey("DIFFUSE", l->name() , d->name() );
+
+			if ( e->key() == "SPECULAR" )
+				spec = mCfg->getCFG()->GetFloatOfKey("SPECULAR", l->name() , d->name() );
+
+			if ( e->key() == "SHINY" )
+			{
+				shin = mCfg->getCFG()->GetFloatOfKey("SHINY", l->name() , d->name() );
+
+				// and we're done, add to list
+				mMaterials.push_back( Material( id, amb, spec, diff, shin ) );
+			}
 		}
 	}
 }

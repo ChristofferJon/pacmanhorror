@@ -2,9 +2,10 @@
 
 
 MenuEntry::MenuEntry(string _text, Sprite* _sprite, int _sfxId) 
-	: mText(_text), mSprite(_sprite), mSFXid(_sfxId)
+	: mName(_text), mSprite(_sprite), mSFXid(_sfxId)
 {
 	mSelectionFade = 0.75f;
+	mText = "";
 }
 
 
@@ -39,5 +40,6 @@ void MenuEntry::Draw(LPD3DX10FONT _mFont)
 {
 	setColor();
 
-	_mFont->DrawTextA(NULL, mText.c_str(), -1, &mRec, DT_NOCLIP, mColor);
+	_mFont->DrawTextA(NULL, (mName + mText).c_str(), -1, &mRec, DT_NOCLIP, mColor);
+
 }

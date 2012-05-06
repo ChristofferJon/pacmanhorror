@@ -10,6 +10,7 @@ D3DManager::D3DManager()	:	mD3DDevice(NULL),
 {
 	mWidth = cfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
 	mHeight = cfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
+	
 }
 
 
@@ -57,7 +58,11 @@ bool D3DManager::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 		return dbg->getDbg()->fatalError(*hWnd, "Fatal error, shutting down");
 	else dbg->getDbg()->print("D3D: %s\n", "Shaders succesfully created");
 
+	mEffects.push_back( mMenuEffect );
+
 	mMenuTechnique = mMenuEffect->GetTechniqueByName("SPRITE_RENDER");
+
+	mTechniques.push_back( mMenuTechnique );
 
 	// input layouts
 	if ( FAILED ( CreateLayouts() ) )
@@ -166,7 +171,7 @@ bool D3DManager::CreateLayouts()
 	{
 		{ "ANCHOR",		0,	DXGI_FORMAT_R32G32_FLOAT,	0,	0,									D3D10_INPUT_PER_VERTEX_DATA,	0 },
 		{ "DIMENSIONS",	0,	DXGI_FORMAT_R32G32_FLOAT,	0,	D3D10_APPEND_ALIGNED_ELEMENT,		D3D10_INPUT_PER_VERTEX_DATA,	0 },
-		{ "OPACITY",	0, DXGI_FORMAT_R32_FLOAT,		0,	D3D10_APPEND_ALIGNED_ELEMENT,		D3D10_INPUT_PER_VERTEX_DATA,	0 }
+		{ "OPACITY",	0,	DXGI_FORMAT_R32_FLOAT,		0,	D3D10_APPEND_ALIGNED_ELEMENT,		D3D10_INPUT_PER_VERTEX_DATA,	0 }
 	};
 	UINT numElements = 3;
 

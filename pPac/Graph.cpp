@@ -252,8 +252,8 @@ void Graph::algorithm(Node* _currentNode)
 
 Node* Graph::getNode(float _x, float _z)
 {
-	//try
-	//{
+	try
+	{
 		for (int i = 0; i < 4; i++)
 		{
 			float left = root->subNode[i]->upperLeftX;
@@ -266,11 +266,11 @@ Node* Graph::getNode(float _x, float _z)
 				return getNode(root->subNode[i], _x, _z);
 			}
 		}
-	/*}
-	catch(exception e)
+	}
+	catch(std::exception e)
 	{
 		return NULL;
-	}*/
+	}
 
 	
 }

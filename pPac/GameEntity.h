@@ -10,10 +10,12 @@ public:
 	GameEntity();
 	~GameEntity();
 
-protected:
+public:
 	float mHealth;
 	D3DXVECTOR3 mPosition;
 	Model* mModel;
+	D3DManager* md3dManager;
+	ID3D10Device* md3dDevice;
 
 public:
 	virtual void Update(float _dt) = 0;

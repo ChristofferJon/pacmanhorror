@@ -30,12 +30,11 @@ ResourceHandler::~ResourceHandler()
 // find a matching id, return a pointer
 Model* ResourceHandler::getModel(int _id)
 {
-	Model* temp = &mModels[0];
-	for each (Model m in mModels)
-		if (_id == m.mId)
-			temp = &m;
+	for ( int i = 0; i < mModels.size(); i++ )
+		if ( _id == mModels[i].mId )
+			return &mModels[i];
 
-	return temp;
+	return &mModels[0];
 }
 
 Sprite* ResourceHandler::getSprite(int _id)
@@ -120,8 +119,9 @@ RenderPackage* ResourceHandler::getRenderPackage(int _id)
 	return &mRenderPackages[0];
 }
 
-vector<D3DXVECTOR3>& ResourceHandler::CreateCube(int _width, int _height, int _length)
+void ResourceHandler::CreateCube(int _width, int _height, int _length, VertexBuffer* _vBuffer)
 {
+	vector<basicVertex> vert;
 	//define all points in the quad
 	D3DXVECTOR3 p[8] =
 	{
@@ -145,12 +145,30 @@ vector<D3DXVECTOR3>& ResourceHandler::CreateCube(int _width, int _height, int _l
 		p[1], p[5], p[6], p[1], p[6], p[2]  //top
 	};
 
-	vector<D3DXVECTOR3> temp;
+	D3DXVECTOR4 color = D3DXVECTOR4( 1, 1, 1, 1 );
 
 	for (int i = 0; i < 36; i++)
-		temp.push_back(quad[i]);
+		vert.push_back( basicVertex( quad[i], color ) );
 
-	return temp;
+	D3D10_SUBRESOURCE_DATA initData;
+	initData.pSysMem = &vert;
+
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof( basicVertex ) * 36;
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+		
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
+
+	//	Set vertex buffer
+	UINT stride = sizeof( basicVertex );
+	UINT offset = 0;
+	_vBuffer->stride = stride;
+	_vBuffer->offset = offset;
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
 }
 
 vector<D3DXVECTOR3> ResourceHandler::CreateQuad(int _width, int _height)
@@ -212,6 +230,8 @@ void ResourceHandler::InstanceSpriteBuffer(VertexBuffer* _vBuffer)
 	//	Set vertex buffer
 	UINT stride = sizeof( spriteVertex );
 	UINT offset = 0;
+	_vBuffer->stride = stride;
+	_vBuffer->offset = offset;
 	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
 }
 
@@ -276,7 +296,7 @@ void ResourceHandler::CreateVBuffer( string _file )
 				}
 				else if ( directory == "SB_DEF" ) // no file but x & y defined
 				{
-					//instance buffer ( id, x, y )
+					CreateCube( 100, 100, 100, getBuffer( id ) );
 				}
 				else if ( directory == "SB_3DEF" ) // no file but x, y & z defined
 				{
@@ -296,6 +316,8 @@ void ResourceHandler::Test()
 {
 	LoadLowLevel( "SpriteCollection" );
 	LoadHighLevel( "SpriteCollection" );
+
+	CreateModel( 800, 200, 101, 400, 902 );
 }
 
 void ResourceHandler::LoadHighLevel( string _file )
@@ -304,14 +326,17 @@ void ResourceHandler::LoadHighLevel( string _file )
 
 	for each ( CFG_Link* l in d->links() )
 	{
+		int id = -1;
+		int tId = -1;
+		int bId = -1;
+
 		for each ( CFG_Entry* e in l->entries() )
 		{
-			int id = mCfg->getCFG()->GetIntOfKey("ID", l->name() , d->name() );
-			int tId = mCfg->getCFG()->GetIntOfKey("TEXTUREID", l->name(), d->name() );
-			int bId = mCfg->getCFG()->GetIntOfKey("BUFFERID", l->name(), d->name());
-
-			CreateSprite( id, tId , bId ); //id:textureId:bufferId
+			id = mCfg->getCFG()->GetIntOfKey("ID", l->name() , d->name() );
+			tId = mCfg->getCFG()->GetIntOfKey("TEXTUREID", l->name(), d->name() );
+			bId = mCfg->getCFG()->GetIntOfKey("BUFFERID", l->name(), d->name());
 		}
+		CreateSprite( id, tId , bId ); //id:textureId:bufferId
 	}
 }
 

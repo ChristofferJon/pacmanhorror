@@ -9,6 +9,8 @@
 
 #include "ScreenMediator.h"
 
+#include "SoundManager.h"
+
 using std::string;
 
 class Screen
@@ -30,10 +32,10 @@ public:
 public:
 	virtual void Draw() = 0;
 	virtual void Update(float dt) = 0;
-	virtual void Initialize() = 0;
+	virtual void Initialize( ResourceHandler* _resources );
 	virtual void CheckForInput() = 0;
 
-	bool		IsActive()const;
+	bool			IsActive()const;
 	ScreenMediator* mScreenMediator;
 
 protected:
@@ -47,10 +49,11 @@ protected:
 	D3DManager*		mD3DManager;
 	InputManager*	mInput;
 
+	ID3D10Buffer*	mBuffer;
 
-
-private:
-	ResourceHandler* resources;
+public:
+	ResourceHandler*	mResources;
+	SoundManager*		mSoundManager;
 };
 
 #endif

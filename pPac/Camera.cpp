@@ -1,22 +1,28 @@
 #include "Camera.h"
 
-Camera& GetCamera()
-{
-	static Camera camera;
-	return camera;
-}
+//Camera& GetCamera()
+//{
+//	static Camera camera;
+//	return camera;
+//}
 
-Camera::Camera()
+Camera::Camera(D3DManager* _md3dManager)
 {
-	/*mPosition	= D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	md3dManager = _md3dManager;
+	md3dDevice = md3dManager->mD3DDevice;
+
+	mPosition	= D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 	mRight		= D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	mUp			= D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	mLook		= D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 
+	
+
 	D3DXMatrixIdentity(&mView);
-	D3DXMatrixIdentity(&mProj);*/
 	D3DXMatrixIdentity(&mProj);
-	ReInit();
+	//ReInit();
+
+	D3DXMatrixPerspectiveFovLH(&mProj, (float)D3DX_PI * 0.25f, (float)1200/(float)720, 1.0f, 10000.0f);
 
 	dbg->getDbg()->print("%s", "Hello Camera");
 }

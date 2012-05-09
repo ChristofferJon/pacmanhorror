@@ -26,6 +26,18 @@ struct spriteVertex
 	float opacity;
 };
 
+struct basicVertex
+{
+	D3DXVECTOR3 pos;
+	D3DXVECTOR4 col;
+
+	basicVertex( D3DXVECTOR3 _p, D3DXVECTOR4 _c )
+	{
+		pos = _p;
+		col = _c;
+	}
+};
+
 //struct spriteVertexA
 //{
 //	float topLeft[2];
@@ -82,7 +94,7 @@ public:
 	int CreateModel(int _id, int _tex, int _buf, int _mat, int _ren);
 	int CreateSprite(int _id, int _tex, int _buf);
 
-	vector<D3DXVECTOR3>& CreateCube(int _width, int _height, int _length);
+	void CreateCube(int _width, int _height, int _length, VertexBuffer* _vBuffer);
 	vector<D3DXVECTOR3> CreateQuad(int _width, int _height);
 
 	void InstanceSpriteBuffer(VertexBuffer* _vBuffer);

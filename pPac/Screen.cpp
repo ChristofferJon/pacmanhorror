@@ -18,8 +18,7 @@ Screen::~Screen()
 
 void Screen::Update(float dt)
 {
-	//CheckForInput();
-	//dbg->getDbg()->print("%s\n", mName.c_str());
+
 }
 
 void Screen::CheckForInput()
@@ -30,4 +29,9 @@ void Screen::CheckForInput()
 bool Screen::IsActive()const
 {
 	return ( mScreenState == SS_TRANSITION_ON || mScreenState == SS_ACTIVE );
+}
+
+void Screen::Initialize( ResourceHandler* _resources )
+{
+	mResources = _resources;
 }

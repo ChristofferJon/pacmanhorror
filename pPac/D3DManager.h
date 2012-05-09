@@ -42,11 +42,20 @@ public:
 	ID3D10Effect*						mMenuEffect;
 	ID3D10EffectTechnique*				mMenuTechnique;
 	ID3D10InputLayout*					mMenuLayout;
-	//ID3D10EffectShaderResourceVariable* mColorMap;
+	
+	// game
+	ID3D10Effect*						mBasicEffect;
+	ID3D10EffectTechnique*				mBasicTechnique;
+	ID3D10InputLayout*					mBasicLayout;
 
-	ID3D10EffectMatrixVariable*		mMenuView;
-	ID3D10EffectMatrixVariable*		mMenuProjection;
-	ID3D10EffectMatrixVariable*		mMenuWorld;
+	ID3D10Effect*						mModelEffect;
+	ID3D10EffectTechnique*				mModelTechnique;
+	ID3D10InputLayout*					mModelLayout;
+
+	// effect variables
+	ID3D10EffectMatrixVariable*		mView;
+	ID3D10EffectMatrixVariable*		mProjection;
+	ID3D10EffectMatrixVariable*		mWorld;
 
 
 public:

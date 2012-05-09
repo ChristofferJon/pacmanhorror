@@ -15,17 +15,29 @@ void Selected(Screen* _screen)
 CreditScreen::CreditScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager)
 	: MenuScreen( _name, _D3DManager, _inputManager )
 {
-	ResourceHandler* rm = new ResourceHandler(mD3DManager);
-	mSprite = rm->getSprite( 701 );
-	mRP = rm->getRenderPackage( 901 );
+
+}
+
+
+CreditScreen::~CreditScreen()
+{
+	MenuScreen::~MenuScreen();
+}
+
+void CreditScreen::Initialize( ResourceHandler* _resources )
+{
+	MenuScreen::Initialize( _resources );
+
+	mSprite = mResources->getSprite( 700 );
+	mRP = mResources->getRenderPackage( 901 );
 
 	// entries & events
-	MenuEntry* credJ = new MenuEntry("Christoffer", NULL, 110);
-	MenuEntry* credP = new MenuEntry("Christopher", NULL, 110);
-	MenuEntry* credH = new MenuEntry("Penkman", NULL, 110);
-	MenuEntry* credL = new MenuEntry("Brony J", NULL, 110);
-	MenuEntry* credS = new MenuEntry("Emperor V", NULL, 110);
-	MenuEntry* back = new MenuEntry("Back", NULL, 110);
+	MenuEntry* credJ = new MenuEntry("Christoffer", NULL,	606);
+	MenuEntry* credP = new MenuEntry("Christopher", NULL,	602);
+	MenuEntry* credH = new MenuEntry("Penkman",		NULL,	603);
+	MenuEntry* credL = new MenuEntry("Brony J",		NULL,	604);
+	MenuEntry* credS = new MenuEntry("Emperor V",	NULL,	605);
+	MenuEntry* back = new MenuEntry("Back",			NULL,	601);
 
 	back->Selected.add( BackSelected );
 	credJ->Selected.add( Selected );
@@ -51,15 +63,9 @@ CreditScreen::CreditScreen(string _name, D3DManager* _D3DManager, InputManager* 
 	}
 }
 
-
-CreditScreen::~CreditScreen()
-{
-	MenuScreen::~MenuScreen();
-}
-
-
 void CreditScreen::OnBack(CreditScreen* _me)
 {
+	mSoundManager->PlaySound ( mMenuEntries[selectedEntry]->mSFXid );
 	mScreenMediator->RemoveMe( this );
 }
 
@@ -68,8 +74,6 @@ void CreditScreen::OnSelect()
 	for ( int i = 0; i < mMenuEntries.size(); i++)
 		mMenuEntries[i]->mText = "";
 
-	string resp[] = { "Daytime Sleeping", "Feature Creeping", "Keyhole Peeping", "Pony Braiding", "Full Time Raiding" };
+	string resp[] = { "DOA", "SNAFU", "TBD", "MIA", "AWOL" };
 	mMenuEntries[selectedEntry]->mText += " : " + resp[selectedEntry];
-
-
 }

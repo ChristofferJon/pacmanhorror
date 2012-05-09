@@ -2,7 +2,7 @@
 
 ScreenManager::ScreenManager()
 {
-
+	
 }
 
 ScreenManager::ScreenManager(D3DManager* _D3DManager)
@@ -20,11 +20,18 @@ ScreenManager::~ScreenManager()
 	}
 }
 
+void ScreenManager::Initialize()
+{
+	mSoundManager = new SoundManager();
+	mResources = new ResourceHandler( mD3DManager );
+}
 
 void ScreenManager::AddScreen(Screen* _screen)
 {
 	mScreens.push_back(_screen);
 	_screen->mScreenMediator = new ScreenMediator( this );
+	_screen->mSoundManager = mSoundManager;
+	_screen->Initialize( mResources );
 }
 
 void ScreenManager::RemoveScreen(Screen* _screen)
@@ -57,8 +64,6 @@ void ScreenManager::ClearAllScreens()
 
 void ScreenManager::Update(float deltaTime)
 {
-	dbg->getDbg()->print("%f\n", deltaTime);
-
 	// make a copy of the mScreens instead of
 	// directly working with the master list
 	mScreensToUpdate.clear();

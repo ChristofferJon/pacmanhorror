@@ -12,6 +12,8 @@ public:
 
 	void OnBack(CreditScreen* _me);
 	void OnSelect();
+
+	virtual void Initialize( ResourceHandler* _resources );
 };
 
 #endif

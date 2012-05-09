@@ -13,6 +13,13 @@ using std::string;
 //ta väck sen
 #include "ResourceHandler.h"
 
+struct sv
+{
+	float topLeft[2];
+	float dimensions[2];
+	float opacity;
+};
+
 class MenuScreen : public Screen
 {
 public:
@@ -22,7 +29,7 @@ public:
 public:
 	virtual void Draw();
 	virtual void Update(float dt);
-	virtual void Initialize();
+	virtual void Initialize( ResourceHandler* _resources );
 	virtual void CheckForInput();
 
 protected:

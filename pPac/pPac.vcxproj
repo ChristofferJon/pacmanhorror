@@ -53,11 +53,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\pPac\Resources\SFX\SoundInc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3dx10.lib;d3d10.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dx10.lib;d3d10.lib;dinput8.lib;fmodex_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\pPac\Resources\SFX\Soundlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,7 +108,9 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="ScreenMediator.cpp" />
+    <ClCompile Include="SFXAsset.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StaticGameEntity.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -142,16 +146,21 @@
     <ClInclude Include="PrototypeScreen.h" />
     <ClInclude Include="RenderPackage.h" />
     <ClInclude Include="ResourceHandler.h" />
+    <ClInclude Include="Resources\SFX\Soundinc\fmod.h" />
+    <ClInclude Include="Resources\SFX\Soundinc\fmod.hpp" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="ScreenMediator.h" />
+    <ClInclude Include="SFXAsset.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StaticGameEntity.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\basicEffect.fx" />
     <None Include="shaders\menuEffect.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

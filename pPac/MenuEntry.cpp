@@ -6,6 +6,7 @@ MenuEntry::MenuEntry(string _text, Sprite* _sprite, int _sfxId)
 {
 	mSelectionFade = 0.75f;
 	mText = "";
+	mSFXid = _sfxId;
 }
 
 

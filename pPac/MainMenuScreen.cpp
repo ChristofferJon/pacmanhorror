@@ -21,15 +21,27 @@ void ExitSelected(Screen* _screen)
 MainMenuScreen::MainMenuScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager)
 	: MenuScreen(_name, _D3DManager, _inputManager)
 {
-	ResourceHandler* rm = new ResourceHandler(mD3DManager);
-	mSprite = rm->getSprite( 702 );
-	mRP = rm->getRenderPackage( 901 );
+
+}
+
+
+MainMenuScreen::~MainMenuScreen()
+{
+	MenuScreen::~MenuScreen();
+}
+
+void MainMenuScreen::Initialize( ResourceHandler* _resources )
+{
+	MenuScreen::Initialize( _resources );
+	
+	mSprite = mResources->getSprite( 704 );
+	mRP = mResources->getRenderPackage( 901 );
 
 	// entries & events
-	MenuEntry* newGame = new MenuEntry("New Game", NULL, 110);
-	MenuEntry* options = new MenuEntry("Options", NULL, 110);
-	MenuEntry* credits = new MenuEntry("Credits", NULL, 110);
-	MenuEntry* exit = new MenuEntry("Exit", NULL, 110);
+	MenuEntry* newGame = new MenuEntry("New Game",	NULL,	601);
+	MenuEntry* options = new MenuEntry("Options",	NULL,	601);
+	MenuEntry* credits = new MenuEntry("Credits",	NULL,	601);
+	MenuEntry* exit =	 new MenuEntry("Exit",		NULL,	601);
 
 	newGame->Selected.add( NewGameSelected );
 	//
@@ -49,12 +61,6 @@ MainMenuScreen::MainMenuScreen(string _name, D3DManager* _D3DManager, InputManag
 		m->Initialize( oX, oY );
 		oY += 50;
 	}
-}
-
-
-MainMenuScreen::~MainMenuScreen()
-{
-	MenuScreen::~MenuScreen();
 }
 
 void MainMenuScreen::OnNewGame(MainMenuScreen* _me)

@@ -14,7 +14,7 @@ MenuScreen::MenuScreen(string _name, D3DManager* _D3DManager, InputManager* _inp
 	mSprite = NULL;
 
 	// fonts
-	mFontLoader->CreateFontA("Lucida Sans", mD3DDevice);
+	mFontLoader->CreateFontA("Lucida Sans", mD3DDevice, 40);
 	mFont = *mFontLoader->getFont();
 	mFontSprite = mFontLoader->getSpriteFont();
 }
@@ -28,15 +28,23 @@ MenuScreen::~MenuScreen()
 	Screen::~Screen();
 }
 
-void MenuScreen::Initialize()
+void MenuScreen::Initialize( ResourceHandler* _resources )
 {
+	Screen::Initialize( _resources );
+	mBuffer = mResources->getBuffer( 100 )->mBuffer;
 }
 
 void MenuScreen::Draw()
 {
-	mD3DDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);
+	// set buffer and texture for bgr sprite
+	mD3DDevice->IASetVertexBuffers( 0, 1,	&mResources->getBuffer( 100 )->mBuffer, 
+											&mResources->getBuffer( 100 )->stride, 
+											&mResources->getBuffer( 100 )->offset );
+
+	mD3DDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_POINTLIST);	
 	mD3DManager->mColorMap->SetResource( mSprite->mTexture->pSRView );
 
+	// draw bgr
 	D3D10_TECHNIQUE_DESC techDesc;
 	ID3D10EffectTechnique* mTech = mRP->mTechnique;
 	mTech->GetDesc(&techDesc);
@@ -49,6 +57,7 @@ void MenuScreen::Draw()
 
 	mD3DDevice->RSSetState(0);
 
+	// draw fonts
 	mFontSprite->Begin(D3DX10_SPRITE_SAVE_STATE);
 
 	mFont->DrawTextA(NULL, mName.c_str(), -1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 1.0) );
@@ -63,7 +72,7 @@ void MenuScreen::CheckForInput()
 {
 	Screen::CheckForInput();
 
-		// navigate menu by mouse
+	// navigate menu by mouse
 	POINT* mousePos = mInput->getMousePos();
 
 	for ( int i = 0; i < mMenuEntries.size(); i++ )
@@ -104,6 +113,7 @@ void MenuScreen::CheckForInput()
 
 void MenuScreen::OnSelectEntry(int _index)
 {
+	mSoundManager->PlaySound( mMenuEntries[_index]->mSFXid );
 	Screen* me = this;
 	mMenuEntries[_index]->Selected( me );
 }

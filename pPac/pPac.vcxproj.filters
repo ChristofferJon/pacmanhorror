@@ -34,9 +34,6 @@
     <ClCompile Include="GameScreen.cpp">
       <Filter>Screen Framework\Screens\Abstracts</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="D3DManager.cpp">
       <Filter>Main Managers</Filter>
     </ClCompile>
@@ -97,8 +94,21 @@
     <ClCompile Include="CreditScreen.cpp">
       <Filter>Screen Framework\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="Graph.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Main Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SFXAsset.cpp">
+      <Filter>Main Managers\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceHandler.h">
@@ -133,9 +143,6 @@
     </ClInclude>
     <ClInclude Include="GameScreen.h">
       <Filter>Screen Framework\Screens\Abstracts</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="D3DManager.h">
       <Filter>Main Managers</Filter>
@@ -203,8 +210,27 @@
     <ClInclude Include="event.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Graph.h" />
+    <ClInclude Include="Resources\SFX\Soundinc\fmod.h">
+      <Filter>Main Managers\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\SFX\Soundinc\fmod.hpp">
+      <Filter>Main Managers\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Main Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SFXAsset.h">
+      <Filter>Main Managers\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
@@ -264,9 +290,18 @@
     <Filter Include="Screen Framework\Screens\Utilities">
       <UniqueIdentifier>{116f5ad6-ade8-4e42-a1c3-939e852a26b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Utilities">
+      <UniqueIdentifier>{399cdaf3-75cd-48aa-903d-93f8407b290c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\World">
+      <UniqueIdentifier>{5731dbeb-97ef-4ad3-b03c-be6220ad1841}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\menuEffect.fx">
+      <Filter>HLSL</Filter>
+    </None>
+    <None Include="shaders\basicEffect.fx">
       <Filter>HLSL</Filter>
     </None>
   </ItemGroup>

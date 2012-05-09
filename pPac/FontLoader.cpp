@@ -15,11 +15,11 @@ FontLoader::~FontLoader()
 	mFontSprite = NULL;
 }
 
-void FontLoader::CreateFont(string _fontType, ID3D10Device* _mD3DDevice)
+void FontLoader::CreateFont(string _fontType, ID3D10Device* _mD3DDevice, int _size)
 {
 	int size = 40;
 
-	D3DX10CreateFont( _mD3DDevice, size, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+	D3DX10CreateFont( _mD3DDevice, _size, 0, FW_BOLD, 0, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
 		DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT(_fontType.c_str()), &mFont);
 
 	D3DX10CreateSprite( _mD3DDevice, 256, &mFontSprite);

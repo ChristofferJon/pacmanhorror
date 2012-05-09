@@ -1,15 +1,39 @@
-#DATA
-ROOT = .\\Resources\\SFX\\ ;
-#RDATA
-MENU_MSX = 100 ;
-MENU_MSX = 101 ;
-MENU_MSX = 102 ;
-GAME_MSX = 200 ;
-GAME_MSX = 201 ;
-GAME_MSX = 202 ;
-MENU_SFX = 110 ;
-MENU_SFX = 111 ;
-MENU_SFX = 112 ;
-GAME_SFX = 210 ;
-GAME_SFX = 211 ;
-GAME_SFX = 212 ;
+;--- MUSIC --- ;
+;   default    ;
+
+#TEST
+ID = 500 ;
+FILE = .\\Resources\\SFX\\Assets\\bossa_01_ghostly_bossa_L1.mp3 ;
+
+;    menu      ;
+
+
+
+;--- SOUND ---;
+;   default   ;
+
+
+
+
+;    menu     ;
+
+#BUTTONCLICK
+ID  = 601 ;
+FILE = .\\Resources\\SFX\\Assets\\joystick.mp3 ;
+#TASTY
+ID = 602 ;
+FILE = .\\Resources\\SFX\\Assets\\tasty.mp3 ;
+
+;    game     ;
+#MUTED_NO
+ID = 603 ;
+FILE = .\\Resources\\SFX\\Assets\\longNo.mp3 ;
+#SHORTSCREAM1
+ID = 604 ;
+FILE = .\\Resources\\SFX\\Assets\\shortScream1.mp3 ;
+#MALEHURT1
+ID = 605 ;
+FILE = .\\Resources\\SFX\\Assets\\maleHurt1.mp3 ;
+#MALEDIAG1
+ID = 606 ;
+FILE = .\\Resources\\SFX\\Assets\\maleDiag1.mp3 ;

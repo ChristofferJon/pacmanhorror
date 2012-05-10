@@ -28,6 +28,11 @@ private:
 	string removeMeCamPos;
 	string removeMeCamLook;
 	string removeMeBox;
+	string pString;
+	string destString;
+	string nextString;
+	string stringX;
+	string stringZ;
 
 	UINT FPS;
 	DWORD frames;

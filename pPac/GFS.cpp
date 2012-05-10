@@ -22,6 +22,13 @@ void GFS::Initialize( ResourceHandler* _resources )
 	cam = new Camera( md3dManager );
 	cam->mPosition = D3DXVECTOR3( 0, 0, -200 );
 
+	root = new Node(0,0, 256, 256);
+	quadtree = new Graph(root);
+
+	p = new pacman(quadtree);
+	//initializera pacman och ett spöke
+	//set pacmans mål till spökets position
+
 	md3dDevice = md3dManager->mD3DDevice;
 }
 
@@ -47,4 +54,12 @@ void GFS::Draw( float dt )
 		g->Draw( dt );
 
 	md3dDevice->RSSetState( md3dManager->pRS );
+}
+
+void GFS::Update( float _dt)
+{
+	//do update stuff here!
+	//move pacman towards his goal.
+
+	p->Update(_dt);
 }

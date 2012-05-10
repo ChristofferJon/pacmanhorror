@@ -10,16 +10,18 @@ public:
 	GameEntity();
 	~GameEntity();
 
+	virtual void Update(float _dt) = 0;
+	virtual void Draw(float _dt) = 0;
+
 public:
-	float mHealth;
-	D3DXVECTOR3 mPosition;
 	Model* mModel;
 	D3DManager* md3dManager;
 	ID3D10Device* md3dDevice;
 
 public:
-	virtual void Update(float _dt) = 0;
-	virtual void Draw(float _dt) = 0;
+	float mHealth;
+	D3DXVECTOR3 mPosition;
+	
 };
 
 #endif

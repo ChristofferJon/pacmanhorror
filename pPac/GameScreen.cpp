@@ -31,7 +31,8 @@ void GameScreen::Draw()
 	// draw font
 	mFontSprite->Begin(D3DX10_SPRITE_SAVE_STATE);
 
-	mFont->DrawTextA(NULL, (mName + " : pPac Prototype \nBTH 2012 - DV1435 \ndt: " + removeMe + "\nfps: " + removeMeFPS + "\nCamPos: " + removeMeCamPos + "\nCamLook: " + removeMeCamLook + "\nbox: " + removeMeBox).c_str() ,
+	mFont->DrawTextA(NULL, (mName + " : pPac Prototype \nBTH 2012 - DV1435 \ndt: " + removeMe + "\nfps: " + removeMeFPS + "\nCamPos: " + removeMeCamPos + "\nCamLook: " + removeMeCamLook + "\nbox: " 
+		+ removeMeBox + "\nPacman Node ID: " + pString + "\nPacman Pos X: " + stringX + "\nPacman Pos Z: " + stringZ + "\nDestination Node ID: " + destString + "\nNext Node ID: " + nextString).c_str() ,
 		-1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
 
 	mFontSprite->End();
@@ -57,6 +58,28 @@ void GameScreen::Update(float dt)
 		s << FPS;
 		removeMeFPS = s.str();
 	}
+
+	mGFS->Update(dt);
+
+	std::ostringstream p;
+	p << mGFS->p->getCurrNodeID();
+	pString = p.str();
+
+	std::ostringstream dest;
+	dest << mGFS->p->getDestNodeID();
+	destString = dest.str();
+
+	std::ostringstream next;
+	next << mGFS->p->getNextNodeID();
+	nextString = next.str();
+
+	std::ostringstream pPosX;
+	pPosX << mGFS->p->getPacmanPosX();
+	stringX = pPosX.str();
+
+	std::ostringstream pPosZ;
+	pPosZ << mGFS->p->getPacmanPosZ();
+	stringZ = pPosZ.str();
 
 	std::ostringstream c;
 	c << mGFS->cam->mPosition.x << mGFS->cam->mPosition.y << mGFS->cam->mPosition.z;

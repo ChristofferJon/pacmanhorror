@@ -11,6 +11,9 @@ using std::vector;
 #include "SkyBox.h"
 
 #include "Camera.h"
+#include "Graph.h"
+
+#include "pacman.h"
 
 class GFS
 {
@@ -29,6 +32,9 @@ public:
 	Camera* cam;
 	D3DManager* md3dManager;
 	ID3D10Device* md3dDevice;
+	Graph*	quadtree;
+	Node* root;
+	pacman* p;
 };
 
 #endif

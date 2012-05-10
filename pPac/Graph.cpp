@@ -4,9 +4,10 @@
 Graph::Graph(Node* _root)
 {
 	root = _root;
+	numberOfSubDivides = 5;
 	counter = 0;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < numberOfSubDivides; i++)
 	{
 		_root->SubDivide();
 	}
@@ -271,8 +272,6 @@ Node* Graph::getNode(float _x, float _z)
 	{
 		return NULL;
 	}
-
-	
 }
 
 Node* Graph::getNode(Node* _root, float _x, float _z)

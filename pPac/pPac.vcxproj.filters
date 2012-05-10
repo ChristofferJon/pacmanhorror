@@ -103,11 +103,18 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Game\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="DynamicGameEntity.cpp" />
     <ClCompile Include="Graph.cpp">
-      <Filter>Game\World</Filter>
+      <Filter>Game\QuadTree</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Game\World</Filter>
+      <Filter>Game\QuadTree</Filter>
+    </ClCompile>
+    <ClCompile Include="pacman.cpp">
+      <Filter>Game\GameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Game\GameEntities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,11 +232,18 @@
     <ClInclude Include="Camera.h">
       <Filter>Game\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Graph.h">
-      <Filter>Game\World</Filter>
-    </ClInclude>
+    <ClInclude Include="DynamicGameEntity.h" />
     <ClInclude Include="Node.h">
-      <Filter>Game\World</Filter>
+      <Filter>Game\QuadTree</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Game\QuadTree</Filter>
+    </ClInclude>
+    <ClInclude Include="pacman.h">
+      <Filter>Game\GameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Game\GameEntities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

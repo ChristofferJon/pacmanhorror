@@ -30,6 +30,7 @@ bool AppMain::Initialize(HWND _hWnd, HINSTANCE _hInstance)
 
 	// create screenManager and add first screen
 	mScreenManager = ScreenManager( &mD3DManager );
+	mScreenManager.Initialize();
 	mScreenManager.AddScreen( new MainMenuScreen("Main Menu", &mD3DManager, &mInputManager) );
 
 	// initiate gametimer

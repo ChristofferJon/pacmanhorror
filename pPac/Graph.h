@@ -19,7 +19,7 @@ private:
 	Node* getNode(Node* _root, float _x, float _z);
 
 	vector<Node*> openNodes, tempNodeList, retRoute;
-	int			counter;
+	int			counter, numberOfSubDivides;
 	Node*		targetNode, currentNode;
 	Node*		root;
 

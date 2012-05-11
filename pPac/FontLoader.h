@@ -19,7 +19,7 @@ private:
 	D3DXCOLOR mColor;
 
 public:
-	void CreateFont(string _fontType, ID3D10Device* _mD3DDevice);
+	void CreateFont(string _fontType, ID3D10Device* _mD3DDevice, int _size);
 	ID3DX10Sprite* getSpriteFont();
 	LPD3DX10FONT* getFont();
 };

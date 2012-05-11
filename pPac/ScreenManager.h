@@ -8,6 +8,8 @@
 #include <string>
 
 #include "D3DManager.h"
+#include "SoundManager.h"
+#include "ResourceHandler.h"
 
 class ScreenManager
 {
@@ -15,6 +17,7 @@ public:
 	ScreenManager();
 	ScreenManager(D3DManager* _D3DManager);
 	~ScreenManager();
+	void Initialize();
 
 public:
 	std::vector<Screen*> mScreens;
@@ -29,8 +32,10 @@ public:
 	Dbg*			dbg;
 
 private:
-	D3DManager*		mD3DManager;
-	ID3D10Device*	mD3DDevice;
+	D3DManager*			mD3DManager;
+	ID3D10Device*		mD3DDevice;
+	SoundManager*		mSoundManager;
+	ResourceHandler*	mResources;
 };
 
 #endif

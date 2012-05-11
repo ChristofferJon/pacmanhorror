@@ -1,0 +1,12 @@
+#TXDEF
+ID = 200 ;
+FILE = .\\Resources\\GFX\\Textures\\bgrCharlie.png ;
+#TEXTURE2
+ID = 201 ;
+FILE = .\\Resources\\GFX\\Textures\\C1VVp.png ;
+#BUTTON1
+ID = 203 ;
+FILE = .\\Resources\\GFX\\Textures\\button2.png ;
+#PAC1
+ID = 204 ;
+FILE = .\\Resources\\GFX\\Textures\\pacSown.png ;

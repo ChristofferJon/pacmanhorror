@@ -3,11 +3,12 @@
 
 #include <D3DX10.h>
 #include "Dbg.h"
+#include "D3DManager.h"
 
 class Camera
 {
 public:
-	Camera();
+	Camera(D3DManager* _md3dManager);
 	~Camera();
 
 	D3DXVECTOR3& position();
@@ -28,7 +29,7 @@ public:
 	void Scroll(float v);//trollmade
 	void ReInit();//trollmade
 
-private:
+public:
 	D3DXVECTOR3 mPosition;
 	D3DXVECTOR3 mRight;
 	D3DXVECTOR3 mUp;
@@ -39,6 +40,9 @@ private:
 
 	float scroll, oldScroll; //trollmade
 	Dbg*	dbg;
+
+	D3DManager*		md3dManager;
+	ID3D10Device*	md3dDevice;
 };
 
 Camera& GetCamera();

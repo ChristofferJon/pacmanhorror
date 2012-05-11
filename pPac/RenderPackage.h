@@ -11,7 +11,7 @@ public:
 
 	const int mId;
 	const ID3D10Effect* mEffect;
-	const ID3D10EffectTechnique* mTechnique;
+	ID3D10EffectTechnique* mTechnique;
 };
 
 #endif

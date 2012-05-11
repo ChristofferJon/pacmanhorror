@@ -6,10 +6,13 @@ D3DManager::D3DManager()	:	mD3DDevice(NULL),
 								pRS(0),
 								mMenuEffect(NULL),
 								mMenuLayout(0),
-								mColorMap(NULL)
+								mColorMap(NULL),
+								mBasicEffect(NULL),
+								mBasicLayout(0)
 {
 	mWidth = cfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
 	mHeight = cfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
+	
 }
 
 
@@ -52,12 +55,30 @@ bool D3DManager::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 	else dbg->getDbg()->print("D3D: %s\n", "Device succesfully created");
 
 	// create shaders and effect pointers
+
+	/* menuEffect */
 	mMenuEffect = CreateFX("menuEffect.fx", mMenuEffect);
+
 	if ( mMenuEffect == NULL)
 		return dbg->getDbg()->fatalError(*hWnd, "Fatal error, shutting down");
-	else dbg->getDbg()->print("D3D: %s\n", "Shaders succesfully created");
+	else dbg->getDbg()->print("D3D: %s\n", "menu shader succesfully created");
+
+	mEffects.push_back( mMenuEffect );
 
 	mMenuTechnique = mMenuEffect->GetTechniqueByName("SPRITE_RENDER");
+	mTechniques.push_back( mMenuTechnique );
+
+	/* basicEffect */
+	mBasicEffect = CreateFX( "basicEffect.fx", mBasicEffect );
+
+	if ( mBasicEffect == NULL )
+		return dbg->getDbg()->fatalError(*hWnd, "Fatal error, shutting down");
+	else dbg->getDbg()->print("D3D: %s\n", "basic shader succesfully created");
+
+	mEffects.push_back( mBasicEffect );
+
+	mBasicTechnique = mBasicEffect->GetTechniqueByName( "BASIC_RENDER" );
+	mTechniques.push_back( mBasicTechnique );
 
 	// input layouts
 	if ( FAILED ( CreateLayouts() ) )
@@ -82,6 +103,11 @@ bool D3DManager::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 
 	//sprite test
 	mColorMap = mMenuEffect->GetVariableByName( "colorMap" )->AsShaderResource();
+
+	// create matrix effect pointers
+	mViewMatrixEffectVariable = mBasicEffect->GetVariableByName( "View" )->AsMatrix();
+	mProjectionMatrixEffectVariable = mBasicEffect->GetVariableByName( "Projection" )->AsMatrix();
+	mWorldMatrixEffectVariable = mBasicEffect->GetVariableByName( "World" )->AsMatrix();
 
 	return true;
 }
@@ -166,7 +192,7 @@ bool D3DManager::CreateLayouts()
 	{
 		{ "ANCHOR",		0,	DXGI_FORMAT_R32G32_FLOAT,	0,	0,									D3D10_INPUT_PER_VERTEX_DATA,	0 },
 		{ "DIMENSIONS",	0,	DXGI_FORMAT_R32G32_FLOAT,	0,	D3D10_APPEND_ALIGNED_ELEMENT,		D3D10_INPUT_PER_VERTEX_DATA,	0 },
-		{ "OPACITY",	0, DXGI_FORMAT_R32_FLOAT,		0,	D3D10_APPEND_ALIGNED_ELEMENT,		D3D10_INPUT_PER_VERTEX_DATA,	0 }
+		{ "OPACITY",	0,	DXGI_FORMAT_R32_FLOAT,		0,	D3D10_APPEND_ALIGNED_ELEMENT,		D3D10_INPUT_PER_VERTEX_DATA,	0 }
 	};
 	UINT numElements = 3;
 
@@ -180,6 +206,25 @@ bool D3DManager::CreateLayouts()
 												return dbg->fatalError(*hWnd, "Could not create menuLayout");
 
 	mD3DDevice->IASetInputLayout( mMenuLayout );
+
+	// basic 3d layout
+	D3D10_PASS_DESC basicPassDesc;
+
+	D3D10_INPUT_ELEMENT_DESC basicDesc[] =
+	{
+		{	"POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D10_INPUT_PER_VERTEX_DATA,	0 },
+		{	"COLOR",	0,	DXGI_FORMAT_R32G32B32A32_FLOAT,	0,	D3D10_APPEND_ALIGNED_ELEMENT,	D3D10_INPUT_PER_VERTEX_DATA,	0 }
+	};
+	numElements = 2;
+
+	mBasicTechnique->GetPassByIndex( 0 )->GetDesc( &basicPassDesc );
+
+	if ( FAILED( mD3DDevice->CreateInputLayout(	basicDesc, 
+											numElements,
+											basicPassDesc.pIAInputSignature,
+											basicPassDesc.IAInputSignatureSize,
+											&mBasicLayout ) ) )
+											return dbg->fatalError(*hWnd, "Could not create basicLayout");
 
 	return true;
 }

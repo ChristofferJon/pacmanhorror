@@ -1,4 +1,0 @@
-#FRAMES
-ROOT = .\\Init\\SFrame\\ ;
-MAINMENU = MainMenu.dat ;
-CREDITMENU = CreditMenu.dat ;

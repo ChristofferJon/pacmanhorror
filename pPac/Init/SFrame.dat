@@ -1,3 +1,0 @@
-#BASE
-MAIN = .\\Init\\SFrame\\MainMenu.dat ;
-CREDITS = .\\Init\\SFrame\\CreditMenu.dat ;

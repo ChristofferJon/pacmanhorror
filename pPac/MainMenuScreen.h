@@ -15,6 +15,8 @@ public:
 	void OnExit(MainMenuScreen* _me);
 
 	void OnCredits( MainMenuScreen* _me );
+
+	virtual void Initialize( ResourceHandler* _resources );
 };
 
 #endif

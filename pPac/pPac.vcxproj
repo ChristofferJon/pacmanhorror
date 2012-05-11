@@ -53,11 +53,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\pPac\Resources\SFX\SoundInc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3dx10.lib;d3d10.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3dx10.lib;d3d10.lib;dinput8.lib;fmodex_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\pPac\Resources\SFX\Soundlib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,9 +88,11 @@
     <ClCompile Include="CreditScreen.cpp" />
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Dbg.cpp" />
+    <ClCompile Include="DynamicGameEntity.cpp" />
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GFS.cpp" />
+    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -100,13 +104,16 @@
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="pacman.cpp" />
     <ClCompile Include="PrototypeScreen.cpp" />
     <ClCompile Include="RenderPackage.cpp" />
     <ClCompile Include="ResourceHandler.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="ScreenMediator.cpp" />
+    <ClCompile Include="SFXAsset.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StaticGameEntity.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -124,10 +131,12 @@
     <ClInclude Include="D3DLibs.h" />
     <ClInclude Include="D3DManager.h" />
     <ClInclude Include="Dbg.h" />
+    <ClInclude Include="DynamicGameEntity.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GFS.h" />
+    <ClInclude Include="Ghost.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="GameScreen.h" />
@@ -139,19 +148,25 @@
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="pacman.h" />
     <ClInclude Include="PrototypeScreen.h" />
     <ClInclude Include="RenderPackage.h" />
     <ClInclude Include="ResourceHandler.h" />
+    <ClInclude Include="Resources\SFX\Soundinc\fmod.h" />
+    <ClInclude Include="Resources\SFX\Soundinc\fmod.hpp" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="ScreenMediator.h" />
+    <ClInclude Include="SFXAsset.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StaticGameEntity.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\basicEffect.fx" />
     <None Include="shaders\menuEffect.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

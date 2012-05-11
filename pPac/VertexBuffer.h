@@ -12,6 +12,8 @@ public:
 	const int mId;
 	ID3D10Buffer* mBuffer;
 	void setBuffer(ID3D10Buffer& _buf);
+	UINT offset;
+	UINT stride;
 };
 
 #endif

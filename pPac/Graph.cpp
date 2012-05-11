@@ -4,9 +4,10 @@
 Graph::Graph(Node* _root)
 {
 	root = _root;
+	numberOfSubDivides = 5;
 	counter = 0;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < numberOfSubDivides; i++)
 	{
 		_root->SubDivide();
 	}
@@ -252,8 +253,8 @@ void Graph::algorithm(Node* _currentNode)
 
 Node* Graph::getNode(float _x, float _z)
 {
-	//try
-	//{
+	try
+	{
 		for (int i = 0; i < 4; i++)
 		{
 			float left = root->subNode[i]->upperLeftX;
@@ -266,13 +267,11 @@ Node* Graph::getNode(float _x, float _z)
 				return getNode(root->subNode[i], _x, _z);
 			}
 		}
-	/*}
-	catch(exception e)
+	}
+	catch(std::exception e)
 	{
 		return NULL;
-	}*/
-
-	
+	}
 }
 
 Node* Graph::getNode(Node* _root, float _x, float _z)

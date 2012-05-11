@@ -17,6 +17,19 @@ CFG::CFG()
 
 	for each (DATA_CONTAINER* d in mContainers)
 		ReadFromFile( ".\\Init\\", d->name() );
+
+	for each (DATA_CONTAINER* d in mContainers)
+	{
+		dbg->getDbg()->print("***%s***\n", d->name().c_str());
+		for each ( CFG_Link* l in d->links() )
+		{
+			dbg->getDbg()->print("%s:\n", l->name().c_str());
+			for each ( CFG_Entry* e in l->entries() )
+			{
+				dbg->getDbg()->print("%s = %s\n", e->key().c_str(), e->value().c_str() ); 
+			}
+		}
+	}
 }
 
 CFG::~CFG()

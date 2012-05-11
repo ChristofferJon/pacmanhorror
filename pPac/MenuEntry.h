@@ -18,12 +18,13 @@ public:
 	~MenuEntry();
 	void Initialize( int _indX, int _indY );
 
-private:
+public:
 	Sprite*			mSprite;
-	const string	mText;
+	const string	mName;
 	float			mSelectionFade;
 	int				mSFXid;
 	D3DXCOLOR		mColor;
+	string			mText;
 
 public:
 	void		Update(float dt, bool _isSelected);
@@ -32,6 +33,7 @@ public:
 	void		setColor();
 
 	Event<Screen*> Selected;
+	Event<Screen*> Idle;
 };
 
 #endif

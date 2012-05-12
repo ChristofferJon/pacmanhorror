@@ -56,8 +56,10 @@ public:
 	vector<D3DXVECTOR3> CreateCube(int _width, int _height, int _length );
 	vector<D3DXVECTOR3> CreateQuad(int _x, int _y, int _z );
 	vector<D3DXVECTOR2> SimpleSkin(int numVerts);
+	vector<D3DXVECTOR3> SimpleNormal( vector<D3DXVECTOR3> _vert );
 
 	void InstancePTVertexBuffer( vector<D3DXVECTOR3> _position, vector<D3DXVECTOR2> _uv, VertexBuffer* _vBuffer );
+	void InstancePTNVertexBuffer( vector<D3DXVECTOR3> _position, vector<D3DXVECTOR2> _uv, vector<D3DXVECTOR3> _normal, VertexBuffer* _vBuffer );
 	void InstancePCVertexBuffer( vector<D3DXVECTOR3> _position, D3DXVECTOR4 _color, VertexBuffer* _vBuffer );
 
 	void InstanceSpriteBuffer(VertexBuffer* _vBuffer);

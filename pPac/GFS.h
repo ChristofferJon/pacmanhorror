@@ -16,6 +16,7 @@
 
 #include "pacman.h"
 #include "Graph.h"
+#include "LightCollection.h"
 
 class GFS
 {
@@ -50,6 +51,7 @@ public:
 
 	bool oldHurt;
 	D3DXVECTOR3 oldPos;
+	SpotLight* sLight;
 };
 
 #endif

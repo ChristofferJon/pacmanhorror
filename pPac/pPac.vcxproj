@@ -99,6 +99,7 @@
     <ClCompile Include="GameScreen.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="InGameScreen.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MenuEntry.cpp" />
@@ -108,7 +109,9 @@
     <ClCompile Include="pacman.cpp" />
     <ClCompile Include="PCVertex.cpp" />
     <ClCompile Include="Pill.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PrototypeScreen.cpp" />
+    <ClCompile Include="PTNVertex.cpp" />
     <ClCompile Include="PTVertex.cpp" />
     <ClCompile Include="RenderPackage.cpp" />
     <ClCompile Include="ResourceHandler.cpp" />
@@ -118,6 +121,7 @@
     <ClCompile Include="SFXAsset.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StaticGameEntity.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -151,6 +155,8 @@
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="InGameScreen.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="LightCollection.h" />
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MenuEntry.h" />
@@ -160,7 +166,9 @@
     <ClInclude Include="pacman.h" />
     <ClInclude Include="PCVertex.h" />
     <ClInclude Include="Pill.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="PrototypeScreen.h" />
+    <ClInclude Include="PTNVertex.h" />
     <ClInclude Include="PTVertex.h" />
     <ClInclude Include="RenderPackage.h" />
     <ClInclude Include="ResourceHandler.h" />
@@ -172,6 +180,7 @@
     <ClInclude Include="SFXAsset.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StandardCalls.h" />
     <ClInclude Include="StaticGameEntity.h" />
@@ -186,6 +195,7 @@
     <None Include="shaders\basicEffect.fx" />
     <None Include="shaders\menuEffect.fx" />
     <None Include="shaders\ptBlendEffect.fx" />
+    <None Include="shaders\ptnEffect.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

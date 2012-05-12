@@ -54,6 +54,11 @@ public:
 	ID3D10EffectTechnique*				mPtbTechnique;
 	ID3D10InputLayout*					mPtbLayout;
 
+	// ptn
+	ID3D10Effect*						mPtnEffect;
+	ID3D10EffectTechnique*				mPtnTechnique;
+	ID3D10InputLayout*					mPtnLayout;
+
 	// effect variables
 	ID3D10EffectMatrixVariable*		mView;
 	ID3D10EffectMatrixVariable*		mProjection;
@@ -87,6 +92,7 @@ public:
 	ID3D10EffectShaderResourceVariable* mColorMap;
 	vector<ID3D10Effect*> mEffects;
 	vector<ID3D10EffectTechnique*> mTechniques;
+	vector<ID3D10InputLayout*> mLayouts;
 };
 
 #endif

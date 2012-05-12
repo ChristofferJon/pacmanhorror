@@ -11,7 +11,7 @@ pacman::pacman(Graph* _g)
 	wpp = 0;
 
 
-	D3DXVECTOR3 temp = D3DXVECTOR3(-2800,0,-2800);
+	D3DXVECTOR3 temp = D3DXVECTOR3(2400,0,-200);
 	destNode = g->getNode(temp.x, temp.z);
 	
 	currNode = g->getNode(mPosition.x -200, mPosition.z -200);
@@ -58,7 +58,7 @@ void pacman::Update(float _dt)
 			{
 				path.clear();
 				wpp++;
-				if (wpp < 2)
+				if (wpp < wp.size() )
 				{
 					path = g->findPath(nextNode, wp[wpp]);
 				}
@@ -89,6 +89,17 @@ void pacman::Draw(float _dt)
 	D3DXMATRIX m;
 	D3DXMatrixIdentity(&m);
 	D3DXMatrixTranslation( &m, mPosition.x+200, mPosition.y, mPosition.z +200);
+
+	D3DXVECTOR3 targetTransformed = D3DXVECTOR3( currNode->pos.x, currNode->pos.y, currNode->pos.z );
+	D3DXVECTOR3 rP = mPosition -targetTransformed;
+
+	D3DXMATRIX rotY;
+	D3DXVECTOR3 rY = D3DXVECTOR3(0,1,0);
+	float ang = std::atan2(rP.x, rP.z);
+
+	D3DXMatrixRotationAxis(&rotY, &rY, ang);
+
+	//m = rotY * m;
 
 	//md3dManager->mBasicEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)&m);
 	md3dManager->mWorldMatrixEffectVariable->SetMatrix(m);

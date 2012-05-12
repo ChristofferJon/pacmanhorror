@@ -163,6 +163,34 @@ void ResourceHandler::InstancePTVertexBuffer( vector<D3DXVECTOR3> _position, vec
 	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
 }
 
+void ResourceHandler::InstancePTNVertexBuffer( vector<D3DXVECTOR3> _position, vector<D3DXVECTOR2> _uv, vector<D3DXVECTOR3> _normal,  VertexBuffer* _vBuffer )
+{
+	vector<PTNVertex> vert;
+
+	for ( int i = 0; i < _position.size(); i++)
+		vert.push_back( PTNVertex( _position[i], _normal[i], _uv[i % 6] ) );
+
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_IMMUTABLE;
+	bd.ByteWidth = sizeof( PTNVertex ) * vert.size();
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	D3D10_SUBRESOURCE_DATA initData;
+	initData.pSysMem = &vert[0];
+		
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
+
+	//	Set vertex buffer
+	UINT stride = sizeof( PTNVertex );
+	UINT offset = 0;
+	_vBuffer->stride = stride;
+	_vBuffer->offset = offset;
+	_vBuffer->numVertices = vert.size();
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+}
+
 vector<D3DXVECTOR3> ResourceHandler::CreateCube( int _width, int _height, int _length )
 {
 	vector<D3DXVECTOR3> vert;
@@ -242,6 +270,51 @@ vector<D3DXVECTOR2> ResourceHandler::SimpleSkin( int numVerts )
 	return uv;
 }
 
+vector<D3DXVECTOR3> ResourceHandler::SimpleNormal( vector<D3DXVECTOR3> _vert )
+{
+	vector<D3DXVECTOR3> normals;
+
+		float xN = _vert[0].x - _vert[1].x;
+		float xZ = _vert[0].z - _vert[2].z;
+
+		D3DXVECTOR3 tanZ(0.0f, xZ, 1.0f);
+		D3DXVECTOR3 tanX(1.0f, xN, 0.0f);
+
+		D3DXVECTOR3 tanY;
+		D3DXVec3Cross(&tanY, &tanZ, &tanX);
+		D3DXVec3Normalize(&tanY, &tanY);
+
+		normals.push_back( tanY );
+
+	for ( int i = 1; i < _vert.size() -1; i++ )
+	{
+		float xN = _vert[i].x - _vert[i-1].x;
+		float xZ = _vert[i].z - _vert[i+1].z;
+
+		D3DXVECTOR3 tanZ(0.0f, xZ, 1.0f);
+		D3DXVECTOR3 tanX(1.0f, xN, 0.0f);
+
+		D3DXVECTOR3 tanY;
+		D3DXVec3Cross(&tanY, &tanZ, &tanX);
+		D3DXVec3Normalize(&tanY, &tanY);
+
+		normals.push_back( tanY );
+	}
+
+	xN = _vert[35].x - _vert[34].x;
+	xZ = _vert[35].z - _vert[33].z;
+
+	tanZ = D3DXVECTOR3(0.0f, xZ, 1.0f);
+	tanX = D3DXVECTOR3(1.0f, xN, 0.0f);
+
+	D3DXVec3Cross(&tanY, &tanZ, &tanX);
+	D3DXVec3Normalize(&tanY, &tanY);
+
+	normals.push_back( tanY );
+
+	return normals;
+}
+
 inline float convertPixelsToClipSpace( const int pixelDimension, const int pixels )
 {
 	return (float)pixels/pixelDimension*2 -1;
@@ -317,6 +390,12 @@ void ResourceHandler::CreateVBuffer( string _file )
 						InstancePCVertexBuffer( CreateCube( 100, 100, 100 ), D3DXVECTOR4( 0.5, 0.1, 0.35, 1.0 ), getBuffer( id ) );
 					else if ( vType == "PTVERTEX" )
 						InstancePTVertexBuffer( CreateCube( 100, 100, 100 ), SimpleSkin( 36 ), getBuffer( id ) );
+					else if ( vType == "PTNVERTEX" )
+					{
+						vector<D3DXVECTOR3> tempPos = CreateCube( 100, 100, 100 );
+						vector<D3DXVECTOR3> tempNor = SimpleNormal( tempPos );
+						InstancePTNVertexBuffer(  tempPos, SimpleSkin( 36 ), tempNor, getBuffer( id ) );
+					}
 				}
 				else if ( directory == "DQUAD" ) // no file but x, y & z defined
 				{
@@ -450,7 +529,7 @@ void ResourceHandler::CreateRenderPackage( string _file )
 			{
 				int index = mCfg->getCFG()->GetIntOfKey("FILE", l->name() , d->name() );
 
-				mRenderPackages.push_back( new RenderPackage( id, md3dManager->mEffects[index], md3dManager->mTechniques[index] ) );
+				mRenderPackages.push_back( new RenderPackage( id, md3dManager->mEffects[index], md3dManager->mTechniques[index], md3dManager->mLayouts[index] ) );
 			}
 		}
 	}

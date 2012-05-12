@@ -18,3 +18,7 @@ FILE = .\\Resources\\GFX\\Buffers\\Ghost.obj ;
 ID = 104 ;
 TYPE = PTVERTEX ;
 FILE = UQUAD;
+#PACMAN
+ID = 105  ;
+TYPE = PTNVERTEX ;
+FILE = CUBE ;

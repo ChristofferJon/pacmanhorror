@@ -1,6 +1,6 @@
 #DEFAULT
 ID = 300 ;
-AMBIENT = 0.2 ;
+AMBIENT = 1.0 ;
 DIFFUSE = 0.5 ;
 SPECULAR = 0.5 ;
 SHINY = 30 ;

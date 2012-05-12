@@ -3,5 +3,6 @@
 
 #include "PCVertex.h"
 #include "PTVertex.h"
+#include "PTNVertex.h"
 
 #endif

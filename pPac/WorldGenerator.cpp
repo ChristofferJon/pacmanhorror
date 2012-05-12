@@ -115,11 +115,13 @@ void WorldGenerator::AddFloor( float _x, float _y )
 
 void WorldGenerator::AddWall( float _x, float _y )
 {
-	mGFS->mWall.push_back( new Wall() );
+	Wall* w = new Wall();
+	w->sLight = mGFS->sLight;
+	mGFS->mWall.push_back( w );
 	int index = mGFS->mWall.size() - 1;
 
 	mGFS->mWall[index]->mPosition = D3DXVECTOR3( _x, 0, _y );
-	mGFS->mWall[index]->mModel = mResources->getModel( 800 );
+	mGFS->mWall[index]->mModel = mResources->getModel( 804 );
 	InstanceObject( mGFS->mWall[index] );
 }
 
@@ -131,7 +133,7 @@ void WorldGenerator::PopulateDynamics()
 void WorldGenerator::AddPacman( float _x, float _y )
 {
 	mGFS->p = new pacman( mGFS->quadtree );
-	mGFS->p->mModel = mResources->getModel( 800 );
+	mGFS->p->mModel = mResources->getModel( 803 );
 	InstanceObject( mGFS->p );
 }
 

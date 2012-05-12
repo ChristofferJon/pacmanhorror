@@ -9,11 +9,11 @@ D3DManager::D3DManager()	:	mD3DDevice(NULL),
 								mColorMap(NULL),
 								mBasicEffect(NULL),
 								mBasicLayout(0),
-								mPtbEffect(NULL)
+								mPtbEffect(NULL),
+								mPtnEffect(NULL)
 {
 	mWidth = cfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
 	mHeight = cfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
-	
 }
 
 
@@ -93,10 +93,27 @@ bool D3DManager::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 	mPtbTechnique = mPtbEffect->GetTechniqueByName( "PTBLEND_RENDER" );
 	mTechniques.push_back( mPtbTechnique );
 
+	/* ptnEffect */
+	mPtnEffect = CreateFX( "ptnEffect.fx", mPtnEffect );
+
+	if ( mPtnEffect == NULL )
+		return dbg->getDbg()->fatalError(*hWnd, "Fatal error, shutting down");
+	else dbg->getDbg()->print("D3D: %s\n", "PTN shader succesfully created");
+
+	mEffects.push_back( mPtnEffect );
+
+	mPtnTechnique = mPtnEffect->GetTechniqueByName( "PTN_RENDER" );
+	mTechniques.push_back( mPtnTechnique );
+
 	// input layouts
 	if ( FAILED ( CreateLayouts() ) )
 		return dbg->getDbg()->fatalError(*hWnd, "Fatal error, shutting down");
 	else dbg->getDbg()->print("D3D: %s\n", "Input Layout succesfully created");
+
+	mLayouts.push_back( mMenuLayout );
+	mLayouts.push_back( mBasicLayout );
+	mLayouts.push_back( mPtbLayout );
+	mLayouts.push_back( mPtnLayout );
 
 	// render target views
 	if ( FAILED ( CreateRenderTarget( mRenderTargetView ) ) )
@@ -241,7 +258,7 @@ bool D3DManager::CreateLayouts()
 
 	mD3DDevice->IASetInputLayout( mBasicLayout );
 
-	// point texture blend alyout
+	// position texture blend layout
 	D3D10_PASS_DESC ptbPassDesc;
 
 	D3D10_INPUT_ELEMENT_DESC ptbDesc[] =
@@ -261,6 +278,28 @@ bool D3DManager::CreateLayouts()
 												return dbg->fatalError(*hWnd, "Could not create ptbLayout");
 
 	mD3DDevice->IASetInputLayout( mPtbLayout );
+
+	// position texture normal layout
+	D3D10_PASS_DESC ptnPassDesc;
+
+	D3D10_INPUT_ELEMENT_DESC ptnDesc[] =
+	{
+		{	"POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D10_INPUT_PER_VERTEX_DATA,	0 },
+		{	"NORMAL",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	D3D10_APPEND_ALIGNED_ELEMENT,	D3D10_INPUT_PER_VERTEX_DATA,	0 },
+		{	"TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D10_APPEND_ALIGNED_ELEMENT,	D3D10_INPUT_PER_VERTEX_DATA,	0 }
+	};
+	numElements = 3;
+
+	mPtnTechnique->GetPassByIndex( 0 )->GetDesc( &ptnPassDesc );
+
+	if ( FAILED( mD3DDevice->CreateInputLayout(	ptnDesc, 
+												numElements,
+												ptnPassDesc.pIAInputSignature,
+												ptnPassDesc.IAInputSignatureSize,
+												&mPtnLayout ) ) )
+												return dbg->fatalError(*hWnd, "Could not create ptnLayout");
+
+	mD3DDevice->IASetInputLayout( mPtnLayout );
 
 	return true;
 }

@@ -103,9 +103,6 @@
     <ClCompile Include="Floor.cpp">
       <Filter>Game\GameEntities\SGE</Filter>
     </ClCompile>
-    <ClCompile Include="GFS.cpp">
-      <Filter>Game\GameEntities\SGE</Filter>
-    </ClCompile>
     <ClCompile Include="Pill.cpp">
       <Filter>Game\GameEntities\SGE</Filter>
     </ClCompile>
@@ -124,9 +121,6 @@
     <ClCompile Include="Vertex.cpp">
       <Filter>Resources\Vertices</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceHandler.cpp">
-      <Filter>Game\World</Filter>
-    </ClCompile>
     <ClCompile Include="WorldGenerator.cpp">
       <Filter>Game\World</Filter>
     </ClCompile>
@@ -139,6 +133,22 @@
     <ClCompile Include="pacman.cpp">
       <Filter>Game\GameEntities\DGE</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceHandler.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="GFS.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PTNVertex.cpp">
+      <Filter>Resources\Vertices</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceHandler.h">
@@ -261,9 +271,6 @@
     <ClInclude Include="Floor.h">
       <Filter>Game\GameEntities\SGE</Filter>
     </ClInclude>
-    <ClInclude Include="GFS.h">
-      <Filter>Game\GameEntities\SGE</Filter>
-    </ClInclude>
     <ClInclude Include="Pill.h">
       <Filter>Game\GameEntities\SGE</Filter>
     </ClInclude>
@@ -300,6 +307,22 @@
     <ClInclude Include="pacman.h">
       <Filter>Game\GameEntities\DGE</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="GFS.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="LightCollection.h">
+      <Filter>Game\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="PTNVertex.h">
+      <Filter>Resources\Vertices</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
@@ -386,6 +409,9 @@
       <Filter>HLSL</Filter>
     </None>
     <None Include="shaders\ptBlendEffect.fx">
+      <Filter>HLSL</Filter>
+    </None>
+    <None Include="shaders\ptnEffect.fx">
       <Filter>HLSL</Filter>
     </None>
   </ItemGroup>

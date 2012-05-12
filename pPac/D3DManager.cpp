@@ -8,7 +8,8 @@ D3DManager::D3DManager()	:	mD3DDevice(NULL),
 								mMenuLayout(0),
 								mColorMap(NULL),
 								mBasicEffect(NULL),
-								mBasicLayout(0)
+								mBasicLayout(0),
+								mPtbEffect(NULL)
 {
 	mWidth = cfg->getCFG()->GetIntOfKey("RESX", "GFX", "Setup");
 	mHeight = cfg->getCFG()->GetIntOfKey("RESY", "GFX", "Setup");
@@ -79,6 +80,18 @@ bool D3DManager::Initialize(HWND* _hWnd, HINSTANCE _hInstance)
 
 	mBasicTechnique = mBasicEffect->GetTechniqueByName( "BASIC_RENDER" );
 	mTechniques.push_back( mBasicTechnique );
+
+	/* ptBlendEffect */
+	mPtbEffect = CreateFX( "ptBlendEffect.fx", mPtbEffect );
+
+	if ( mPtbEffect == NULL )
+		return dbg->getDbg()->fatalError(*hWnd, "Fatal error, shutting down");
+	else dbg->getDbg()->print("D3D: %s\n", "basic shader succesfully created");
+
+	mEffects.push_back( mPtbEffect );
+
+	mPtbTechnique = mPtbEffect->GetTechniqueByName( "PTBLEND_RENDER" );
+	mTechniques.push_back( mPtbTechnique );
 
 	// input layouts
 	if ( FAILED ( CreateLayouts() ) )
@@ -220,11 +233,34 @@ bool D3DManager::CreateLayouts()
 	mBasicTechnique->GetPassByIndex( 0 )->GetDesc( &basicPassDesc );
 
 	if ( FAILED( mD3DDevice->CreateInputLayout(	basicDesc, 
-											numElements,
-											basicPassDesc.pIAInputSignature,
-											basicPassDesc.IAInputSignatureSize,
-											&mBasicLayout ) ) )
-											return dbg->fatalError(*hWnd, "Could not create basicLayout");
+												numElements,
+												basicPassDesc.pIAInputSignature,
+												basicPassDesc.IAInputSignatureSize,
+												&mBasicLayout ) ) )
+												return dbg->fatalError(*hWnd, "Could not create basicLayout");
+
+	mD3DDevice->IASetInputLayout( mBasicLayout );
+
+	// point texture blend alyout
+	D3D10_PASS_DESC ptbPassDesc;
+
+	D3D10_INPUT_ELEMENT_DESC ptbDesc[] =
+	{
+		{	"POSITION",	0,	DXGI_FORMAT_R32G32B32_FLOAT,	0,	0,								D3D10_INPUT_PER_VERTEX_DATA,	0 },
+		{	"TEXCOORD",	0,	DXGI_FORMAT_R32G32_FLOAT,		0,	D3D10_APPEND_ALIGNED_ELEMENT,	D3D10_INPUT_PER_VERTEX_DATA,	0 }
+	};
+	numElements = 2;
+
+	mPtbTechnique->GetPassByIndex( 0 )->GetDesc( &ptbPassDesc );
+
+	if ( FAILED( mD3DDevice->CreateInputLayout(	ptbDesc, 
+												numElements,
+												ptbPassDesc.pIAInputSignature,
+												ptbPassDesc.IAInputSignatureSize,
+												&mPtbLayout ) ) )
+												return dbg->fatalError(*hWnd, "Could not create ptbLayout");
+
+	mD3DDevice->IASetInputLayout( mPtbLayout );
 
 	return true;
 }
@@ -288,7 +324,7 @@ bool D3DManager::CreateDepthStencil(UINT _width, UINT _height, ID3D10RenderTarge
 	return true;
 }
 
-void D3DManager::CreateViewPorts(UINT _width, UINT _height, D3D10_VIEWPORT _viewPort)
+void D3DManager::CreateViewPorts(UINT _width, UINT _height, D3D10_VIEWPORT &_viewPort)
 {
 	_viewPort.Width = _width;
 	_viewPort.Height = _height;
@@ -302,7 +338,7 @@ void D3DManager::CreateViewPorts(UINT _width, UINT _height, D3D10_VIEWPORT _view
 
 void D3DManager::SetRasterizerState()
 {
-	rasterizerState.CullMode = D3D10_CULL_NONE;
+	rasterizerState.CullMode = D3D10_CULL_BACK;// D3D10_CULL_NONE;
 	rasterizerState.FillMode = D3D10_FILL_SOLID;
 	rasterizerState.FrontCounterClockwise = true;
 	rasterizerState.DepthBias = false;
@@ -314,7 +350,7 @@ void D3DManager::SetRasterizerState()
 	rasterizerState.AntialiasedLineEnable = true;
 
 	mD3DDevice->CreateRasterizerState( &rasterizerState, &pRS );
-	mD3DDevice->RSSetState( pRS );
+	mD3DDevice->RSSetState( this->pRS );
 }
 
 void D3DManager::SetGFX()

@@ -71,7 +71,7 @@ void ScreenManager::Update(float deltaTime)
 	for each (Screen* screen in mScreens)
 		mScreensToUpdate.push_back(screen);
 
-	// insures that only the original topmost screen
+	// ensures that only the original topmost screen
 	// handles input
 	bool otherScreenHasFocus = false;
 
@@ -92,7 +92,7 @@ void ScreenManager::Update(float deltaTime)
 			// handle input for the first active screen only
 			if ( !otherScreenHasFocus )
 			{
-				screen->CheckForInput();
+				screen->CheckForInput( deltaTime );
 				otherScreenHasFocus = true;
 			}
 		}
@@ -103,13 +103,12 @@ void ScreenManager::Draw(float deltaTime)
 {
 	// clear for each tick
 	mD3DDevice->ClearRenderTargetView( mD3DManager->mRenderTargetView, D3DXCOLOR( 0.0, 0.0, 0.0, 0.0 ) );
-	mD3DDevice->ClearDepthStencilView( mD3DManager->mDepthStencilView, D3D10_CLEAR_DEPTH|D3D10_CLEAR_STENCIL, 1.0f, 0 );
 
 	// draw every screen (the one in focus will always be placed on top
 	for each (Screen* screen in mScreens)
 		screen->Draw();
 
 	// set state and chain
-	mD3DDevice->RSSetState(mD3DManager->pRS);
+	//mD3DDevice->RSSetState(mD3DManager->pRS);
 	mD3DManager->mSwapChain->Present(0,0);		// no lock on fps
 }

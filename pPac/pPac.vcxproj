@@ -1,3 +1,5 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
@@ -88,11 +90,10 @@
     <ClCompile Include="CreditScreen.cpp" />
     <ClCompile Include="D3DManager.cpp" />
     <ClCompile Include="Dbg.cpp" />
-    <ClCompile Include="DynamicGameEntity.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="GFS.cpp" />
-    <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="GameScreen.cpp" />
@@ -104,8 +105,10 @@
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="pacman.cpp" />
+    <ClCompile Include="PCVertex.cpp" />
+    <ClCompile Include="Pill.cpp" />
     <ClCompile Include="PrototypeScreen.cpp" />
+    <ClCompile Include="PTVertex.cpp" />
     <ClCompile Include="RenderPackage.cpp" />
     <ClCompile Include="ResourceHandler.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -117,8 +120,11 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StaticGameEntity.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="winMain.cpp" />
+    <ClCompile Include="WorldGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppMain.h" />
@@ -131,12 +137,12 @@
     <ClInclude Include="D3DLibs.h" />
     <ClInclude Include="D3DManager.h" />
     <ClInclude Include="Dbg.h" />
-    <ClInclude Include="DynamicGameEntity.h" />
     <ClInclude Include="event.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GFS.h" />
-    <ClInclude Include="Ghost.h" />
+    <ClInclude Include="GFX_Asset_Collection.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="GameScreen.h" />
@@ -148,8 +154,10 @@
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="pacman.h" />
+    <ClInclude Include="PCVertex.h" />
+    <ClInclude Include="Pill.h" />
     <ClInclude Include="PrototypeScreen.h" />
+    <ClInclude Include="PTVertex.h" />
     <ClInclude Include="RenderPackage.h" />
     <ClInclude Include="ResourceHandler.h" />
     <ClInclude Include="Resources\SFX\Soundinc\fmod.h" />
@@ -161,15 +169,26 @@
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StandardCalls.h" />
     <ClInclude Include="StaticGameEntity.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="Vertex_Collection.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="WorldGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\basicEffect.fx" />
     <None Include="shaders\menuEffect.fx" />
+    <None Include="shaders\ptBlendEffect.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

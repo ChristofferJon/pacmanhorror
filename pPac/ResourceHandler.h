@@ -1,23 +1,13 @@
 #ifndef __RESOURCEHANDLER__
 #define __RESOURCEHANDLER__
 
-#include "VertexBuffer.h"
-#include "Material.h"
-#include "RenderPackage.h"
-#include "Texture.h"
-#include "Model.h"
-#include "Sprite.h"
-#include <string>
-#include <vector>
+#include "GFX_Asset_Collection.h"
+#include "Vertex_Collection.h"
+#include "StandardCalls.h"
 
 #include "CFG.h"
-
-#include "Dbg.h"
-
 #include "D3DManager.h"
 
-using std::string;
-using std::vector;
 
 struct spriteVertex
 {
@@ -25,37 +15,6 @@ struct spriteVertex
 	float dimensions[2];
 	float opacity;
 };
-
-struct basicVertex
-{
-	D3DXVECTOR3 pos;
-	D3DXVECTOR4 col;
-
-	basicVertex( D3DXVECTOR3 _p, D3DXVECTOR4 _c )
-	{
-		pos = _p;
-		col = _c;
-	}
-};
-
-//struct spriteVertexA
-//{
-//	float topLeft[2];
-//	float dimensions[2];
-//};
-//
-//struct defMeshVertex
-//{
-//	D3DXVECTOR3 position;
-//	D3DXVECTOR2 texCoord;
-//};
-//
-//struct lMeshVertex
-//{
-//	D3DXVECTOR3 position;
-//	D3DXVECTOR3 normal;
-//	D3DXVECTOR2 texCoord;
-//};
 
 class ResourceHandler
 {
@@ -65,37 +24,41 @@ public:
 
 public:
 	// low level
-	vector<Texture*> mTextures;
-	vector<Material> mMaterials;
-	vector<VertexBuffer*> mBuffers;
-	vector<RenderPackage> mRenderPackages;
+	vector<Texture*>		mTextures;
+	vector<Material*>		mMaterials;
+	vector<VertexBuffer*>	mBuffers;
+	vector<RenderPackage*>	mRenderPackages;
 
 	// high level
-	vector<Model> mModels;
-	vector<Sprite> mSprites;
+	vector<Model>			mModels;
+	vector<Sprite>			mSprites;
 
-	Texture* getTexture(int _id);
-	Material* getMaterial(int _id);
-	VertexBuffer* getBuffer(int _id);
+	Texture*				getTexture(int _id);
+	Material*				getMaterial(int _id);
+	VertexBuffer*			getBuffer(int _id);
 
 
-	void addMaterial(string _file);
-	void addTexture(string _file);
-	void addBuffer(string _file);
-	void addRenderPackage(int _index);
+	void					addMaterial(string _file);
+	void					addTexture(string _file);
+	void					addBuffer(string _file);
+	void					addRenderPackage(int _index);
 
 	CFG* mCfg;
 
 public:
-	Model* getModel(int _id);
-	Sprite* getSprite(int _id);
-	RenderPackage* getRenderPackage(int _id);
+	Model*					getModel(int _id);
+	Sprite*					getSprite(int _id);
+	RenderPackage*			getRenderPackage(int _id);
 
 	int CreateModel(int _id, int _tex, int _buf, int _mat, int _ren);
 	int CreateSprite(int _id, int _tex, int _buf);
 
-	void CreateCube(int _width, int _height, int _length, VertexBuffer* _vBuffer);
-	vector<D3DXVECTOR3> CreateQuad(int _width, int _height);
+	vector<D3DXVECTOR3> CreateCube(int _width, int _height, int _length );
+	vector<D3DXVECTOR3> CreateQuad(int _x, int _y, int _z );
+	vector<D3DXVECTOR2> SimpleSkin(int numVerts);
+
+	void InstancePTVertexBuffer( vector<D3DXVECTOR3> _position, vector<D3DXVECTOR2> _uv, VertexBuffer* _vBuffer );
+	void InstancePCVertexBuffer( vector<D3DXVECTOR3> _position, D3DXVECTOR4 _color, VertexBuffer* _vBuffer );
 
 	void InstanceSpriteBuffer(VertexBuffer* _vBuffer);
 	void InstanceSpriteBuffer(VertexBuffer* _vBuffer, float xDim, float yDim);

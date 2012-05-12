@@ -1,3 +1,5 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 #ifndef __GAMEENTITY__
 #define __GAMEENTITY__
 
@@ -10,18 +12,22 @@ public:
 	GameEntity();
 	~GameEntity();
 
-	virtual void Update(float _dt) = 0;
-	virtual void Draw(float _dt) = 0;
-
 public:
+	float mHealth;
+	D3DXVECTOR3 mPosition;
 	Model* mModel;
 	D3DManager* md3dManager;
 	ID3D10Device* md3dDevice;
 
 public:
-	float mHealth;
-	D3DXVECTOR3 mPosition;
-	
+	virtual void Update(float _dt) = 0;
+	virtual void Draw(float _dt) = 0;
+	virtual void Initialize() = 0;
 };
 
 #endif
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

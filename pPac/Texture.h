@@ -1,9 +1,6 @@
 #ifndef __TEXTURE__
 #define __TEXTURE__
 
-#include <D3D10.h>
-#include <D3DX10.h>
-
 #include <string>
 #include "D3DManager.h"
 

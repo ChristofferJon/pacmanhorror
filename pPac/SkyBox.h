@@ -12,6 +12,7 @@ public:
 public:
 	virtual void Update(float _dt);
 	virtual void Draw(float _dt);
+	virtual void Initialize();
 };
 
 #endif

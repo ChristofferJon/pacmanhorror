@@ -3,8 +3,7 @@
 
 #include "Dbg.h"
 #include <dinput.h>
-#include <D3DX10.h>
-#include <D3D10.h>
+#include "D3DLibs.h"
 
 #pragma comment (lib, "d3d10.lib")
 #pragma comment (lib, "dxguid.lib")

@@ -11,20 +11,17 @@ Camera::Camera(D3DManager* _md3dManager)
 	md3dManager = _md3dManager;
 	md3dDevice = md3dManager->mD3DDevice;
 
-	mPosition	= D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	mPosition	= D3DXVECTOR3(0.0f, 10.0f, 0.0f);
 	mRight		= D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	mUp			= D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	mLook		= D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 
-	
-
 	D3DXMatrixIdentity(&mView);
-	D3DXMatrixIdentity(&mProj);
-	//ReInit();
+
+	//md3dManager->mProjectionMatrixEffectVariable->SetMatrix(mProj);
+	//md3dManager->mViewMatrixEffectVariable->SetMatrix(mView);
 
 	D3DXMatrixPerspectiveFovLH(&mProj, (float)D3DX_PI * 0.25f, (float)1200/(float)720, 1.0f, 10000.0f);
-
-	dbg->getDbg()->print("%s", "Hello Camera");
 }
 
 Camera::~Camera()
@@ -33,7 +30,7 @@ Camera::~Camera()
 
 void Camera::ReInit() //trollmade
 {
-	mPosition = D3DXVECTOR3(0.0f, 100.0f, 0.0f);
+	mPosition = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 	mRight = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	mUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	mLook = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
@@ -86,8 +83,8 @@ void Camera::pitch(float angle)
 {
 	D3DXMATRIX R;
 	D3DXMatrixRotationAxis(&R, &mRight, angle);
-
 	D3DXVec3TransformNormal(&mUp, &mUp, &R);
+
 	D3DXVec3TransformNormal(&mLook, &mLook, &R);
 }
 

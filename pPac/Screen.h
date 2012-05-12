@@ -1,8 +1,6 @@
 #ifndef __SCREEN__
 #define __SCREEN__
 
-#include "Dbg.h"
-
 #include "ResourceHandler.h"
 #include "FontLoader.h"
 #include "InputManager.h"
@@ -11,7 +9,7 @@
 
 #include "SoundManager.h"
 
-using std::string;
+#include "StandardCalls.h"
 
 class Screen
 {
@@ -33,7 +31,7 @@ public:
 	virtual void Draw() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void Initialize( ResourceHandler* _resources );
-	virtual void CheckForInput() = 0;
+	virtual void CheckForInput(float dt) = 0;
 
 	bool			IsActive()const;
 	ScreenMediator* mScreenMediator;

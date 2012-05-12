@@ -15,7 +15,7 @@ protected:
 	virtual void Draw();
 	virtual void Update(float dt);
 	virtual void Initialize( ResourceHandler* _resources );
-	virtual void CheckForInput();
+	virtual void CheckForInput( float dt );
 
 	GFS* mGFS;
 	ResourceHandler* mResources;

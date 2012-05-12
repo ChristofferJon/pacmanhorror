@@ -21,7 +21,7 @@ void Screen::Update(float dt)
 
 }
 
-void Screen::CheckForInput()
+void Screen::CheckForInput( float dt )
 {
 	mInput->frame();
 }

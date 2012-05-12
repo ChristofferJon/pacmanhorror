@@ -10,7 +10,7 @@ public:
 	~RenderPackage();
 
 	const int mId;
-	const ID3D10Effect* mEffect;
+	ID3D10Effect* mEffect;
 	ID3D10EffectTechnique* mTechnique;
 };
 

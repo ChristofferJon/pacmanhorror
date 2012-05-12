@@ -36,6 +36,8 @@ void MenuScreen::Initialize( ResourceHandler* _resources )
 
 void MenuScreen::Draw()
 {
+	mD3DDevice->IASetInputLayout( mD3DManager->mMenuLayout );
+
 	// set buffer and texture for bgr sprite
 	mD3DDevice->IASetVertexBuffers( 0, 1,	&mResources->getBuffer( 100 )->mBuffer, 
 											&mResources->getBuffer( 100 )->stride, 
@@ -68,9 +70,9 @@ void MenuScreen::Draw()
 	mFontSprite->End();
 }
 
-void MenuScreen::CheckForInput()
+void MenuScreen::CheckForInput(float dt)
 {
-	Screen::CheckForInput();
+	Screen::CheckForInput( dt );
 
 	// navigate menu by mouse
 	POINT* mousePos = mInput->getMousePos();

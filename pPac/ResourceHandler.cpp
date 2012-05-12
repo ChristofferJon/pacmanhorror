@@ -18,12 +18,12 @@ ResourceHandler::~ResourceHandler()
 		s.~Sprite();
 	for each (Texture* t in mTextures)
 		t->~Texture();
-	for each (Material m in mMaterials)
-		m.~Material();
+	for each (Material* m in mMaterials)
+		m->~Material();
 	for each (VertexBuffer* b in mBuffers)
 		b->~VertexBuffer();
-	for each (RenderPackage r in mRenderPackages)
-		r.~RenderPackage();
+	for each (RenderPackage* r in mRenderPackages)
+		r->~RenderPackage();
 }
 
 // assign the temp a default model in case we cant
@@ -73,55 +73,100 @@ int ResourceHandler::CreateSprite(int _id, int _tex, int _buf)
 
 Texture* ResourceHandler::getTexture(int _id)
 {
-	Texture* temp = mTextures[0];
-	for each (Texture* t in mTextures)
-		if (_id == t->mId)
-		{
-			temp = t;
-			break;
-		}
+	for ( int i = 0; i < mTextures.size(); i++ )
+		if ( _id == mTextures[i]->mId )
+			return mTextures[i];
 
-	return temp;
+	return mTextures[0];
 }
 
 Material* ResourceHandler::getMaterial(int _id)
 {
-	Material* temp = &mMaterials[0];
-	for each (Material m in mMaterials)
-		if (_id == m.mId)
-		{
-			temp = &m;
-			break;
-		}
+	for ( int i = 0; i < mMaterials.size(); i++ )
+		if ( _id == mMaterials[i]->mId )
+			return mMaterials[i];
 
-	return temp;
+	return mMaterials[0];
 }
 
 VertexBuffer* ResourceHandler::getBuffer(int _id)
 {
-	VertexBuffer* temp = mBuffers[0];
-	for each (VertexBuffer* b in mBuffers)
-		if (_id == b->mId)
-		{
-			temp = b;
-			break;
-		}
+	for ( int i = 0; i < mBuffers.size(); i++ )
+		if ( _id == mBuffers[i]->mId )
+			return mBuffers[i];
 
-	return temp;
+	return mBuffers[0];
 }
 
 RenderPackage* ResourceHandler::getRenderPackage(int _id)
 {
 	for ( int i = 0; i < mRenderPackages.size(); i++ )
-		if ( _id == mRenderPackages[i].mId )
-			return &mRenderPackages[i];
+		if ( _id == mRenderPackages[i]->mId )
+			return mRenderPackages[i];
 
-	return &mRenderPackages[0];
+	return mRenderPackages[0];
 }
 
-void ResourceHandler::CreateCube(int _width, int _height, int _length, VertexBuffer* _vBuffer)
+void ResourceHandler::InstancePCVertexBuffer( vector<D3DXVECTOR3> _position, D3DXVECTOR4 _color, VertexBuffer* _vBuffer )
 {
-	vector<basicVertex> vert;
+	vector<PCVertex> vert;
+
+	for ( int i = 0; i < _position.size(); i++)
+		vert.push_back( PCVertex( _position[i], _color ) );
+
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_IMMUTABLE;
+	bd.ByteWidth = sizeof( PCVertex ) * vert.size();
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	D3D10_SUBRESOURCE_DATA initData;
+	initData.pSysMem = &vert[0];
+		
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
+
+	//	Set vertex buffer
+	UINT stride = sizeof( PCVertex );
+	UINT offset = 0;
+	_vBuffer->stride = stride;
+	_vBuffer->offset = offset;
+	_vBuffer->numVertices = vert.size();
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+}
+
+void ResourceHandler::InstancePTVertexBuffer( vector<D3DXVECTOR3> _position, vector<D3DXVECTOR2> _uv, VertexBuffer* _vBuffer )
+{
+	vector<PTVertex> vert;
+
+	for ( int i = 0; i < _position.size(); i++)
+		vert.push_back( PTVertex( _position[i], _uv[i % 6] ) );
+
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_IMMUTABLE;
+	bd.ByteWidth = sizeof( PTVertex ) * vert.size();
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	D3D10_SUBRESOURCE_DATA initData;
+	initData.pSysMem = &vert[0];
+		
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
+
+	//	Set vertex buffer
+	UINT stride = sizeof( PTVertex );
+	UINT offset = 0;
+	_vBuffer->stride = stride;
+	_vBuffer->offset = offset;
+	_vBuffer->numVertices = vert.size();
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+}
+
+vector<D3DXVECTOR3> ResourceHandler::CreateCube( int _width, int _height, int _length )
+{
+	vector<D3DXVECTOR3> vert;
+
 	//define all points in the quad
 	D3DXVECTOR3 p[8] =
 	{
@@ -135,63 +180,66 @@ void ResourceHandler::CreateCube(int _width, int _height, int _length, VertexBuf
 		D3DXVECTOR3(_width, -_height, _length)		//FRU 7
 	};
 
-	D3DXVECTOR3 quad[36] =
+	int quad[36] =
 	{
-		p[0], p[1], p[2], p[0], p[2], p[3], //back
-		p[4], p[5], p[6], p[4], p[6], p[7], //front
-		p[4], p[5], p[1], p[4], p[1], p[0], //left
-		p[7], p[6], p[2], p[7], p[2], p[3], //right
-		p[0], p[4], p[7], p[0], p[7], p[3], //bottom
-		p[1], p[5], p[6], p[1], p[6], p[2]  //top
+		1, 0, 2, 2, 0, 3, //back
+		4, 5, 6, 4, 6, 7, //front
+		5, 4, 1, 1, 4, 0, //left
+		7, 6, 2, 7, 2, 3, //right
+		0, 4, 7, 0, 7, 3, //bottom
+		5, 1, 6, 6, 1, 2  //top
 	};
 
-	D3DXVECTOR4 color = D3DXVECTOR4( 1, 1, 1, 1 );
-
 	for (int i = 0; i < 36; i++)
-		vert.push_back( basicVertex( quad[i], color ) );
+		vert.push_back(p[quad[i]] );
 
-	D3D10_SUBRESOURCE_DATA initData;
-	initData.pSysMem = &vert;
-
-	D3D10_BUFFER_DESC bd;
-	bd.Usage = D3D10_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof( basicVertex ) * 36;
-	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = 0;
-	bd.MiscFlags = 0;
-		
-	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
-		int i = 42;
-
-	//	Set vertex buffer
-	UINT stride = sizeof( basicVertex );
-	UINT offset = 0;
-	_vBuffer->stride = stride;
-	_vBuffer->offset = offset;
-	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+	return vert;
 }
 
-vector<D3DXVECTOR3> ResourceHandler::CreateQuad(int _width, int _height)
+vector<D3DXVECTOR3> ResourceHandler::CreateQuad( int _x, int _y, int _z )
 {
+	vector<D3DXVECTOR3> vert;
+
 	D3DXVECTOR3 p[4] =
 	{
-		D3DXVECTOR3(-_width, -_height, 0),		//LU 4
-		D3DXVECTOR3(-_width, _height, 0),		//LD 5
-		D3DXVECTOR3(_width, _height, 0),		//RD 6
-		D3DXVECTOR3(_width, -_height, 0)		//RU 7
+		D3DXVECTOR3( -_x,	-_y,	-_z),		//LU 4
+		D3DXVECTOR3( -_x,	_y,		_z),		//LD 5
+		D3DXVECTOR3( _x, 	_y,		_z),		//RD 6
+		D3DXVECTOR3( _x, 	-_y,	-_z)		//RU 7
 	};
 
-	D3DXVECTOR3 quad[6] =
+	int quad[6] =
 	{
-		p[0], p[1], p[2], p[0], p[2], p[3]
+		1, 0, 2, 2, 0, 3
 	};
 
-	vector<D3DXVECTOR3> temp;
+	for (int i = 0; i < 6; i++)
+		vert.push_back( p[quad[i]] );
 
-	for (int i = 0; i < 36; i++)
-		temp.push_back(quad[i]);
+	return vert;
+}
 
-	return temp;
+vector<D3DXVECTOR2> ResourceHandler::SimpleSkin( int numVerts )
+{
+	vector<D3DXVECTOR2> uv;
+
+	D3DXVECTOR2 p[4] =
+	{
+		D3DXVECTOR2( 0, 1 ),
+		D3DXVECTOR2( 0, 0 ),
+		D3DXVECTOR2( 1, 0 ),
+		D3DXVECTOR2( 1, 1 )
+	};
+
+	int q[6] =
+	{
+		1, 0, 2, 2, 0, 3, //back
+	};
+
+	for ( int i = 0; i < numVerts; i++ )
+		uv.push_back( p[ q[ i % 6 ] ] );
+
+	return uv;
 }
 
 inline float convertPixelsToClipSpace( const int pixelDimension, const int pixels )
@@ -237,39 +285,7 @@ void ResourceHandler::InstanceSpriteBuffer(VertexBuffer* _vBuffer)
 
 void ResourceHandler::InstanceSpriteBuffer( VertexBuffer* _vBuffer, float xDim, float yDim )
 {
-	spriteVertex vert;
 
-	float XRU = 800;
-	float YRU = 10;
-	float XLU = 600;
-	float YLU = 80;
-
-	float XDIM = 160;
-	float YDIM = 42;
-
-	vert.topLeft[0] = convertPixelsToClipSpace( XRU, YRU );
-	vert.topLeft[1] = -convertPixelsToClipSpace( XLU, YLU );
-	vert.dimensions[0] = convertPixelsToClipSpaceDistance( XRU, xDim );
-	vert.dimensions[1] = convertPixelsToClipSpaceDistance( XLU, yDim );
-	vert.opacity = 1;
-
-	D3D10_SUBRESOURCE_DATA initData;
-	initData.pSysMem = &vert;
-
-	D3D10_BUFFER_DESC bd;
-	bd.Usage = D3D10_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof( spriteVertex ) * 1;
-	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = 0;
-	bd.MiscFlags = 0;
-		
-	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
-		int i = 42;
-
-	//	Set vertex buffer
-	UINT stride = sizeof( spriteVertex );
-	UINT offset = 0;
-	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
 }
 
 void ResourceHandler::CreateVBuffer( string _file )
@@ -284,6 +300,7 @@ void ResourceHandler::CreateVBuffer( string _file )
 			if ( e->key() == "FILE" )
 			{
 				id = mCfg->getCFG()->GetIntOfKey("ID", l->name() , d->name() );
+				string vType = mCfg->getCFG()->GetStringOfKey( "TYPE", l->name()  , d->name() );
 				string directory = mCfg->getCFG()->GetStringOfKey( "FILE", l->name()  , d->name() );
 
 				// push back
@@ -294,18 +311,31 @@ void ResourceHandler::CreateVBuffer( string _file )
 				{
 					InstanceSpriteBuffer( getBuffer( id ) );
 				}
-				else if ( directory == "SB_DEF" ) // no file but x & y defined
+				else if ( directory == "CUBE" ) // no file but x & y defined
 				{
-					CreateCube( 100, 100, 100, getBuffer( id ) );
+					if ( vType == "PCVERTEX" )
+						InstancePCVertexBuffer( CreateCube( 100, 100, 100 ), D3DXVECTOR4( 0.5, 0.1, 0.35, 1.0 ), getBuffer( id ) );
+					else if ( vType == "PTVERTEX" )
+						InstancePTVertexBuffer( CreateCube( 100, 100, 100 ), SimpleSkin( 36 ), getBuffer( id ) );
 				}
-				else if ( directory == "SB_3DEF" ) // no file but x, y & z defined
+				else if ( directory == "DQUAD" ) // no file but x, y & z defined
 				{
-					// instance buffer ( id, x, y, z )
+					if ( vType == "PCVERTEX" )
+						InstancePCVertexBuffer( CreateQuad( 100, 0, 100 ), D3DXVECTOR4( 0.75, 0.5, 0.25, 1.0 ), getBuffer( id ) );
+					else if ( vType == "PTVERTEX" )
+						InstancePTVertexBuffer( CreateQuad( 100, 0, 100 ), SimpleSkin( 6 ), getBuffer( id ) );
+				}
+				else if ( directory == "UQUAD" )
+				{
+					if ( vType == "PCVERTEX" )
+						InstancePCVertexBuffer( CreateQuad( 25, 25, 0 ), D3DXVECTOR4( 0.25, 0.5, 0.75, 1.0 ), getBuffer( id ) );
+					else if ( vType == "PTVERTEX" )
+						InstancePTVertexBuffer( CreateQuad( 25, 25, 0 ), SimpleSkin( 6 ), getBuffer( id ) );
 				}
 				else	// obj file referensed
 				{
 					// load obj
-					// instance buffer ( id, obj )
+					int i = 42;
 				}
 			}
 		}
@@ -317,7 +347,27 @@ void ResourceHandler::Test()
 	LoadLowLevel( "SpriteCollection" );
 	LoadHighLevel( "SpriteCollection" );
 
-	CreateModel( 800, 200, 101, 400, 902 );
+	DATA_CONTAINER* d = mCfg->getCFG()->GetContainer( "ModelCollection" );
+
+	for each ( CFG_Link* l in d->links() )
+	{
+		int id = -1;
+		int tId = -1;
+		int bId = -1;
+		int mId = -1;
+		int rId = -1;
+
+		for each ( CFG_Entry* e in l->entries() )
+		{
+			id = mCfg->getCFG()->GetIntOfKey("ID", l->name() , d->name() );
+			tId = mCfg->getCFG()->GetIntOfKey("TEXTUREID", l->name() , d->name() );
+			bId = mCfg->getCFG()->GetIntOfKey("BUFFERID", l->name() , d->name() );
+			mId = mCfg->getCFG()->GetIntOfKey("MATERIALID", l->name() , d->name() );
+			rId = mCfg->getCFG()->GetIntOfKey("RENDERID", l->name() , d->name() );
+		}
+
+		CreateModel( id, tId, bId, mId, rId );
+	}
 }
 
 void ResourceHandler::LoadHighLevel( string _file )
@@ -400,7 +450,7 @@ void ResourceHandler::CreateRenderPackage( string _file )
 			{
 				int index = mCfg->getCFG()->GetIntOfKey("FILE", l->name() , d->name() );
 
-				mRenderPackages.push_back( RenderPackage( id, md3dManager->mEffects[index], md3dManager->mTechniques[index] ) );
+				mRenderPackages.push_back( new RenderPackage( id, md3dManager->mEffects[index], md3dManager->mTechniques[index] ) );
 			}
 		}
 	}
@@ -438,7 +488,7 @@ void ResourceHandler::CreateMaterial( string _file )
 				shin = mCfg->getCFG()->GetFloatOfKey("SHINY", l->name() , d->name() );
 
 				// and we're done, add to list
-				mMaterials.push_back( Material( id, amb, spec, diff, shin ) );
+				mMaterials.push_back( new Material( id, amb, spec, diff, shin ) );
 			}
 		}
 	}

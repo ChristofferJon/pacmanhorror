@@ -32,7 +32,7 @@ bool AppMain::Initialize(HWND _hWnd, HINSTANCE _hInstance)
 	mScreenManager = ScreenManager( &mD3DManager );
 	mScreenManager.Initialize();
 	mScreenManager.AddScreen( new MainMenuScreen("Main Menu", &mD3DManager, &mInputManager) );
-
+	//mScreenManager.AddScreen( new InGameScreen("InGame", &mD3DManager, &mInputManager) );
 	// initiate gametimer
 	mGameTime->getInstance()->start();
 

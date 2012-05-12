@@ -6,8 +6,8 @@ TYPE:		: ASSETNO
 
 low level:
 Buffer		: 100
-Material	: 200
-Texture		: 300
+Material	: 300
+Texture		: 200
 RenderPackage	: 400
 Music		: 500
 Sound		: 600

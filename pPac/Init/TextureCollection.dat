@@ -1,6 +1,6 @@
 #TXDEF
 ID = 200 ;
-FILE = .\\Resources\\GFX\\Textures\\bgrCharlie.png ;
+FILE = .\\Resources\\GFX\\Textures\\test.png ;
 #TEXTURE2
 ID = 201 ;
 FILE = .\\Resources\\GFX\\Textures\\C1VVp.png ;
@@ -10,3 +10,6 @@ FILE = .\\Resources\\GFX\\Textures\\button2.png ;
 #PAC1
 ID = 204 ;
 FILE = .\\Resources\\GFX\\Textures\\pacSown.png ;
+#PILL
+ID = 205 ;
+FILE = .\\Resources\\GFX\\Textures\\pill1.png ;

@@ -1,11 +1,9 @@
 #ifndef __SCREENMANAGER__
 #define __SCREENMANAGER__
 
-#include <vector>
+#include "StandardCalls.h"
 #include "Screen.h"
-#include "Dbg.h"
 
-#include <string>
 
 #include "D3DManager.h"
 #include "SoundManager.h"

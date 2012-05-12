@@ -10,7 +10,8 @@ public:
 	~InGameScreen();
 
 	void Initialize( ResourceHandler* _resources);
-
+	void CheckForInput( float dt );
+	void Update( float dt );
 	void Draw( );
 };
 

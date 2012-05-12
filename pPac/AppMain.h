@@ -13,6 +13,7 @@
 
 #include "MainMenuScreen.h"
 #include "CreditScreen.h"
+#include "InGameScreen.h"
 
 #pragma region Class Description
 

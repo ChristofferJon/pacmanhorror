@@ -1,19 +1,20 @@
+
+E:\Programmering\Github\pacmanhorror>@git.exe %*
 #ifndef __GFS__
 #define __GFS__
 
-#include <string>
-#include <vector>
-
-using std::string;
-using std::vector;
+#include "StandardCalls.h"
 
 #include "ResourceHandler.h"
 #include "SkyBox.h"
+#include "InputManager.h"
 
 #include "Camera.h"
-#include "Graph.h"
+#include "WorldGenerator.h"
 
-#include "pacman.h"
+#include <math.h>
+
+#include "SoundManager.h"
 
 class GFS
 {
@@ -24,17 +25,27 @@ public:
 	void Update( float dt );
 	void Draw( float dt );
 	void Initialize( ResourceHandler* _resources );
+	void ChechForInput( float dt );
 
 public:
-	vector<StaticGameEntity*> SGE;
+	vector<StaticGameEntity*> mWall;
+	vector<StaticGameEntity*> mFloor;
+	vector<StaticGameEntity*> mPill;
+
 	ResourceHandler* mResources;
 
 	Camera* cam;
 	D3DManager* md3dManager;
 	ID3D10Device* md3dDevice;
-	Graph*	quadtree;
-	Node* root;
-	pacman* p;
+	InputManager* mInput;
+
+	WorldGenerator mWorld;
+	SoundManager* mSoundManager;
 };
 
 #endif
+E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
+
+E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
+
+E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

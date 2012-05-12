@@ -3,11 +3,7 @@
 
 #include "D3DLibs.h"
 #include "CFG.h"
-#include "Dbg.h"
-#include <vector>
-
-using std::vector;
-using std::string;
+#include "StandardCalls.h"
 
 class D3DManager
 {
@@ -48,9 +44,15 @@ public:
 	ID3D10EffectTechnique*				mBasicTechnique;
 	ID3D10InputLayout*					mBasicLayout;
 
+	// model
 	ID3D10Effect*						mModelEffect;
 	ID3D10EffectTechnique*				mModelTechnique;
 	ID3D10InputLayout*					mModelLayout;
+
+	// ptBlend
+	ID3D10Effect*						mPtbEffect;
+	ID3D10EffectTechnique*				mPtbTechnique;
+	ID3D10InputLayout*					mPtbLayout;
 
 	// effect variables
 	ID3D10EffectMatrixVariable*		mView;
@@ -60,7 +62,6 @@ public:
 
 public:
 	ID3D10RasterizerState*			pRS;
-	D3D10_RASTERIZER_DESC			pRasterizerState;
 
 	void	SetGFX();
 	UINT	mWidth;
@@ -78,7 +79,7 @@ public:
 	bool	CreateLayouts();
 	bool	CreateRenderTarget(ID3D10RenderTargetView* _renderTargetView);
 	bool	CreateDepthStencil(UINT _width, UINT _height, ID3D10RenderTargetView* _renderTargetView);
-	void	CreateViewPorts(UINT _width, UINT _height, D3D10_VIEWPORT _viewPort);
+	void	CreateViewPorts(UINT _width, UINT _height, D3D10_VIEWPORT &_viewPort);
 	void	SetRasterizerState();
 
 public:

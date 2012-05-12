@@ -1,5 +1,5 @@
 #DEFAULT
-ID = 200 ;
+ID = 300 ;
 AMBIENT = 0.2 ;
 DIFFUSE = 0.5 ;
 SPECULAR = 0.5 ;

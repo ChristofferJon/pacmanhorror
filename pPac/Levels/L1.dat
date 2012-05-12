@@ -1,9 +1,0 @@
-#BASE
-MSXID = 31 ;
-#WORLD
-MAP = .\\Levels\\Maps\\Map1.dat ;
-#GFX
-MODELID = 1 ;
-MODELID = 2 ;
-MODELID = 3 ;
-

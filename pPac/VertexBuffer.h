@@ -14,6 +14,7 @@ public:
 	void setBuffer(ID3D10Buffer& _buf);
 	UINT offset;
 	UINT stride;
+	UINT numVertices;
 };
 
 #endif

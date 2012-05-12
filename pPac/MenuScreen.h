@@ -4,14 +4,11 @@
 #include "screen.h"
 #include "MenuEntry.h"
 #include "Sprite.h"
-#include <vector>
-using std::vector;
-using std::string;
+
+#include "StandardCalls.h"
 
 #include "event.h"
 
-//ta väck sen
-#include "ResourceHandler.h"
 
 struct sv
 {
@@ -30,7 +27,7 @@ public:
 	virtual void Draw();
 	virtual void Update(float dt);
 	virtual void Initialize( ResourceHandler* _resources );
-	virtual void CheckForInput();
+	virtual void CheckForInput(float dt);
 
 protected:
 	vector<MenuEntry*> mMenuEntries;

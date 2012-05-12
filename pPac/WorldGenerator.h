@@ -16,6 +16,7 @@ class GFS;
 #include "Floor.h"
 #include "Pill.h"
 #include "Wall.h"
+#include "pacman.h"
 
 struct mLevelInfo
 {
@@ -44,6 +45,10 @@ public:
 	void AddWall( float _x, float _y );
 	void AddFloor( float _x, float _y );
 	void AddPill( float _x, float _y );
+
+	void PopulateDynamics();
+	void AddPacman( float _x, float _y );
+
 	void InstanceObject( GameEntity* GE );
 
 	Dbg* mDbg;

@@ -13,6 +13,7 @@ public:
 public:
 	const int mId;
 	FMOD::Sound* mSound;
+	FMOD::Channel* mChannel;
 };
 
 #endif

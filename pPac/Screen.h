@@ -10,6 +10,7 @@
 #include "SoundManager.h"
 
 #include "StandardCalls.h"
+#include "event.h"
 
 class Screen
 {

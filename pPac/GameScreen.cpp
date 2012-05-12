@@ -1,7 +1,11 @@
-
-E:\Programmering\Github\pacmanhorror>@git.exe %*
 #include "GameScreen.h"
+#include "MainMenuScreen.h"
 
+void Cancel( Screen* _screen )
+{
+	GameScreen* me = (GameScreen*)_screen;
+	me->OnReturn( me );
+}
 
 GameScreen::GameScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager) 
 	: Screen(_name, _D3DManager, _inputManager)
@@ -21,6 +25,8 @@ GameScreen::GameScreen(string _name, D3DManager* _D3DManager, InputManager* _inp
 	currentTime = 0;
 	lastUpdateTime = 0;
 	elapsedTime = 0;
+
+	//Return.add( Cancel );
 }
 
 
@@ -41,6 +47,10 @@ void GameScreen::Draw()
 							removeMeCamLook).c_str(),
 							-1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
 
+	mFont->DrawTextA(NULL, (mName + " : pPac Prototype \nBTH 2012 - DV1435 \ndt: " + removeMe + "\nfps: " + removeMeFPS + "\nCamPos: " + removeMeCamPos + "\nCamLook: " + removeMeCamLook + "\nbox: " 
+		+ removeMeBox + "\nPacman Node ID: " + pString + "\nPacman Pos X: " + stringX + "\nPacman Pos Z: " + stringZ + "\nDestination Node ID: " + destString + "\nNext Node ID: " + nextString).c_str() ,
+		-1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
+
 	mFontSprite->End();
 
 	// restore rasterizer state
@@ -49,6 +59,7 @@ void GameScreen::Draw()
 
 void GameScreen::Update(float dt)
 {
+	mGFS->Update( dt );
 	std::ostringstream ss;
 	ss << dt;
 	removeMe = ss.str();
@@ -75,6 +86,30 @@ void GameScreen::Update(float dt)
 	std::ostringstream cl;
 	cl << mGFS->cam->mLook.x << ":" << mGFS->cam->mLook.y << ":" << mGFS->cam->mLook.z;
 	removeMeCamLook = cl.str();
+
+	std::ostringstream p;
+	p << mGFS->p->getCurrNodeID();
+	pString = p.str();
+
+	std::ostringstream dest;
+	dest << mGFS->p->getDestNodeID();
+	destString = dest.str();
+
+	std::ostringstream next;
+	next << mGFS->p->getNextNodeID();
+	nextString = next.str();
+
+	std::ostringstream pPosX;
+	pPosX << mGFS->p->getPacmanPosX();
+	stringX = pPosX.str();
+
+	std::ostringstream pPosZ;
+	pPosZ << mGFS->p->getPacmanPosZ();
+	stringZ = pPosZ.str();
+
+	//std::ostringstream nod;
+	//nod << mGFS->quadtree->getNode( mGFS->p->getCurrNodeID() )->weight;
+	//stringZ = nod.str();
 }
 
 void GameScreen::Initialize( ResourceHandler* _resources )
@@ -86,10 +121,14 @@ void GameScreen::CheckForInput( float dt )
 {
 	Screen::CheckForInput( dt );
 
+	if ( mInput->IsNewKeyPress( DIK_ESCAPE ) )
+		Cancel( this );
+
 	//mInput->UpdateOldStates();
 }
-E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
 
-E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
-
-E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul
+void GameScreen::OnReturn( GameScreen* _me )
+{
+	mScreenMediator->AddNewScreen( new MainMenuScreen( "Main Menu", mD3DManager, mInput ) );
+	mScreenMediator->RemoveMe( _me );
+}

@@ -94,18 +94,11 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Game\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicGameEntity.cpp" />
     <ClCompile Include="Graph.cpp">
-      <Filter>Game\QuadTree</Filter>
+      <Filter>Game\World</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Game\QuadTree</Filter>
-    </ClCompile>
-    <ClCompile Include="pacman.cpp">
-      <Filter>Game\GameEntities</Filter>
-    </ClCompile>
-    <ClCompile Include="Ghost.cpp">
-      <Filter>Game\GameEntities</Filter>
+      <Filter>Game\World</Filter>
     </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Game\GameEntities\SGE</Filter>
@@ -136,6 +129,15 @@
     </ClCompile>
     <ClCompile Include="WorldGenerator.cpp">
       <Filter>Game\World</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicGameEntity.cpp">
+      <Filter>Game\GameEntities\Abstracts</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Game\GameEntities\DGE</Filter>
+    </ClCompile>
+    <ClCompile Include="pacman.cpp">
+      <Filter>Game\GameEntities\DGE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,18 +249,11 @@
     <ClInclude Include="Camera.h">
       <Filter>Game\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicGameEntity.h" />
-    <ClInclude Include="Node.h">
-      <Filter>Game\QuadTree</Filter>
-    </ClInclude>
     <ClInclude Include="Graph.h">
-      <Filter>Game\QuadTree</Filter>
+      <Filter>Game\World</Filter>
     </ClInclude>
-    <ClInclude Include="pacman.h">
-      <Filter>Game\GameEntities</Filter>
-    </ClInclude>
-    <ClInclude Include="Ghost.h">
-      <Filter>Game\GameEntities</Filter>
+    <ClInclude Include="Node.h">
+      <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="StandardCalls.h">
       <Filter>System</Filter>
@@ -295,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="WorldGenerator.h">
       <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicGameEntity.h">
+      <Filter>Game\GameEntities\Abstracts</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Game\GameEntities\DGE</Filter>
+    </ClInclude>
+    <ClInclude Include="pacman.h">
+      <Filter>Game\GameEntities\DGE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -355,9 +359,6 @@
     <Filter Include="Screen Framework\Screens\Utilities">
       <UniqueIdentifier>{116f5ad6-ade8-4e42-a1c3-939e852a26b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\QuadTree">
-      <UniqueIdentifier>{a7357f06-7e4a-4701-88bf-9d4670647ab6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Utilities">
       <UniqueIdentifier>{399cdaf3-75cd-48aa-903d-93f8407b290c}</UniqueIdentifier>
     </Filter>
@@ -372,6 +373,9 @@
     </Filter>
     <Filter Include="Resources\Utilities">
       <UniqueIdentifier>{d695869b-1e70-4c33-a74e-f58f1a4e3806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameEntities\DGE">
+      <UniqueIdentifier>{c66a32c4-a654-49cc-93a6-6a569e1c9b1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

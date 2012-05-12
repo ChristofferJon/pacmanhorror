@@ -4,7 +4,7 @@
 #TEST
 ID = 500 ;
 FILE = .\\Resources\\SFX\\Assets\\bossa_01_ghostly_bossa_L1.mp3 ;
-
+CHANNEL = 1 ;
 ;    menu      ;
 
 
@@ -20,20 +20,30 @@ FILE = .\\Resources\\SFX\\Assets\\bossa_01_ghostly_bossa_L1.mp3 ;
 #BUTTONCLICK
 ID  = 601 ;
 FILE = .\\Resources\\SFX\\Assets\\joystick.mp3 ;
+CHANNEL = 0;
 #TASTY
 ID = 602 ;
 FILE = .\\Resources\\SFX\\Assets\\tasty.mp3 ;
+CHANNEL = 0 ;
 
 ;    game     ;
 #MUTED_NO
 ID = 603 ;
 FILE = .\\Resources\\SFX\\Assets\\longNo.mp3 ;
+CHANNEL = 5;
 #SHORTSCREAM1
 ID = 604 ;
 FILE = .\\Resources\\SFX\\Assets\\shortScream1.mp3 ;
+CHANNEL = 5;
 #MALEHURT1
 ID = 605 ;
 FILE = .\\Resources\\SFX\\Assets\\maleHurt1.mp3 ;
+CHANNEL = 5;
 #MALEDIAG1
 ID = 606 ;
 FILE = .\\Resources\\SFX\\Assets\\maleDiag1.mp3 ;
+CHANNEL = 2;
+#GHOSTMOAN1
+ID = 607 ;
+FILE = .\\Resources\\SFX\\Assets\\ghostMoan1.mp3 ;
+CHANNEL = 4;

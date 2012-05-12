@@ -1,5 +1,3 @@
-
-E:\Programmering\Github\pacmanhorror>@git.exe %*
 #ifndef __GFS__
 #define __GFS__
 
@@ -15,6 +13,9 @@ E:\Programmering\Github\pacmanhorror>@git.exe %*
 #include <math.h>
 
 #include "SoundManager.h"
+
+#include "pacman.h"
+#include "Graph.h"
 
 class GFS
 {
@@ -41,11 +42,14 @@ public:
 
 	WorldGenerator mWorld;
 	SoundManager* mSoundManager;
+
+	Graph* quadtree;
+	Node* root;
+	pacman* p;
+	Dbg* mDgb;
+
+	bool oldHurt;
+	D3DXVECTOR3 oldPos;
 };
 
 #endif
-E:\Programmering\Github\pacmanhorror>@set ErrorLevel=%ErrorLevel%
-
-E:\Programmering\Github\pacmanhorror>@rem Restore the original console codepage.
-
-E:\Programmering\Github\pacmanhorror>@chcp %cp_oem% > nul < nul

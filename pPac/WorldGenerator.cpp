@@ -60,9 +60,15 @@ void WorldGenerator::PopulateStatics()
 	*/
 	for ( int i = 0; i < mapGrid.size(); i++ )
 	{
+		if ( mapGrid[i] <= 64 )
+		{
+			mGFS->quadtree->getNode( x * cellSize, y * cellSize  )->setWeight( INT_MAX );
+		}
 		if ( mapGrid[i] >= 64 && mapGrid[i] < 96)
 		{
-			AddWall( x * cellSize, y * cellSize );		
+			AddWall( x * cellSize, y * cellSize );
+
+			mGFS->quadtree->getNode( x * cellSize, y * cellSize  )->setWeight( INT_MAX );
 		}
 		if ( mapGrid[i] >= 96 )
 		{
@@ -115,6 +121,18 @@ void WorldGenerator::AddWall( float _x, float _y )
 	mGFS->mWall[index]->mPosition = D3DXVECTOR3( _x, 0, _y );
 	mGFS->mWall[index]->mModel = mResources->getModel( 800 );
 	InstanceObject( mGFS->mWall[index] );
+}
+
+void WorldGenerator::PopulateDynamics()
+{
+	AddPacman( 42, 42 );
+}
+
+void WorldGenerator::AddPacman( float _x, float _y )
+{
+	mGFS->p = new pacman( mGFS->quadtree );
+	mGFS->p->mModel = mResources->getModel( 800 );
+	InstanceObject( mGFS->p );
 }
 
 void WorldGenerator::InstanceObject( GameEntity* GE )

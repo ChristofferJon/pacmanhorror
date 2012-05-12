@@ -28,7 +28,15 @@ public:
 	vector<SFXAsset> mMusic;
 
 	void PlaySound( int _id );
-	FMOD::Channel* Channel0;
+	FMOD::Channel* chanMenuS;
+	FMOD::Channel* chanMenuM;
+	FMOD::Channel* chanGameS;
+	FMOD::Channel* chanGameM;
+
+	FMOD::Channel* chanGhost;
+	FMOD::Channel* chanPac;
+
+	vector<FMOD::Channel*> mChannels;
 };
 
 #endif

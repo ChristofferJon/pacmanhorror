@@ -9,10 +9,10 @@ public:
 	InGameScreen(string _name, D3DManager* _D3DManager, InputManager* _inputManager);
 	~InGameScreen();
 
-	void Initialize( ResourceHandler* _resources);
-	void CheckForInput( float dt );
-	void Update( float dt );
-	void Draw( );
+	virtual void Initialize( ResourceHandler* _resources);
+	virtual void CheckForInput( float dt );
+	virtual void Update( float dt );
+	virtual void Draw( );
 };
 
 #endif

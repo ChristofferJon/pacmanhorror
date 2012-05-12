@@ -5,6 +5,7 @@
 #include "GFS.h"
 #include "ResourceHandler.h"
 
+
 class GameScreen : public Screen
 {
 public:
@@ -19,6 +20,11 @@ protected:
 
 	GFS* mGFS;
 	ResourceHandler* mResources;
+
+	Event<Screen*> Return;
+
+public:
+	void OnReturn( GameScreen* _me );
 
 private:
 	RECT mRec;

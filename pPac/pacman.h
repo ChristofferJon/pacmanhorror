@@ -11,6 +11,7 @@ public:
 
 	virtual void Update(float _dt);
 	virtual void Draw(float _dt);
+	virtual void Initialize();
 	void Move(float _dt, D3DXVECTOR3 goal);
 	int getCurrNodeID();
 	int getDestNodeID();
@@ -18,7 +19,9 @@ public:
 	float getPacmanPosX();
 	float getPacmanPosZ();
 
-private:
+	bool hurting;
+
+public:
 	Graph* g;
 	Node* currNode;
 	Node* destNode, *nextNode;

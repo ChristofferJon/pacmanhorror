@@ -247,6 +247,115 @@ vector<D3DXVECTOR3> ResourceHandler::CreateQuad( int _x, int _y, int _z )
 	return vert;
 }
 
+void ResourceHandler::LoadObj( string file, VertexBuffer* _vBuffer )
+{
+	std::vector<D3DXVECTOR3>			v;
+	std::vector<D3DXVECTOR2>			vt;
+	std::vector<D3DXVECTOR3>			vn;
+
+	vt.push_back( D3DXVECTOR2( 0, 1) );
+	vt.push_back( D3DXVECTOR2( 0, 0) );
+	vt.push_back( D3DXVECTOR2( 1, 0) );
+	vt.push_back( D3DXVECTOR2( 1, 1) );
+	int vtIndex = 0;
+
+	std::vector<PTNVertex> vertices;
+
+	std::string objFile = ".\\Resources\\GFX\\Buffers\\" + file + ".obj";
+	std::wifstream inFile(objFile);
+
+	if (!inFile)
+	{
+		inFile.close();
+		return;
+	}
+
+	WCHAR line[256] = { 0 };
+
+	//f = NULL;
+
+	float scale = 30.0f;
+	while(inFile)
+	{
+		inFile >> line;
+
+		if (!inFile)
+		{
+			break;
+		}
+
+		if ( 0 == wcscmp( line, L"v"))
+		{
+			float x, y, z;
+			inFile >> x >> y >> z;
+			v.push_back(D3DXVECTOR3(x * scale,y * scale,-z * scale));
+		}
+		if (0 == wcscmp( line, L"vn"))
+		{
+			float x, y, z;
+			inFile >> x >> y >> z;
+			vn.push_back(D3DXVECTOR3(x,y,z));
+		}
+		if ( 0 == wcscmp( line, L"vt"))
+		{
+			//float u, v;
+			//inFile >> u >> v;
+			//vt.push_back(D3DXVECTOR2(u, 1.0f - v));
+		}
+		if (0 ==wcscmp( line, L"f"))
+		{
+			UINT posIndex;
+			UINT normIndex;
+			UINT texIndex;
+
+			PTNVertex* temp = NULL;
+
+			for (int j = 0; j < 3; j++)
+			{
+				inFile >> posIndex;
+
+				if (inFile.peek() == '/')
+				{
+					inFile.ignore();
+
+					if (inFile.peek() != '/')
+						inFile >> texIndex;
+
+					if (inFile.peek() == '/')
+					{
+						inFile.ignore();
+						inFile >> normIndex;
+					}
+				}
+				vtIndex++;
+
+				vertices.push_back( PTNVertex( v[posIndex - 1], vn[normIndex - 1], vt[vtIndex%4] ) );
+			}
+		}
+	}
+	inFile.close();
+
+	D3D10_BUFFER_DESC bd;
+	bd.Usage = D3D10_USAGE_IMMUTABLE;
+	bd.ByteWidth = sizeof( PTNVertex ) * vertices.size();
+	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	D3D10_SUBRESOURCE_DATA initData;
+	initData.pSysMem = &vertices[0];
+		
+	if ( FAILED( mD3DDevice->CreateBuffer( &bd, &initData, &_vBuffer->mBuffer ) ) )
+		int i = 42;
+
+	//	Set vertex buffer
+	UINT stride = sizeof( PTNVertex );
+	UINT offset = 0;
+	_vBuffer->stride = stride;
+	_vBuffer->offset = offset;
+	_vBuffer->numVertices = vertices.size();
+	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
+}
+
 vector<D3DXVECTOR2> ResourceHandler::SimpleSkin( int numVerts )
 {
 	vector<D3DXVECTOR2> uv;
@@ -426,8 +535,7 @@ void ResourceHandler::CreateVBuffer( string _file )
 				}
 				else	// obj file referensed
 				{
-					// load obj
-					int i = 42;
+					LoadObj( directory, getBuffer( id ) );
 				}
 			}
 		}

@@ -127,14 +127,27 @@ void WorldGenerator::AddWall( float _x, float _y )
 
 void WorldGenerator::PopulateDynamics()
 {
-	AddPacman( 42, 42 );
+	int x[] = { -2200, 1400, -200, -1200 };
+	int y[] = { -1400, 1800, -600, 1200 };
+	D3DXVECTOR3 dest[] = {	D3DXVECTOR3( 2000, 0, 2000 ),
+							D3DXVECTOR3( 1000, 0, 200 ),
+							D3DXVECTOR3( -800, 0, 600 ),
+							D3DXVECTOR3( -1800, 0, -1600 ) };
+
+	for ( int i = 0; i < 4; i++)
+		AddPacman( x[i], y[i], dest[i] );
 }
 
-void WorldGenerator::AddPacman( float _x, float _y )
+void WorldGenerator::AddPacman( float _x, float _y, D3DXVECTOR3 _dest )
 {
-	mGFS->p = new pacman( mGFS->quadtree );
-	mGFS->p->mModel = mResources->getModel( 803 );
-	InstanceObject( mGFS->p );
+	pacman* p = new pacman( mGFS->quadtree ); 
+	mGFS->mGhost.push_back( p );
+
+	p->cam = mGFS->cam;
+	p->temp = _dest;
+	p->mModel = mResources->getModel( 805 );
+	p->mPosition = D3DXVECTOR3( _x, 0, _y );
+	InstanceObject( p );
 }
 
 void WorldGenerator::InstanceObject( GameEntity* GE )

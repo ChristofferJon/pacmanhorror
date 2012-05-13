@@ -19,3 +19,6 @@ FILE = .\\Resources\\GFX\\Textures\\BlueWallTile.png ;
 #FLOOR1
 ID = 207 ;
 FILE = .\\Resources\\GFX\\Textures\\Floortile2.png ;
+#GHOST1
+ID = 208 ;
+FILE = .\\Resources\\GFX\\Textures\\pinky.png ;

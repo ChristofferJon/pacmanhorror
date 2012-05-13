@@ -13,7 +13,7 @@ FILE = DQUAD ;
 #GHOST
 ID = 103 ;
 TYPE = PTNVERTEX ;
-FILE = .\\Resources\\GFX\\Buffers\\Ghost.obj ;
+FILE = PacGhost ;
 #PILL
 ID = 104 ;
 TYPE = PTVERTEX ;

@@ -47,7 +47,7 @@ public:
 	void AddPill( float _x, float _y );
 
 	void PopulateDynamics();
-	void AddPacman( float _x, float _y );
+	void AddPacman( float _x, float _y, D3DXVECTOR3 _dest );
 
 	void InstanceObject( GameEntity* GE );
 

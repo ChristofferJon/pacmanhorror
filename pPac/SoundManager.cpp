@@ -17,6 +17,7 @@ SoundManager::SoundManager()
 
 	mSystem = NULL;
 	mResult = FMOD::System_Create( &mSystem );
+	mSystem->setOutput(FMOD_OUTPUTTYPE_WASAPI);
 	mSystem->init( numChannels, FMOD_INIT_NORMAL, 0 );
 
 	Initialize();
@@ -78,5 +79,8 @@ void SoundManager::PlaySound( int _id )
 			c = sa.mChannel;
 		}
 
-	mResult = mSystem->playSound( FMOD_CHANNEL_FREE, s, false, &c );
+
+	mResult = mSystem->playSound( FMOD_CHANNEL_REUSE, s, true, &c );
+	c->setPosition( 0, FMOD_TIMEUNIT_PCM );
+	c->setPaused(false);
 }

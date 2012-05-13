@@ -46,8 +46,16 @@ void GameScreen::Draw()
 	mFontSprite->Begin(D3DX10_SPRITE_SAVE_STATE);
 
 	mFont->DrawTextA(NULL, (mName + " : pPac Prototype \nBTH 2012 - DV1435 \ndt: " + removeMe + 
-							"\nfps: " + removeMeFPS + "\nhealth:" + H + "\npills:" + pills + "\n" + gameOver).c_str(),
+							"\nfps: " + removeMeFPS + "\nhealth:" + H + "\npills:" + pills).c_str(),
 							-1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
+
+	RECT c;
+	c.left = 550;
+	c.right = mRec.left;
+	c.top = 300;
+	c.bottom = mRec.top;
+	mFont->DrawTextA(NULL, (gameOver).c_str(),
+							-1, &c, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
 
 	mFontSprite->End();
 

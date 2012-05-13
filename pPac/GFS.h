@@ -34,6 +34,8 @@ public:
 	vector<StaticGameEntity*> mFloor;
 	vector<StaticGameEntity*> mPill;
 
+	vector<DynamicGameEntity*> mGhost;
+
 	ResourceHandler* mResources;
 
 	Camera* cam;
@@ -49,7 +51,10 @@ public:
 	pacman* p;
 	Dbg* mDgb;
 
+	bool hurting;
 	bool oldHurt;
+	bool playOnce;
+	float delay;
 	D3DXVECTOR3 oldPos;
 	SpotLight* sLight;
 };

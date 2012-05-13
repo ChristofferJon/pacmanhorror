@@ -46,4 +46,4 @@ CHANNEL = 2;
 #GHOSTMOAN1
 ID = 607 ;
 FILE = .\\Resources\\SFX\\Assets\\ghostMoan1.mp3 ;
-CHANNEL = 4;
+CHANNEL = 5;

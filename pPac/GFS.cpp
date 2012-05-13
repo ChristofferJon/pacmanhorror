@@ -16,7 +16,8 @@ void GFS::Initialize( ResourceHandler* _resources )
 	mResources = _resources;
 	md3dDevice = md3dManager->mD3DDevice;
 	cam = new Camera( md3dManager );
-	cam->mPosition.z += 200;
+	//cam->mPosition.x = 0;
+	//cam->mPosition.z = 1000;
 	root = new Node(-3200, -3200, 6400, 6400);
 	quadtree = new Graph(root);
 
@@ -36,15 +37,18 @@ void GFS::Initialize( ResourceHandler* _resources )
 	//initializera pacman och ett spöke
 	//set pacmans mål till spökets position
 
-	oldHurt = p->hurting;
+	hurting = false;
+	oldHurt = false;
+	playOnce = true;
+	delay = 0;
 }
 
 void GFS::Update( float dt )
 {
-	ChechForInput( dt );
+	//ChechForInput( dt );
 
-	//if ( cam->mPosition.y > 0 || cam->mPosition.y < 0 )
-	//	cam->mPosition.y = 0;
+	if ( cam->mPosition.y > 0 || cam->mPosition.y < 0 )
+		cam->mPosition.y = 0;
 
 	for each ( GameEntity* wall in mWall )
 	{
@@ -81,33 +85,48 @@ void GFS::Update( float dt )
 		}
 	}
 
-	float rPG = 200.0f;
-	D3DXVECTOR3 lengthPG = cam->mPosition - D3DXVECTOR3( p->mPosition.x + 200, 0, p->mPosition.z + 200);
-	float lenPG = abs( D3DXVec3Length( &lengthPG ) );
+	for each ( GameEntity* ghost in mGhost )
+		ghost->Update( dt );
 
-	if ( lenPG < rPG )
+	for each ( pacman* p in mGhost )
 	{
-				D3DXVECTOR3 temp = D3DXVECTOR3( oldPos.x - cam->mPosition.x, 10, oldPos.z - cam->mPosition.z);
-					cam->mPosition += temp;
+		float rPG = 200.0f;
+		D3DXVECTOR3 lengthPG = cam->mPosition - D3DXVECTOR3( p->mPosition.x + 200, 0, p->mPosition.z + 200);
+		float lenPG = abs( D3DXVec3Length( &lengthPG ) );
+
+		if ( lenPG < rPG )
+		{
+			D3DXVECTOR3 temp = D3DXVECTOR3( oldPos.x - cam->mPosition.x, 10, oldPos.z - cam->mPosition.z);
+			//cam->mPosition += temp;
+		}
+		if ( lenPG < rPG && hurting == false)
+		{
+			hurting = true;
+			break;
+		}
+		else if ( lenPG > rPG * 2 && hurting == true )
+		{
+			hurting = false;	
+		}
 	}
-	if ( lenPG < rPG && p->hurting == false)
+
+	if ( hurting != oldHurt && playOnce == true )
 	{
-		p->hurting = true;
-	}
-	else if ( lenPG > rPG * 2 && p->hurting == true )
-		p->hurting = false;
+			mSoundManager->PlaySound( 604 );
+			mSoundManager->PlaySound( 607 );
 
-	if ( p->hurting == true && oldHurt != p->hurting)
+			playOnce = false;
+	}
+
+	delay += dt;
+	if ( delay >= 3 )
 	{
-		mSoundManager->PlaySound( 604 );
-		mSoundManager->PlaySound( 607 );
+		playOnce = true;
+		delay = 0;
 	}
 
-	oldHurt = p->hurting;
+	oldHurt = hurting;
 
-	p->Update( dt );
-
-	//cam->mPosition = p->mPosition;
 	oldPos = cam->mPosition;
 }
 
@@ -143,16 +162,17 @@ void GFS::Draw( float dt )
 	//md3dManager->mBasicEffect->GetVariableByName("View")->AsMatrix()->SetMatrix((float*)&cam->mView);
 	md3dManager->mViewMatrixEffectVariable->SetMatrix(cam->mView);
 
-	md3dDevice->IASetInputLayout( md3dManager->mBasicLayout );
+	//md3dDevice->IASetInputLayout( md3dManager->mBasicLayout );
 	for each ( GameEntity* floor in mFloor )
 		floor->Draw( dt );
 
-	md3dDevice->IASetInputLayout( md3dManager->mPtbLayout );
+	//md3dDevice->IASetInputLayout( md3dManager->mPtbLayout );
 	md3dManager->mPtnEffect->GetVariableByName("View")->AsMatrix()->SetMatrix((float*)cam->mView);
 	for each ( GameEntity* wall in mWall )
 		wall->Draw( dt );
 
-	p->Draw( dt );
+	for each ( GameEntity* ghost in mGhost )
+		ghost->Draw( dt );
 
 	md3dDevice->IASetInputLayout( md3dManager->mPtbLayout );
 

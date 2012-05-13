@@ -28,7 +28,8 @@ void InGameScreen::CheckForInput( float dt )
 {
 	GameScreen::CheckForInput( dt );
 
-	mGFS->ChechForInput( dt );
+	if ( health >= 1 )
+		mGFS->ChechForInput( dt );
 
 	mInput->UpdateOldStates();
 }
@@ -37,7 +38,7 @@ void InGameScreen::Update( float dt )
 {
 	GameScreen::Update( dt );
 
-	if ( mGFS->p->hurting && h > -1 )
+	if ( mGFS->hurting && h > -1 )
 	{
 		h -= 0.30f;
 	}
@@ -47,15 +48,11 @@ void InGameScreen::Update( float dt )
 	else
 		health = 0;
 
-	if ( health <= 0 )
+	if ( health == 0 && mGFS->cam->mPosition.y >= -50 )
 	{
-		if ( mGFS->cam->mPosition.y >= 0  || mGFS->cam->mPosition.y < -55)
-			mGFS->cam->mPosition.y = 0;
-		if ( mGFS->cam->mPosition.y >= -50 )
-			mGFS->cam->mPosition.y -= 0.25f;
+		mGFS->delay = 0;
+		mGFS->cam->mPosition.y -= 50.0f;
 	}
-	else
-		mGFS->cam->mPosition.y = 0;
 
 	pi = mGFS->mPill.size();
 }

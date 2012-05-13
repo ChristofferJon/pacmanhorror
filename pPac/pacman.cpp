@@ -4,17 +4,27 @@
 pacman::pacman(Graph* _g)
 {
 	g = _g;
+	
+}
+
+
+pacman::~pacman()
+{
+}
+
+void pacman::Initialize()
+{
 	listCounter = 1;
-	mPosition.x = -2000;
-	mPosition.y = 0;
-	mPosition.z = -2000;
+	//mPosition.x = -2000;
+	//mPosition.y = 0;
+	//mPosition.z = -2000;
 	wpp = 0;
 
 
-	D3DXVECTOR3 temp = D3DXVECTOR3(2400,0,-200);
+	//D3DXVECTOR3 temp = D3DXVECTOR3(2400,0,-200);
 	destNode = g->getNode(temp.x, temp.z);
 	
-	currNode = g->getNode(mPosition.x -200, mPosition.z -200);
+	currNode = g->getNode(mPosition.x+200, mPosition.z+200 );
 
 	wp.push_back(currNode);
 	wp.push_back(destNode);
@@ -29,16 +39,6 @@ pacman::pacman(Graph* _g)
 	nextNode = currNode;
 
 	hurting = true;
-}
-
-
-pacman::~pacman()
-{
-}
-
-void pacman::Initialize()
-{
-
 }
 
 
@@ -71,24 +71,28 @@ void pacman::Update(float _dt)
 			if(listCounter < path.size())
 			{
 				nextNode = path[listCounter];
-			}
-				
-		}		
+			}				
+		}
+	}
+	else if ( nextNode == path[path.size() - 1] )
+	{
+		wp.push_back( g->getNode( cam->mPosition.x, cam->mPosition.z ) );
 	}
 
 	Move(_dt, nextNode->pos); //Send in nextNode, so he will move towards the next node in list of all nodes
-
-
 }
 
 void pacman::Draw(float _dt)
 {
+	md3dDevice->IASetInputLayout( mModel->mRenderPackage->mLayout );
 	// get model buffer
 	md3dDevice->IASetVertexBuffers( 0, 1, &mModel->mBuffer->mBuffer, &mModel->mBuffer->stride, &mModel->mBuffer->offset );
 
+	mModel->mRenderPackage->mEffect->GetVariableByName("TEXTURE")->AsShaderResource()->SetResource( mModel->mTexture->pSRView );
+
 	D3DXMATRIX m;
 	D3DXMatrixIdentity(&m);
-	D3DXMatrixTranslation( &m, mPosition.x+200, mPosition.y, mPosition.z +200);
+	D3DXMatrixTranslation( &m, mPosition.x+200, mPosition.y- 150, mPosition.z +200);
 
 	D3DXVECTOR3 targetTransformed = D3DXVECTOR3( currNode->pos.x, currNode->pos.y, currNode->pos.z );
 	D3DXVECTOR3 rP = mPosition -targetTransformed;
@@ -101,8 +105,7 @@ void pacman::Draw(float _dt)
 
 	//m = rotY * m;
 
-	//md3dManager->mBasicEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)&m);
-	md3dManager->mWorldMatrixEffectVariable->SetMatrix(m);
+	mModel->mRenderPackage->mEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)&m);
 
 	// get rendering technique
 	ID3D10EffectTechnique* mTech = mModel->mRenderPackage->mTechnique;

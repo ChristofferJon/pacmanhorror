@@ -11,10 +11,10 @@ Camera::Camera(D3DManager* _md3dManager)
 	md3dManager = _md3dManager;
 	md3dDevice = md3dManager->mD3DDevice;
 
-	mPosition	= D3DXVECTOR3(0.0f, 10.0f, 0.0f);
+	mPosition	= D3DXVECTOR3(2400.0f, 10.0f, 0.0f);
 	mRight		= D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	mUp			= D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	mLook		= D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	mLook		= D3DXVECTOR3(-20.0f, 0.0f, 1.0f);
 
 	D3DXMatrixIdentity(&mView);
 

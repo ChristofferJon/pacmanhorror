@@ -2,6 +2,7 @@
 
 #include "DynamicGameEntity.h"
 #include "Graph.h"
+#include "Camera.h"
 
 class pacman : public DynamicGameEntity
 {
@@ -27,5 +28,8 @@ public:
 	Node* destNode, *nextNode;
 	int wpp, currWP, listCounter, ID;
 	vector<Node*> wp, path;
+	D3DXVECTOR3 temp;
+
+	Camera* cam;
 };
 

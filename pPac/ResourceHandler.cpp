@@ -301,8 +301,9 @@ vector<D3DXVECTOR3> ResourceHandler::SimpleNormal( vector<D3DXVECTOR3> _vert )
 		normals.push_back( tanY );
 	}
 
-	xN = _vert[35].x - _vert[34].x;
-	xZ = _vert[35].z - _vert[33].z;
+	int last = normals.size() - 1;
+	xN = _vert[last].x - _vert[last-1].x;
+	xZ = _vert[last].z - _vert[last-2].z;
 
 	tanZ = D3DXVECTOR3(0.0f, xZ, 1.0f);
 	tanX = D3DXVECTOR3(1.0f, xN, 0.0f);
@@ -403,6 +404,12 @@ void ResourceHandler::CreateVBuffer( string _file )
 						InstancePCVertexBuffer( CreateQuad( 100, 0, 100 ), D3DXVECTOR4( 0.75, 0.5, 0.25, 1.0 ), getBuffer( id ) );
 					else if ( vType == "PTVERTEX" )
 						InstancePTVertexBuffer( CreateQuad( 100, 0, 100 ), SimpleSkin( 6 ), getBuffer( id ) );
+					else if ( vType == "PTNVERTEX" )
+					{
+						vector<D3DXVECTOR3> tempPos = CreateQuad( 100, 0, 100 );
+						vector<D3DXVECTOR3> tempNor = SimpleNormal( tempPos );
+						InstancePTNVertexBuffer( tempPos, SimpleSkin( 6 ), tempNor, getBuffer( id ) );
+					}
 				}
 				else if ( directory == "UQUAD" )
 				{
@@ -410,6 +417,12 @@ void ResourceHandler::CreateVBuffer( string _file )
 						InstancePCVertexBuffer( CreateQuad( 25, 25, 0 ), D3DXVECTOR4( 0.25, 0.5, 0.75, 1.0 ), getBuffer( id ) );
 					else if ( vType == "PTVERTEX" )
 						InstancePTVertexBuffer( CreateQuad( 25, 25, 0 ), SimpleSkin( 6 ), getBuffer( id ) );
+					else if ( vType == "PTNVERTEX" )
+					{
+						vector<D3DXVECTOR3> tempPos = CreateQuad( 25, 25, 0 );
+						vector<D3DXVECTOR3> tempNor = SimpleNormal( tempPos );
+						InstancePTNVertexBuffer( tempPos, SimpleSkin( 6 ), tempNor, getBuffer( id ) );
+					}
 				}
 				else	// obj file referensed
 				{

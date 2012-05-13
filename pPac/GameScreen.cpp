@@ -26,7 +26,10 @@ GameScreen::GameScreen(string _name, D3DManager* _D3DManager, InputManager* _inp
 	lastUpdateTime = 0;
 	elapsedTime = 0;
 
-	//Return.add( Cancel );
+	Return.add( Cancel );
+	health = 100;
+	h = 100.0f;
+	pi = 0;
 }
 
 
@@ -43,13 +46,8 @@ void GameScreen::Draw()
 	mFontSprite->Begin(D3DX10_SPRITE_SAVE_STATE);
 
 	mFont->DrawTextA(NULL, (mName + " : pPac Prototype \nBTH 2012 - DV1435 \ndt: " + removeMe + 
-							"\nfps: " + removeMeFPS + "\nCamPos: " + removeMeCamPos + "\nCamLook: " + 
-							removeMeCamLook).c_str(),
+							"\nfps: " + removeMeFPS + "\nhealth:" + H + "\npills:" + pills + "\n" + gameOver).c_str(),
 							-1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
-
-	mFont->DrawTextA(NULL, (mName + " : pPac Prototype \nBTH 2012 - DV1435 \ndt: " + removeMe + "\nfps: " + removeMeFPS + "\nCamPos: " + removeMeCamPos + "\nCamLook: " + removeMeCamLook + "\nbox: " 
-		+ removeMeBox + "\nPacman Node ID: " + pString + "\nPacman Pos X: " + stringX + "\nPacman Pos Z: " + stringZ + "\nDestination Node ID: " + destString + "\nNext Node ID: " + nextString).c_str() ,
-		-1, &mRec, DT_NOCLIP, D3DXCOLOR(1.0, 1.0, 1.0, 0.75) );
 
 	mFontSprite->End();
 
@@ -79,37 +77,20 @@ void GameScreen::Update(float dt)
 		removeMeFPS = s.str();
 	}
 
-	std::ostringstream c;
-	c << mGFS->cam->mPosition.x << ":" << mGFS->cam->mPosition.y << ":" << mGFS->cam->mPosition.z;
-	removeMeCamPos = c.str();
+	std::ostringstream hel;
+	hel << health;
+	H = hel.str();
 
-	std::ostringstream cl;
-	cl << mGFS->cam->mLook.x << ":" << mGFS->cam->mLook.y << ":" << mGFS->cam->mLook.z;
-	removeMeCamLook = cl.str();
+	std::ostringstream pil;
+	pil << pi << "/" << pOf;
+	pills = pil.str();
 
-	std::ostringstream p;
-	p << mGFS->p->getCurrNodeID();
-	pString = p.str();
-
-	std::ostringstream dest;
-	dest << mGFS->p->getDestNodeID();
-	destString = dest.str();
-
-	std::ostringstream next;
-	next << mGFS->p->getNextNodeID();
-	nextString = next.str();
-
-	std::ostringstream pPosX;
-	pPosX << mGFS->p->getPacmanPosX();
-	stringX = pPosX.str();
-
-	std::ostringstream pPosZ;
-	pPosZ << mGFS->p->getPacmanPosZ();
-	stringZ = pPosZ.str();
-
-	//std::ostringstream nod;
-	//nod << mGFS->quadtree->getNode( mGFS->p->getCurrNodeID() )->weight;
-	//stringZ = nod.str();
+	if ( health <= 0)
+	{
+		gameOver = "Game Over";
+	}
+	else
+		gameOver = "";
 }
 
 void GameScreen::Initialize( ResourceHandler* _resources )

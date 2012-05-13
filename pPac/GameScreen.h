@@ -22,29 +22,29 @@ protected:
 	ResourceHandler* mResources;
 
 	Event<Screen*> Return;
+	int health;
+	float h;
+	int pi;
+	int pOf;
 
 public:
 	void OnReturn( GameScreen* _me );
+
 
 private:
 	RECT mRec;
 
 	string removeMe;
 	string removeMeFPS;
-	string removeMeCamPos;
-	string removeMeCamLook;
-	string removeMeBox;
-	string pString;
-	string destString;
-	string nextString;
-	string stringX;
-	string stringZ;
 
 	UINT FPS;
 	DWORD frames;
 	DWORD currentTime;
 	DWORD lastUpdateTime;
 	DWORD elapsedTime;
+	string H;
+	string gameOver;
+	string pills;
 };
 
 #endif

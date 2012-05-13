@@ -13,3 +13,9 @@ FILE = .\\Resources\\GFX\\Textures\\pacSown.png ;
 #PILL
 ID = 205 ;
 FILE = .\\Resources\\GFX\\Textures\\pill1.png ;
+#WALL1
+ID = 206 ;
+FILE = .\\Resources\\GFX\\Textures\\BlueWallTile.png ;
+#FLOOR1
+ID = 207 ;
+FILE = .\\Resources\\GFX\\Textures\\Floortile2.png ;

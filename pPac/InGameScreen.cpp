@@ -21,6 +21,7 @@ void InGameScreen::Initialize( ResourceHandler* _resources)
 	mGFS->mInput = mInput;
 	mResources = _resources;
 	mGFS->mSoundManager = mSoundManager;
+	pOf = mGFS->mPill.size();
 }
 
 void InGameScreen::CheckForInput( float dt )
@@ -35,6 +36,28 @@ void InGameScreen::CheckForInput( float dt )
 void InGameScreen::Update( float dt )
 {
 	GameScreen::Update( dt );
+
+	if ( mGFS->p->hurting && h > -1 )
+	{
+		h -= 0.30f;
+	}
+
+	if ( health > 0 )
+		health = h;
+	else
+		health = 0;
+
+	if ( health <= 0 )
+	{
+		if ( mGFS->cam->mPosition.y >= 0  || mGFS->cam->mPosition.y < -55)
+			mGFS->cam->mPosition.y = 0;
+		if ( mGFS->cam->mPosition.y >= -50 )
+			mGFS->cam->mPosition.y -= 0.25f;
+	}
+	else
+		mGFS->cam->mPosition.y = 0;
+
+	pi = mGFS->mPill.size();
 }
 
 void InGameScreen::Draw( )

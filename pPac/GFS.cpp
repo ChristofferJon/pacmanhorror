@@ -46,13 +46,10 @@ void GFS::Initialize( ResourceHandler* _resources )
 
 void GFS::Update( float dt )
 {
-	p->Update( dt );
-	//ChechForInput( dt );
+	mPacMan->Update( dt );
 
 	if ( cam->mPosition.y > 10 || cam->mPosition.y < 10 )
 		cam->mPosition.y = 10;
-
-
 
 	for each ( GameEntity* wall in mWall )
 	{
@@ -83,7 +80,7 @@ void GFS::Update( float dt )
 					mPill.erase( mPill.begin() + i );
 					mPill.shrink_to_fit();
 					mSoundManager->PlaySound( 602 );
-					ha += 10;
+					mPacMan->LoadBattery( 20 );
 					break;
 				}
 
@@ -97,7 +94,7 @@ void GFS::Update( float dt )
 	for each ( Ghost* g in mGhost )
 	{
 		float rPG = 200.0f;
-		D3DXVECTOR3 lengthPG = p->mPosition - D3DXVECTOR3( g->mPosition.x + 200, 0, g->mPosition.z + 200);
+		D3DXVECTOR3 lengthPG = mPacMan->mPosition - D3DXVECTOR3( g->mPosition.x + 200, 0, g->mPosition.z + 200);
 		float lenPG = abs( D3DXVec3Length( &lengthPG ) );
 
 		if ( lenPG < rPG )
@@ -138,28 +135,29 @@ void GFS::Update( float dt )
 
 void GFS::ChechForInput( float dt )
 {
-	float speed = 500 * dt;
-
+	// Pacman Movement
 	if (mInput->IsContinousKeyPress(DIK_W) )
-		p->walk( dt );
+		mPacMan->walk( dt );
 	if (mInput->IsContinousKeyPress(DIK_S) )
-		p->walk( -dt );
+		mPacMan->walk( -dt );
 	if (mInput->IsContinousKeyPress(DIK_D) )
-		p->strafe( dt );
+		mPacMan->strafe( dt );
 	if (mInput->IsContinousKeyPress(DIK_A) )
-		p->strafe( -dt );
+		mPacMan->strafe( -dt );
 
+	// Pacman speed
 	if ( mInput->IsContinousKeyPress(DIK_LSHIFT) )
-		p->speed = RUN;
+		mPacMan->speed = RUN;
 	else if ( mInput->IsContinousKeyPress(DIK_LCONTROL) )
-		p->speed = SNEAK;
+		mPacMan->speed = SNEAK;
 	else
-		p->speed = WALK;
+		mPacMan->speed = WALK;
 
+	// Pacman look around
 	float dx = mInput->getMousePos()->x - mInput->mOldMousePos.x;
 	float dy = mInput->getMousePos()->y - mInput->mOldMousePos.y;
 
-	p->Look( dx, dy );
+	mPacMan->Look( dx, dy );
 }
 
 void GFS::Draw( float dt )
@@ -169,10 +167,10 @@ void GFS::Draw( float dt )
 	D3DXVECTOR3 dir = -cam->mLook;;
 	//dir.x *= -1;
 
+	mPacMan->Draw( dt );
 	// Light
 	float h = 1.0f;
-	ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "intensity" );
-	pVar->SetRawValue(&h, 0, sizeof(float));
+	
 	md3dManager->mPtnEffect->GetVariableByName("direction")->AsVector()->SetFloatVector((float*)dir);
 
 	md3dManager->mPtnEffect->GetVariableByName( "eye" )->AsVector()->SetFloatVector((float*)cam->mPosition);
@@ -183,6 +181,8 @@ void GFS::Draw( float dt )
 
 	md3dDevice->RSSetState( md3dManager->pRS );
 	cam->rebuildView();
+
+
 
 	for each ( GameEntity* floor in mFloor )
 	{

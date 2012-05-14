@@ -10,7 +10,7 @@ StaticGameEntity::~StaticGameEntity()
 {
 }
 
-void StaticGameEntity::Initialize()
+void StaticGameEntity::Initialize(D3DManager* _d3dManager)
 {
-	GameEntity::Initialize();
+	GameEntity::Initialize(_d3dManager);
 }

@@ -48,7 +48,7 @@ public:
 
 	Graph* quadtree;
 	Node* root;
-	pacman* p;
+	pacman* mPacMan;
 	Dbg* mDgb;
 
 	bool hurting;

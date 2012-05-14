@@ -10,9 +10,9 @@ Pill::~Pill(void)
 {
 }
 
-void Pill::Initialize()
+void Pill::Initialize(D3DManager* _d3dManager)
 {
-
+	StaticGameEntity::Initialize(_d3dManager);
 }
 
 void Pill::Update( float dt )

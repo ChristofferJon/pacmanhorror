@@ -2,7 +2,7 @@
 
 #include "DynamicGameEntity.h"
 #include "Graph.h"
-#include "Camera.h"
+#include "pacman.h"
 
 class Ghost : public DynamicGameEntity
 {
@@ -12,7 +12,7 @@ public:
 
 	virtual void Update(float _dt);
 	virtual void Draw(float _dt);
-	virtual void Initialize();
+	virtual void Initialize(D3DManager* _d3dManager);
 
 	void Move(float _dt, D3DXVECTOR3 goal);
 	int getCurrNodeID();
@@ -31,6 +31,6 @@ public:
 	vector<Node*> wp, path;
 	D3DXVECTOR3 temp;
 
-	Camera* cam;
+	pacman* pacM;
 };
 

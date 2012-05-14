@@ -11,40 +11,40 @@ Ghost::~Ghost()
 {
 }
 
+void Ghost::Initialize(D3DManager* _d3dManager)
+{
+	DynamicGameEntity::Initialize(_d3dManager);
+	listCounter = 1;
+	wpp = 0;
+
+	//destNode = g->getNode(temp.x, temp.z);
+	//
+	//currNode = g->getNode(mPosition.x+200, mPosition.z+200 );
+
+	//wp.push_back(currNode);
+	//wp.push_back(destNode);
+
+	
+	currNode = g->getNode(mPosition.x, mPosition.z );
+	nextNode = g->getNode(pacM->mPosition.x, pacM->mPosition.z);
+	path = g->findPath(currNode, nextNode);
+	hurting = true;
+	speed = JOG;
+}
+
 void Ghost::Update(float _dt)
 {
 	//do update stuff here
 	float deltaX = nextNode->pos.x - this->mPosition.x;
 	float deltaZ = nextNode->pos.z - this->mPosition.z; //checks distance towards next node he will enter
 
-	
+	// srsly you guiz!
 	if ((std::abs((double)deltaX) < 10.0 && std::abs((double)deltaZ) < 10.0)) //if distance is less than 10
 	{
-		if ((int)path.size() > listCounter)
-		{
-			if (nextNode->ID == wp[wpp]->ID)
-			{
-				path.clear();
-				wpp++;
-				if (wpp < wp.size() )
-				{
-					path = g->findPath(nextNode, wp[wpp]);
-				}
-				listCounter = 1;
-			}
-
-			listCounter++;
-			
-			currNode = nextNode;
-			if(listCounter < path.size())
-			{
-				nextNode = path[listCounter];
-			}				
-		}
-	}
-	else if ( nextNode == path[path.size() - 1] )
-	{
-		wp.push_back( g->getNode( cam->mPosition.x, cam->mPosition.z ) );
+		path.clear();
+		currNode = g->getNode(mPosition.x, mPosition.z );
+		nextNode = g->getNode(pacM->mPosition.x, pacM->mPosition.z);
+		path = g->findPath(currNode, nextNode);
 	}
 
 	Move(_dt, nextNode->pos); //Send in nextNode, so he will move towards the next node in list of all nodes
@@ -74,7 +74,7 @@ void Ghost::Draw(float _dt)
 	ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "material" );
 	pVar->SetRawValue(&mat, 0, sizeof(aMaterial));
 
-	//m = rotY * m;
+	m = rotY * m;
 
 	mModel->mRenderPackage->mEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)&m);
 
@@ -93,22 +93,22 @@ void Ghost::Draw(float _dt)
 void Ghost::Move(float _dt, D3DXVECTOR3 goal)
 {
 	//Move pacman according to position relative to goals position
-	if (this->mPosition.x < goal.x)
+	if (this->mPosition.x < goal.x - 10.0f)
 	{
-		this->mPosition.x += this->speed[0] * _dt;
+		this->mPosition.x += this->speed * _dt;
 	}
 	else if (this->mPosition.x > goal.x)
 	{
-		this->mPosition.x -= this->speed[0] * _dt;
+		this->mPosition.x -= this->speed * _dt;
 	}
 
-	if (this->mPosition.z < goal.z)
+	if (this->mPosition.z < goal.z - 10.0f)
 	{
-		this->mPosition.z += this->speed[0] * _dt;
+		this->mPosition.z += this->speed * _dt;
 	}
 	else if (this->mPosition.z > goal.z)
 	{
-		this->mPosition.z -= this->speed[0] * _dt;
+		this->mPosition.z -= this->speed * _dt;
 	}
 }
 
@@ -137,31 +137,3 @@ float Ghost::getPacmanPosZ()
 	return this->mPosition.z;
 }
 
-void Ghost::Initialize()
-{
-	DynamicGameEntity::Initialize();
-	listCounter = 1;
-	//mPosition.x = -2000;
-	//mPosition.y = 0;
-	//mPosition.z = -2000;
-	wpp = 0;
-
-
-	//D3DXVECTOR3 temp = D3DXVECTOR3(2400,0,-200);
-	destNode = g->getNode(temp.x, temp.z);
-	
-	currNode = g->getNode(mPosition.x+200, mPosition.z+200 );
-
-	wp.push_back(currNode);
-	wp.push_back(destNode);
-
-	path = g->findPath(currNode, destNode);
-	
-	speed[0] = 300.0f;
-	speed[1] = 500.0f;
-	speed[3] = 700.0f;
-	
-	nextNode = currNode;
-
-	hurting = true;
-}

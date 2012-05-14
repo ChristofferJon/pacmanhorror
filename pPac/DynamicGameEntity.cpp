@@ -12,10 +12,10 @@ DynamicGameEntity::~DynamicGameEntity()
 
 void DynamicGameEntity::Move(float _dt)
 {
-	mPosition.x += _dt * speed[0];
-	mPosition.z += _dt * speed[0];
+	mPosition.x += _dt * speed;
+	mPosition.z += _dt * speed;
 }
-void DynamicGameEntity::Initialize()
+void DynamicGameEntity::Initialize(D3DManager* _d3dManager)
 {
-	GameEntity::Initialize();
+	GameEntity::Initialize( _d3dManager );
 }

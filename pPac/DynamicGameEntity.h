@@ -2,6 +2,14 @@
 
 #include "GameEntity.h"
 
+enum SPEED
+{
+	SNEAK = 100,
+	JOG = 300,
+	WALK = 500,
+	RUN = 900
+};
+
 class DynamicGameEntity : public GameEntity
 {
 public:
@@ -10,11 +18,11 @@ public:
 
 	virtual void Update(float _dt) = 0;
 	virtual void Draw(float _dt) = 0;
-	virtual void Initialize();
+	virtual void Initialize(D3DManager* _d3dManager);
 
+	SPEED speed;
 protected:
 	int mLives;
-	float speed[3]; //array of Speeds
 	int mIDSFX[10]; //array with sounds, should maybe be dynamic. 10 is just a placeholdung number.
 	/*
 	Not defined in overview.
@@ -24,6 +32,7 @@ protected:
 	mCollission;	//collission check?
 	mSFX;			//sound managing?
 	*/
+
 public:
 	virtual void Move(float _dt);
 };

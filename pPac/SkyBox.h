@@ -12,7 +12,7 @@ public:
 public:
 	virtual void Update(float _dt);
 	virtual void Draw(float _dt);
-	virtual void Initialize();
+	virtual void Initialize(D3DManager* _d3dManager);
 };
 
 #endif

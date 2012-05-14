@@ -4,14 +4,6 @@
 #include "Graph.h"
 #include "Camera.h"
 
-enum SPEED
-{
-	SNEAK = 100,
-	WALK = 500,
-	RUN = 900
-};
-
-
 class pacman : public DynamicGameEntity
 {
 public:
@@ -20,7 +12,7 @@ public:
 
 	virtual void Update(float _dt);
 	virtual void Draw(float _dt);
-	virtual void Initialize();
+	virtual void Initialize(D3DManager* _d3dManager);
 
 	void walk( float dt );
 	void strafe( float dt );
@@ -28,8 +20,9 @@ public:
 
 	Camera* cam;
 
-	float currentSpeed;
+	float battery;
 	float cSpeed;
-	SPEED speed;
+
+	void LoadBattery( float charge );
 };
 

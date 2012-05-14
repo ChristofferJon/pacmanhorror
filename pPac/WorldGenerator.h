@@ -49,6 +49,8 @@ public:
 	void InstanceObject( GameEntity* GE );
 
 	Dbg* mDbg;
+
+	D3DManager* md3dManager;
 };
 
 #endif

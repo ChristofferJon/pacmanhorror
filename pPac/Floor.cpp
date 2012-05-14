@@ -10,9 +10,9 @@ Floor::~Floor()
 {
 }
 
-void Floor::Initialize()
+void Floor::Initialize(D3DManager* _d3dManager)
 {
-	StaticGameEntity::Initialize();
+	StaticGameEntity::Initialize(_d3dManager);
 }
 
 void Floor::Update( float dt )

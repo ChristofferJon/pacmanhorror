@@ -10,9 +10,9 @@ Wall::~Wall(void)
 {
 }
 
-void Wall::Initialize()
+void Wall::Initialize(D3DManager* _d3dManager)
 {
-	StaticGameEntity::Initialize();
+	StaticGameEntity::Initialize( _d3dManager );
 }
 
 void Wall::Update( float dt )

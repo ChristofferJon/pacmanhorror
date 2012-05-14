@@ -323,6 +323,9 @@
       <Filter>Resources\Vertices</Filter>
     </ClInclude>
     <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="GECollection.h">
+      <Filter>Game\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

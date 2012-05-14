@@ -12,7 +12,7 @@ Wall::~Wall(void)
 
 void Wall::Initialize()
 {
-
+	StaticGameEntity::Initialize();
 }
 
 void Wall::Update( float dt )
@@ -30,6 +30,9 @@ void Wall::Draw( float dt )
 	D3DXMatrixIdentity(&m);
 	D3DXMatrixTranslation( &m, mPosition.x, mPosition.y, mPosition.z);
 
+
+	ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "material" );
+	pVar->SetRawValue(&mat, 0, sizeof(aMaterial));
 
 	mModel->mRenderPackage->mEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)m);
 

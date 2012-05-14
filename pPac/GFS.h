@@ -57,6 +57,7 @@ public:
 	float delay;
 	D3DXVECTOR3 oldPos;
 	SpotLight* sLight;
+	float ha;
 };
 
 #endif

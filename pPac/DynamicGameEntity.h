@@ -10,6 +10,7 @@ public:
 
 	virtual void Update(float _dt) = 0;
 	virtual void Draw(float _dt) = 0;
+	virtual void Initialize();
 
 protected:
 	int mLives;

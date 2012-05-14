@@ -10,13 +10,9 @@
 #include <iostream>
 #include <fstream>
 
-class GFS;
+#include "GECollection.h"
 
-#include "GameEntity.h"
-#include "Floor.h"
-#include "Pill.h"
-#include "Wall.h"
-#include "pacman.h"
+class GFS;
 
 struct mLevelInfo
 {
@@ -47,7 +43,8 @@ public:
 	void AddPill( float _x, float _y );
 
 	void PopulateDynamics();
-	void AddPacman( float _x, float _y, D3DXVECTOR3 _dest );
+	void AddPacman( float _x, float _y );
+	void AddGhost( float _x, float _y, D3DXVECTOR3 _dest );
 
 	void InstanceObject( GameEntity* GE );
 

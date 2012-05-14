@@ -135,17 +135,28 @@ void WorldGenerator::PopulateDynamics()
 							D3DXVECTOR3( -1800, 0, -1600 ) };
 
 	for ( int i = 0; i < 4; i++)
-		AddPacman( x[i], y[i], dest[i] );
+		AddGhost( x[i], y[i], dest[i] );
+
+	AddPacman( 2400.0f, 0 );
 }
 
-void WorldGenerator::AddPacman( float _x, float _y, D3DXVECTOR3 _dest )
+void WorldGenerator::AddGhost( float _x, float _y, D3DXVECTOR3 _dest )
 {
-	pacman* p = new pacman( mGFS->quadtree ); 
-	mGFS->mGhost.push_back( p );
+	Ghost* g = new Ghost( mGFS->quadtree ); 
+	mGFS->mGhost.push_back( g );
 
+	g->cam = mGFS->cam;
+	g->temp = _dest;
+	g->mModel = mResources->getModel( 805 );
+	g->mPosition = D3DXVECTOR3( _x, 0, _y );
+	InstanceObject( g );
+}
+
+void WorldGenerator::AddPacman( float _x, float _y )
+{
+	pacman* p = new pacman();
+	mGFS->p = p;
 	p->cam = mGFS->cam;
-	p->temp = _dest;
-	p->mModel = mResources->getModel( 805 );
 	p->mPosition = D3DXVECTOR3( _x, 0, _y );
 	InstanceObject( p );
 }

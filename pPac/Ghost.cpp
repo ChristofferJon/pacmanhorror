@@ -26,10 +26,13 @@ void Ghost::Initialize(D3DManager* _d3dManager)
 
 	
 	currNode = g->getNode(mPosition.x, mPosition.z );
-	nextNode = g->getNode(pacM->mPosition.x, pacM->mPosition.z);
-	path = g->findPath(currNode, nextNode);
+	destNode = g->getNode(pacM->mPosition.x, pacM->mPosition.z);
+	//nextNode = currNode;
+	path = g->findPath(currNode, destNode);
 	hurting = true;
 	speed = JOG;
+	counter = 1;
+	nextNode = path[counter];
 }
 
 void Ghost::Update(float _dt)
@@ -41,10 +44,26 @@ void Ghost::Update(float _dt)
 	// srsly you guiz!
 	if ((std::abs((double)deltaX) < 10.0 && std::abs((double)deltaZ) < 10.0)) //if distance is less than 10
 	{
+		counter++;
+		if ( counter < path.size() )
+		{
+			nextNode = path[counter];
+		}
+	}
+	if ( nextNode == destNode )
+	{
 		path.clear();
-		currNode = g->getNode(mPosition.x, mPosition.z );
-		nextNode = g->getNode(pacM->mPosition.x, pacM->mPosition.z);
-		path = g->findPath(currNode, nextNode);
+		counter = 1;
+
+		currNode = g->getNode( mPosition.x, mPosition.z );
+		destNode = g->getNode( pacM->mPosition.x, pacM->mPosition.z);
+
+		if ( destNode->weight <= 1 )
+		{
+			path = g->findPath(currNode, destNode);
+			counter++;
+			nextNode = path[counter];
+		}
 	}
 
 	Move(_dt, nextNode->pos); //Send in nextNode, so he will move towards the next node in list of all nodes

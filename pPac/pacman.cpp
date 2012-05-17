@@ -47,7 +47,7 @@ void pacman::Update(float _dt)
 {
 	mPosition = cam->mPosition;
 
-	battery -= 7.5 * _dt;
+	//battery -= 7.5 * _dt;
 
 	if ( battery <= 0 )
 		battery = 0;

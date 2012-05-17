@@ -3,6 +3,8 @@
 #include "DynamicGameEntity.h"
 #include "Graph.h"
 #include "pacman.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 class Ghost : public DynamicGameEntity
 {
@@ -22,6 +24,7 @@ public:
 	float getPacmanPosZ();
 
 	bool hurting;
+	int counter;
 
 public:
 	Graph* g;

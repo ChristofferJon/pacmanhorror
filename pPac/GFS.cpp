@@ -88,8 +88,8 @@ void GFS::Update( float dt )
 		}
 	}
 
-	for each ( GameEntity* ghost in mGhost )
-		ghost->Update( dt );
+	//for each ( GameEntity* ghost in mGhost )
+	//	ghost->Update( dt );
 
 	for each ( Ghost* g in mGhost )
 	{
@@ -162,67 +162,82 @@ void GFS::ChechForInput( float dt )
 
 void GFS::Draw( float dt )
 {
-	md3dDevice->OMSetDepthStencilState(0,0);
-	sLight->position = -cam->mPosition;
-	D3DXVECTOR3 dir = -cam->mLook;;
-	//dir.x *= -1;
+	float blendFactor[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	md3dDevice->OMSetBlendState(0, blendFactor, 0xffffffff);
 
+	md3dDevice->OMSetDepthStencilState(0,0);
+
+	md3dDevice->RSSetState( md3dManager->pRS );
+	cam->rebuildView();
+	
+	sLight->position = cam->mPosition;
+	D3DXVECTOR3 dir = -cam->mLook;;
 	mPacMan->Draw( dt );
-	// Light
-	float h = 1.0f;
 	
 	md3dManager->mPtnEffect->GetVariableByName("direction")->AsVector()->SetFloatVector((float*)dir);
 
 	md3dManager->mPtnEffect->GetVariableByName( "eye" )->AsVector()->SetFloatVector((float*)cam->mPosition);
-	
-	float blendFactor[] = {0.0f, 0.0f, 0.0f, 0.0f};
-	md3dDevice->OMSetBlendState(0, blendFactor, 0xffffffff);
+	md3dManager->mPtnEffect->GetVariableByName("View")->AsMatrix()->SetMatrix((float*)cam->mView);
 
-
-	md3dDevice->RSSetState( md3dManager->pRS );
-	cam->rebuildView();
-
-
+	float drawDistance = 3000.0f;
 
 	for each ( GameEntity* floor in mFloor )
 	{
 		D3DXVECTOR3 length = floor->mPosition - cam->mPosition;
 		float l = D3DXVec3Length( &length );
-		float len = 100 / l;
 
-		ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "dist" );
-		pVar->SetRawValue(&len, 0, sizeof(float));
+		if ( l <= drawDistance )
+		{
+			float len = 100 / l;
 
-		floor->Draw( dt );
+			ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "dist" );
+			pVar->SetRawValue(&len, 0, sizeof(float));
+
+			floor->Draw( dt );
+		}
 	}
 
-	md3dManager->mPtnEffect->GetVariableByName("View")->AsMatrix()->SetMatrix((float*)cam->mView);
+
 	for each ( GameEntity* wall in mWall )
 	{
 		D3DXVECTOR3 length = cam->mPosition - wall->mPosition;
 		float l = D3DXVec3Length( &length );
-		float len = 0;
-		len = 500.0f / l;
-		ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "dist" );
-		pVar->SetRawValue(&len, 0, sizeof(float));
 
-		wall->Draw( dt );
+		if ( l <= drawDistance )
+		{
+			float len = 0;
+			len = 500.0f / l;
+			ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "dist" );
+			pVar->SetRawValue(&len, 0, sizeof(float));
+
+			wall->Draw( dt );
+		}
 	}
 
 	for each ( GameEntity* ghost in mGhost )
 	{
 		D3DXVECTOR3 length = cam->mPosition - ghost->mPosition;
 		float l = D3DXVec3Length( &length );
-		float len = 0;
-		len = 500.0f / l;
-		ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "dist" );
-		pVar->SetRawValue(&len, 0, sizeof(float));
+		if ( l <= drawDistance )
+		{
+			float len = 0;
+			len = 500.0f / l;
+			ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "dist" );
+			pVar->SetRawValue(&len, 0, sizeof(float));
 
-		ghost->Draw( dt );
+			ghost->Draw( dt );
+		}
 	}
 
 	md3dDevice->IASetInputLayout( md3dManager->mPtbLayout );
 
 	for each ( GameEntity* pill in mPill )
-		pill->Draw( dt );
+	{
+		D3DXVECTOR3 length = cam->mPosition - pill->mPosition;
+		float l = D3DXVec3Length( &length );
+		if ( l <= drawDistance )
+		{
+			pill->Draw( dt );
+		}
+	}
 }

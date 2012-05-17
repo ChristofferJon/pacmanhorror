@@ -17,10 +17,6 @@ Camera::Camera(D3DManager* _md3dManager)
 	mLook		= D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 
 	D3DXMatrixIdentity(&mView);
-
-	//md3dManager->mProjectionMatrixEffectVariable->SetMatrix(mProj);
-	//md3dManager->mViewMatrixEffectVariable->SetMatrix(mView);
-
 	D3DXMatrixPerspectiveFovLH(&mProj, (float)D3DX_PI * 0.25f, (float)1200/(float)720, 1.0f, 3000.0f);
 }
 

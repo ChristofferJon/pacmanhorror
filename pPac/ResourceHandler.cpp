@@ -253,10 +253,10 @@ void ResourceHandler::LoadObj( string file, VertexBuffer* _vBuffer )
 	std::vector<D3DXVECTOR2>			vt;
 	std::vector<D3DXVECTOR3>			vn;
 
-	vt.push_back( D3DXVECTOR2( 0, 1) );
-	vt.push_back( D3DXVECTOR2( 0, 0) );
-	vt.push_back( D3DXVECTOR2( 1, 0) );
-	vt.push_back( D3DXVECTOR2( 1, 1) );
+	//vt.push_back( D3DXVECTOR2( 0, 1) );
+	//vt.push_back( D3DXVECTOR2( 0, 0) );
+	//vt.push_back( D3DXVECTOR2( 1, 0) );
+	//vt.push_back( D3DXVECTOR2( 1, 1) );
 	int vtIndex = 0;
 
 	std::vector<PTNVertex> vertices;
@@ -298,9 +298,9 @@ void ResourceHandler::LoadObj( string file, VertexBuffer* _vBuffer )
 		}
 		if ( 0 == wcscmp( line, L"vt"))
 		{
-			//float u, v;
-			//inFile >> u >> v;
-			//vt.push_back(D3DXVECTOR2(u, 1.0f - v));
+			float u, v;
+			inFile >> u >> v;
+			vt.push_back(D3DXVECTOR2(u, 1.0 - v));
 		}
 		if (0 ==wcscmp( line, L"f"))
 		{
@@ -327,9 +327,8 @@ void ResourceHandler::LoadObj( string file, VertexBuffer* _vBuffer )
 						inFile >> normIndex;
 					}
 				}
-				vtIndex++;
 
-				vertices.push_back( PTNVertex( v[posIndex - 1], vn[normIndex - 1], vt[vtIndex%4] ) );
+				vertices.push_back( PTNVertex( v[posIndex - 1], vn[normIndex - 1], vt[texIndex - 1] ) );
 			}
 		}
 	}

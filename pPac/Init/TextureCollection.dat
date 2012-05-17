@@ -1,6 +1,6 @@
 #TXDEF
 ID = 200 ;
-FILE = .\\Resources\\GFX\\Textures\\test.png ;
+FILE = .\\Resources\\GFX\\Textures\\BlueWallTile.png ;
 #TEXTURE2
 ID = 201 ;
 FILE = .\\Resources\\GFX\\Textures\\C1VVp.png ;

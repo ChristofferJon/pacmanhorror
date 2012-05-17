@@ -10,9 +10,9 @@ Pill::~Pill(void)
 {
 }
 
-void Pill::Initialize()
+void Pill::Initialize(D3DManager* _d3dManager)
 {
-
+	StaticGameEntity::Initialize(_d3dManager);
 }
 
 void Pill::Update( float dt )
@@ -22,7 +22,8 @@ void Pill::Update( float dt )
 
 void Pill::Draw( float dt )
 {
-	md3dManager->mPtbEffect->GetVariableByName("View")->AsMatrix()->SetMatrix((float*)cam->mView);
+	md3dDevice->IASetInputLayout( mModel->mRenderPackage->mLayout );
+	mModel->mRenderPackage->mEffect->GetVariableByName("View")->AsMatrix()->SetMatrix((float*)cam->mView);
 
 	// get model buffer & texture
 	md3dDevice->IASetVertexBuffers( 0, 1, &mModel->mBuffer->mBuffer, &mModel->mBuffer->stride, &mModel->mBuffer->offset );

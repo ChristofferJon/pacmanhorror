@@ -147,6 +147,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="GameEntity.h" />
+    <ClInclude Include="GECollection.h" />
     <ClInclude Include="GFS.h" />
     <ClInclude Include="GFX_Asset_Collection.h" />
     <ClInclude Include="Ghost.h" />

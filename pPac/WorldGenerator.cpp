@@ -14,6 +14,7 @@ void WorldGenerator::Initialize( GFS* _gfs )
 {
 	mGFS = _gfs;
 	mResources = mGFS->mResources;
+	md3dManager = mGFS->md3dManager;
 }
 
 void WorldGenerator::RAWLoader( string file )
@@ -92,37 +93,34 @@ void WorldGenerator::PopulateStatics()
 
 void WorldGenerator::AddPill( float _x, float _y )
 {
-	Pill* p = new Pill();
-	p->cam = mGFS->cam;
-	mGFS->mPill.push_back( p );
-	int index = mGFS->mPill.size() - 1;
+	Pill* pill = new Pill();
+	pill->cam = mGFS->cam;
+	pill->mPosition = D3DXVECTOR3( _x, -75, _y );
+	pill->mModel = mResources->getModel( 802 );
+	pill->Initialize( md3dManager );
 
-	mGFS->mPill[index]->mPosition = D3DXVECTOR3( _x, -75, _y );
-	mGFS->mPill[index]->mModel = mResources->getModel( 802 );
-	InstanceObject( mGFS->mPill[index] );
+	mGFS->mPill.push_back( pill );
 }
 
 void WorldGenerator::AddFloor( float _x, float _y )
 {
-	Floor* f = new Floor();
-	mGFS->mFloor.push_back( f );
-	int index = mGFS->mFloor.size() - 1;
+	Floor* floor = new Floor();
+	floor->mPosition = D3DXVECTOR3( _x, -100, _y );
+	floor->mModel = mResources->getModel( 801 );
+	floor->Initialize( md3dManager );
 
-	mGFS->mFloor[index]->mPosition = D3DXVECTOR3( _x, -100, _y );
-	mGFS->mFloor[index]->mModel = mResources->getModel( 801 );
-	InstanceObject( mGFS->mFloor[index] );
+	mGFS->mFloor.push_back( floor );
 }
 
 void WorldGenerator::AddWall( float _x, float _y )
 {
-	Wall* w = new Wall();
-	w->sLight = mGFS->sLight;
-	mGFS->mWall.push_back( w );
-	int index = mGFS->mWall.size() - 1;
+	Wall* wall = new Wall();
+	wall->sLight = mGFS->sLight;
+	wall->mPosition = D3DXVECTOR3( _x, 0, _y );
+	wall->mModel = mResources->getModel( 804 );
+	wall->Initialize(md3dManager);
 
-	mGFS->mWall[index]->mPosition = D3DXVECTOR3( _x, 0, _y );
-	mGFS->mWall[index]->mModel = mResources->getModel( 804 );
-	InstanceObject( mGFS->mWall[index] );
+	mGFS->mWall.push_back( wall );
 }
 
 void WorldGenerator::PopulateDynamics()
@@ -134,27 +132,38 @@ void WorldGenerator::PopulateDynamics()
 							D3DXVECTOR3( -800, 0, 600 ),
 							D3DXVECTOR3( -1800, 0, -1600 ) };
 
+	AddPacman( 2400.0f, 0 );
+
 	for ( int i = 0; i < 4; i++)
-		AddPacman( x[i], y[i], dest[i] );
+		AddGhost( x[i], y[i], dest[i] );
 }
 
-void WorldGenerator::AddPacman( float _x, float _y, D3DXVECTOR3 _dest )
+void WorldGenerator::AddGhost( float _x, float _y, D3DXVECTOR3 _dest )
 {
-	pacman* p = new pacman( mGFS->quadtree ); 
-	mGFS->mGhost.push_back( p );
+	Ghost* ghost = new Ghost( mGFS->quadtree ); 
+	mGFS->mGhost.push_back( ghost );
 
-	p->cam = mGFS->cam;
-	p->temp = _dest;
-	p->mModel = mResources->getModel( 805 );
-	p->mPosition = D3DXVECTOR3( _x, 0, _y );
-	InstanceObject( p );
+	ghost->pacM = mGFS->mPacMan;
+	ghost->temp = _dest;
+	ghost->mModel = mResources->getModel( 805 );
+	ghost->mPosition = D3DXVECTOR3( _x, 0, _y );
+	ghost->Initialize( md3dManager );
+}
+
+void WorldGenerator::AddPacman( float _x, float _y )
+{
+	pacman* pac = new pacman();
+	pac->cam = mGFS->cam;
+	pac->mPosition = D3DXVECTOR3( _x, 0, _y );
+	pac->mModel = mResources->getModel( 805 );
+	pac->Initialize( md3dManager );
+
+	mGFS->mPacMan = pac;
 }
 
 void WorldGenerator::InstanceObject( GameEntity* GE )
 {
-	GE->md3dManager = mGFS->md3dManager;
-	GE->md3dDevice = mGFS->md3dDevice;
-	GE->Initialize();
+	GE->Initialize(mGFS->md3dManager );
 }
 
 void WorldGenerator::LevelData( string file )

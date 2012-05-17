@@ -10,6 +10,11 @@ public:
 	GameEntity();
 	~GameEntity();
 
+	struct aMaterial
+	{
+		float ambient, diffuse, specular, shininess;
+	};
+
 public:
 	float mHealth;
 	D3DXVECTOR3 mPosition;
@@ -20,7 +25,8 @@ public:
 public:
 	virtual void Update(float _dt) = 0;
 	virtual void Draw(float _dt) = 0;
-	virtual void Initialize() = 0;
+	virtual void Initialize(D3DManager* _d3dManager, ...);
+	aMaterial mat;
 };
 
 #endif

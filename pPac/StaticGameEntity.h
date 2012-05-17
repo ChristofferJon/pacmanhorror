@@ -11,7 +11,7 @@ public:
 
 	virtual void Update(float _dt) = 0;
 	virtual void Draw(float _dt) = 0;
-	virtual void Initialize() = 0;
+	virtual void Initialize(D3DManager* _d3dManager);
 };
 
 #endif

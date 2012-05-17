@@ -10,9 +10,9 @@ Floor::~Floor()
 {
 }
 
-void Floor::Initialize()
+void Floor::Initialize(D3DManager* _d3dManager)
 {
-
+	StaticGameEntity::Initialize(_d3dManager);
 }
 
 void Floor::Update( float dt )
@@ -35,6 +35,9 @@ void Floor::Draw( float dt )
 	mModel->mRenderPackage->mEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)&m);
 
 	mModel->mRenderPackage->mEffect->GetVariableByName("TEXTURE")->AsShaderResource()->SetResource( mModel->mTexture->pSRView );
+
+	ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "material" );
+	pVar->SetRawValue(&mat, 0, sizeof(aMaterial));
 	
 
 	// get rendering technique

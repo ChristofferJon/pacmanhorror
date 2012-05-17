@@ -48,7 +48,7 @@ public:
 
 	Graph* quadtree;
 	Node* root;
-	pacman* p;
+	pacman* mPacMan;
 	Dbg* mDgb;
 
 	bool hurting;
@@ -57,6 +57,7 @@ public:
 	float delay;
 	D3DXVECTOR3 oldPos;
 	SpotLight* sLight;
+	float ha;
 };
 
 #endif

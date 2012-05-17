@@ -15,6 +15,18 @@ SamplerState linearSampler
 	AddressV = Wrap;
 };
 
+BlendState Blend
+{
+	BlendEnable[0] = TRUE;
+	SrcBlend = SRC_ALPHA;
+	DestBlend = ONE;
+	BlendOp = ADD;
+	SrcBlendAlpha = ONE;
+	DestBlendAlpha = ZERO;
+	BlendOpAlpha = ADD;
+	RenderTargetWriteMask[0]= 0x0F;
+};
+
 //------------------------------------
 // input/output
 //------------------------------------
@@ -66,5 +78,6 @@ technique10 PTBLEND_RENDER
 		SetVertexShader( CompileShader( vs_4_0, VS() ) );
         SetGeometryShader( NULL );
         SetPixelShader( CompileShader( ps_4_0, PS() ) );
+		SetBlendState( Blend, float4(1.0f,1.0f,1.0f,1.0), 0xFFFFFFFF);
 	}
 }

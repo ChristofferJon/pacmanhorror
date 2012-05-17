@@ -74,6 +74,6 @@ void CreditScreen::OnSelect()
 	for ( int i = 0; i < mMenuEntries.size(); i++)
 		mMenuEntries[i]->mText = "";
 
-	string resp[] = { "DOA", "SNAFU", "TBD", "MIA", "AWOL" };
+	string resp[] = { "DOA", "SNAFU", "FUBAR", "MIA", "KIA" };
 	mMenuEntries[selectedEntry]->mText += " : " + resp[selectedEntry];
 }

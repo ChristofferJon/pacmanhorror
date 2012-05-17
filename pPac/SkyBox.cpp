@@ -6,7 +6,7 @@ SkyBox::SkyBox() : StaticGameEntity()
 
 }
 
-void SkyBox::Initialize()
+void SkyBox::Initialize(D3DManager* _d3dManager)
 {
 
 }

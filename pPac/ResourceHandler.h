@@ -53,7 +53,7 @@ public:
 	int CreateModel(int _id, int _tex, int _buf, int _mat, int _ren);
 	int CreateSprite(int _id, int _tex, int _buf);
 
-	vector<D3DXVECTOR3> CreateCube(int _width, int _height, int _length );
+	vector<D3DXVECTOR3> CreateCube(int _width, int _height, int length );
 	vector<D3DXVECTOR3> CreateQuad(int _x, int _y, int _z );
 	vector<D3DXVECTOR2> SimpleSkin(int numVerts);
 	vector<D3DXVECTOR3> SimpleNormal( vector<D3DXVECTOR3> _vert );

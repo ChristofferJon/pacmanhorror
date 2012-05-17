@@ -110,5 +110,5 @@ void ScreenManager::Draw(float deltaTime)
 
 	// set state and chain
 	//mD3DDevice->RSSetState(mD3DManager->pRS);
-	mD3DManager->mSwapChain->Present(0,0);		// no lock on fps
+	mD3DManager->mSwapChain->Present(1,0);		// no lock on fps
 }

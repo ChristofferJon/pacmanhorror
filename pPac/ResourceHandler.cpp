@@ -191,31 +191,31 @@ void ResourceHandler::InstancePTNVertexBuffer( vector<D3DXVECTOR3> _position, ve
 	mD3DDevice->IASetVertexBuffers( 0, 1, &_vBuffer->mBuffer, &stride, &offset );
 }
 
-vector<D3DXVECTOR3> ResourceHandler::CreateCube( int _width, int _height, int _length )
+vector<D3DXVECTOR3> ResourceHandler::CreateCube( int width, int height, int length )
 {
 	vector<D3DXVECTOR3> vert;
 
 	//define all points in the quad
 	D3DXVECTOR3 p[8] =
 	{
-		D3DXVECTOR3(-_width, -_height, -_length),	//BLU 0
-		D3DXVECTOR3(-_width, _height, -_length),	//BLD 1
-		D3DXVECTOR3(_width, _height, -_length),		//BRD 2
-		D3DXVECTOR3(_width, -_height, -_length),	//BRU 3
-		D3DXVECTOR3(-_width, -_height, _length),	//FLU 4
-		D3DXVECTOR3(-_width, _height, _length),		//FLD 5
-		D3DXVECTOR3(_width, _height, _length),		//FRD 6
-		D3DXVECTOR3(_width, -_height, _length)		//FRU 7
+		D3DXVECTOR3(	-width,		height,		-length),	//BLU 0
+		D3DXVECTOR3(	-width,		-height,	-length),	//BLD 1
+		D3DXVECTOR3(	width,		-height,	-length),	//BRD 2
+		D3DXVECTOR3(	width,		height,		-length),	//BRU 3
+		D3DXVECTOR3(	-width,		height,		length),	//FLU 4
+		D3DXVECTOR3(	-width,		-height,	length),	//FLD 5
+		D3DXVECTOR3(	width,		-height,	length),	//FRD 6
+		D3DXVECTOR3(	width,		height,		length)		//FRU 7
 	};
 
 	int quad[36] =
 	{
-		1, 0, 2, 2, 0, 3, //back
-		4, 5, 6, 4, 6, 7, //front
-		5, 4, 1, 1, 4, 0, //left
-		7, 6, 2, 7, 2, 3, //right
-		0, 4, 7, 0, 7, 3, //bottom
-		5, 1, 6, 6, 1, 2  //top
+		0, 1, 2, 0, 2, 3, //back
+		6, 5, 4, 6, 4, 7, //front
+		4, 5, 1, 4, 1, 0, //left
+		2, 6, 7, 2, 7, 3, //right
+		1, 5, 6, 1, 6, 2, //bottom
+		4, 0, 7, 7, 0, 3  //top
 	};
 
 	for (int i = 0; i < 36; i++)
@@ -230,15 +230,15 @@ vector<D3DXVECTOR3> ResourceHandler::CreateQuad( int _x, int _y, int _z )
 
 	D3DXVECTOR3 p[4] =
 	{
-		D3DXVECTOR3( -_x,	-_y,	-_z),		//LU 4
-		D3DXVECTOR3( -_x,	_y,		_z),		//LD 5
-		D3DXVECTOR3( _x, 	_y,		_z),		//RD 6
-		D3DXVECTOR3( _x, 	-_y,	-_z)		//RU 7
+		D3DXVECTOR3( -_x,	-_y,	-_z),		//BLD 4
+		D3DXVECTOR3( -_x,	_y,		_z),		//FLD 5
+		D3DXVECTOR3( _x, 	_y,		_z),		//FRD 6
+		D3DXVECTOR3( _x, 	-_y,	-_z)		//BRD 7
 	};
 
 	int quad[6] =
 	{
-		1, 0, 2, 2, 0, 3
+		2, 1, 0, 2, 0, 3
 	};
 
 	for (int i = 0; i < 6; i++)
@@ -370,7 +370,7 @@ vector<D3DXVECTOR2> ResourceHandler::SimpleSkin( int numVerts )
 
 	int q[6] =
 	{
-		1, 0, 2, 2, 0, 3, //back
+		0, 1, 2, 0, 2, 3, //back
 	};
 
 	for ( int i = 0; i < numVerts; i++ )
@@ -383,45 +383,19 @@ vector<D3DXVECTOR3> ResourceHandler::SimpleNormal( vector<D3DXVECTOR3> _vert )
 {
 	vector<D3DXVECTOR3> normals;
 
-		float xN = _vert[0].x - _vert[1].x;
-		float xZ = _vert[0].z - _vert[2].z;
-
-		D3DXVECTOR3 tanZ(0.0f, xZ, 1.0f);
-		D3DXVECTOR3 tanX(1.0f, xN, 0.0f);
-
-		D3DXVECTOR3 tanY;
-		D3DXVec3Cross(&tanY, &tanZ, &tanX);
-		D3DXVec3Normalize(&tanY, &tanY);
-
-		normals.push_back( tanY );
-
-	for ( int i = 1; i < _vert.size() -1; i++ )
+	for ( int i = 0; i < _vert.size(); i += 3 )
 	{
-		float xN = _vert[i].x - _vert[i-1].x;
-		float xZ = _vert[i].z - _vert[i+1].z;
+		D3DXVECTOR3 v1 = _vert[i+1] - _vert[i];
+		D3DXVECTOR3 v2 = _vert[i+2] - _vert[i];
+		D3DXVECTOR3 normal;
+		D3DXVec3Cross( &normal, &v1, &v2 );
 
-		D3DXVECTOR3 tanZ(0.0f, xZ, 1.0f);
-		D3DXVECTOR3 tanX(1.0f, xN, 0.0f);
+		D3DXVec3Normalize( &normal, &normal );
 
-		D3DXVECTOR3 tanY;
-		D3DXVec3Cross(&tanY, &tanZ, &tanX);
-		D3DXVec3Normalize(&tanY, &tanY);
-
-		normals.push_back( tanY );
+		normals.push_back( normal );
+		normals.push_back( normal );
+		normals.push_back( normal );
 	}
-
-	int last = normals.size() - 1;
-	xN = _vert[last].x - _vert[last-1].x;
-	xZ = _vert[last].z - _vert[last-2].z;
-
-	tanZ = D3DXVECTOR3(0.0f, xZ, 1.0f);
-	tanX = D3DXVECTOR3(1.0f, xN, 0.0f);
-
-	D3DXVec3Cross(&tanY, &tanZ, &tanX);
-	D3DXVec3Normalize(&tanY, &tanY);
-
-	normals.push_back( tanY );
-
 	return normals;
 }
 

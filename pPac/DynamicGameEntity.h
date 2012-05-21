@@ -32,7 +32,6 @@ protected:
 	mCollission;	//collission check?
 	mSFX;			//sound managing?
 	*/
-
 public:
 	virtual void Move(float _dt);
 };

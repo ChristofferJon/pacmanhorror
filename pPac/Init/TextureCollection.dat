@@ -22,3 +22,12 @@ FILE = .\\Resources\\GFX\\Textures\\Floortile2.png ;
 #GHOST1
 ID = 208 ;
 FILE = .\\Resources\\GFX\\Textures\\GGhost.png ;
+#GHOST2
+ID = 209 ;
+FILE = .\\Resources\\GFX\\Textures\\RGhost.png ;
+#GHOST3
+ID = 210 ;
+FILE = .\\Resources\\GFX\\Textures\\PGhost.png ;
+#GHOST4
+ID = 211 ;
+FILE = .\\Resources\\GFX\\Textures\\BGhost.png ;

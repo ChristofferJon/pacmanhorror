@@ -1,6 +1,8 @@
 #ifndef __GAMEENTITY__
 #define __GAMEENTITY__
 
+#include "GEC_Collection.h"
+#include "StandardCalls.h"
 #include <D3DX10.h>
 #include "Model.h"
 
@@ -27,6 +29,7 @@ public:
 	virtual void Draw(float _dt) = 0;
 	virtual void Initialize(D3DManager* _d3dManager, ...);
 	aMaterial mat;
+	vector<GameEntityComponent*> GEC;
 };
 
 #endif

@@ -79,7 +79,6 @@ void GFS::Update( float dt )
 				{
 					mPill.erase( mPill.begin() + i );
 					mPill.shrink_to_fit();
-					mSoundManager->PlaySound( 602 );
 					mPacMan->LoadBattery( 20 );
 					break;
 				}
@@ -88,8 +87,8 @@ void GFS::Update( float dt )
 		}
 	}
 
-	//for each ( GameEntity* ghost in mGhost )
-	//	ghost->Update( dt );
+	for each ( GameEntity* ghost in mGhost )
+		ghost->Update( dt );
 
 	for each ( Ghost* g in mGhost )
 	{
@@ -99,6 +98,7 @@ void GFS::Update( float dt )
 
 		if ( lenPG < rPG )
 		{
+			mPacMan->Wound( 0.30f );
 			D3DXVECTOR3 temp = D3DXVECTOR3( oldPos.x - cam->mPosition.x, 10, oldPos.z - cam->mPosition.z);
 			//cam->mPosition += temp;
 		}
@@ -115,7 +115,8 @@ void GFS::Update( float dt )
 
 	if ( hurting != oldHurt && playOnce == true )
 	{
-			mSoundManager->PlaySound( 604 );
+			
+			//mSoundManager->PlaySound( 604 );
 			mSoundManager->PlaySound( 607 );
 
 			playOnce = false;

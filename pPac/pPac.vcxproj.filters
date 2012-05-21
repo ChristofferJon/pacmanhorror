@@ -148,7 +148,15 @@
     <ClCompile Include="PTNVertex.cpp">
       <Filter>Resources\Vertices</Filter>
     </ClCompile>
-    <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="GameEntityComponent.cpp">
+      <Filter>Game\GameEntities\GEC</Filter>
+    </ClCompile>
+    <ClCompile Include="GEC_SFX.cpp">
+      <Filter>Game\GameEntities\GEC</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Game\GameEntities\GEC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceHandler.h">
@@ -322,9 +330,20 @@
     <ClInclude Include="PTNVertex.h">
       <Filter>Resources\Vertices</Filter>
     </ClInclude>
-    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="GECollection.h">
       <Filter>Game\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntityComponent.h">
+      <Filter>Game\GameEntities\GEC</Filter>
+    </ClInclude>
+    <ClInclude Include="GEC_SFX.h">
+      <Filter>Game\GameEntities\GEC</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Game\GameEntities\GEC</Filter>
+    </ClInclude>
+    <ClInclude Include="GEC_Collection.h">
+      <Filter>Game\GameEntities\SGE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -402,6 +421,9 @@
     </Filter>
     <Filter Include="Game\GameEntities\DGE">
       <UniqueIdentifier>{c66a32c4-a654-49cc-93a6-6a569e1c9b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameEntities\GEC">
+      <UniqueIdentifier>{59bd1a85-d5cb-4740-99ee-8285413024a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

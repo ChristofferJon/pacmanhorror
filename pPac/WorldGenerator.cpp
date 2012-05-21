@@ -134,18 +134,19 @@ void WorldGenerator::PopulateDynamics()
 
 	AddPacman( 2400.0f, 0 );
 
-	for ( int i = 0; i < 4; i++)
-		AddGhost( x[i], y[i], dest[i] );
+	int awfulSolution[4] = { 805, 806, 807, 808 }; 
+	for ( int i = 0; i < 1; i++)
+		AddGhost( x[i], y[i], dest[i], awfulSolution[i] );
 }
 
-void WorldGenerator::AddGhost( float _x, float _y, D3DXVECTOR3 _dest )
+void WorldGenerator::AddGhost( float _x, float _y, D3DXVECTOR3 _dest, int _mod )
 {
 	Ghost* ghost = new Ghost( mGFS->quadtree ); 
 	mGFS->mGhost.push_back( ghost );
 
 	ghost->pacM = mGFS->mPacMan;
 	ghost->temp = _dest;
-	ghost->mModel = mResources->getModel( 805 );
+	ghost->mModel = mResources->getModel( _mod );
 	ghost->mPosition = D3DXVECTOR3( _x, 0, _y );
 	ghost->Initialize( md3dManager );
 }
@@ -154,9 +155,14 @@ void WorldGenerator::AddPacman( float _x, float _y )
 {
 	pacman* pac = new pacman();
 	pac->cam = mGFS->cam;
-	pac->mPosition = D3DXVECTOR3( _x, 0, _y );
+	//pac->mPosition = D3DXVECTOR3( _x, 0, _y );
+	pac->mPosition = D3DXVECTOR3( -2600, 0, -1200 );
 	pac->mModel = mResources->getModel( 805 );
 	pac->Initialize( md3dManager );
+	GEC_SFX* s = new GEC_SFX();
+	s->Initialize( mGFS->mSoundManager );
+	pac->GEC.push_back ( s );
+	pac->mSfx = s;
 
 	mGFS->mPacMan = pac;
 }

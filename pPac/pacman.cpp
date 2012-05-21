@@ -38,22 +38,39 @@ void pacman::Look( float dx, float dy )
 	cam->rotateY( dx * cSpeed );
 }
 
+void pacman::UnLoadBattery( float charge )
+{
+	//battery -= charge;
+}
+
 void pacman::LoadBattery( float charge )
 {
 	battery += charge;
+
+	mSfx->PlaySound( 602, 0.75f );
+}
+
+void pacman::Wound( float damage )
+{
+	//mHealth -= damage;
+
+	mSfx->PlaySound( 604, 2.0f );
 }
 
 void pacman::Update(float _dt)
 {
+	for each ( GameEntityComponent* gec in GEC )
+		gec->Update( _dt );
+
 	mPosition = cam->mPosition;
 
-	//battery -= 7.5 * _dt;
+	UnLoadBattery( 7.5 * _dt );
 
 	if ( battery <= 0 )
 		battery = 0;
 
 	if ( battery <= 0 )
-		mHealth -= 5.5f;
+		Wound( 5.5f );
 
 	if ( mHealth <= 0 )
 		mHealth = 0;

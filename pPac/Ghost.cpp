@@ -14,25 +14,15 @@ Ghost::~Ghost()
 void Ghost::Initialize(D3DManager* _d3dManager)
 {
 	DynamicGameEntity::Initialize(_d3dManager);
-	listCounter = 1;
-	wpp = 0;
-
-	//destNode = g->getNode(temp.x, temp.z);
-	//
-	//currNode = g->getNode(mPosition.x+200, mPosition.z+200 );
-
-	//wp.push_back(currNode);
-	//wp.push_back(destNode);
-
 	
 	currNode = g->getNode(mPosition.x, mPosition.z );
-	destNode = g->getNode(pacM->mPosition.x, pacM->mPosition.z);
-	//nextNode = currNode;
-	path = g->findPath(currNode, destNode);
+	destNode = g->getNode( pacM->mPosition.x, pacM->mPosition.z );
+	path = g->findPath( currNode, destNode );
+	nextNode = path[1];
+	counter = 0;
 	hurting = true;
-	speed = JOG;
-	counter = 1;
-	nextNode = path[counter];
+	speed = SNEAK;
+
 }
 
 void Ghost::Update(float _dt)
@@ -44,25 +34,19 @@ void Ghost::Update(float _dt)
 	// srsly you guiz!
 	if ((std::abs((double)deltaX) < 10.0 && std::abs((double)deltaZ) < 10.0)) //if distance is less than 10
 	{
-		counter++;
-		if ( counter < path.size() )
+		if ( counter < path.size() - 1 )
 		{
-			nextNode = path[counter];
-		}
-	}
-	if ( nextNode == destNode )
-	{
-		path.clear();
-		counter = 1;
-
-		currNode = g->getNode( mPosition.x, mPosition.z );
-		destNode = g->getNode( pacM->mPosition.x, pacM->mPosition.z);
-
-		if ( destNode->weight <= 1 )
-		{
-			path = g->findPath(currNode, destNode);
 			counter++;
 			nextNode = path[counter];
+		}
+		else
+		{
+			path.clear();
+			currNode = g->getNode(mPosition.x, mPosition.z );
+			destNode = g->getNode( pacM->mPosition.x, pacM->mPosition.z );
+			path = g->findPath( currNode, destNode );
+			nextNode = path[1];
+			counter = 0;
 		}
 	}
 
@@ -93,7 +77,7 @@ void Ghost::Draw(float _dt)
 	ID3D10EffectVariable* pVar = md3dManager->mPtnEffect->GetVariableByName( "material" );
 	pVar->SetRawValue(&mat, 0, sizeof(aMaterial));
 
-	m = rotY * m;
+	//m = rotY * m;
 
 	mModel->mRenderPackage->mEffect->GetVariableByName("World")->AsMatrix()->SetMatrix((float*)&m);
 
@@ -112,7 +96,7 @@ void Ghost::Draw(float _dt)
 void Ghost::Move(float _dt, D3DXVECTOR3 goal)
 {
 	//Move pacman according to position relative to goals position
-	if (this->mPosition.x < goal.x - 10.0f)
+	if (this->mPosition.x < goal.x)
 	{
 		this->mPosition.x += this->speed * _dt;
 	}
@@ -121,7 +105,7 @@ void Ghost::Move(float _dt, D3DXVECTOR3 goal)
 		this->mPosition.x -= this->speed * _dt;
 	}
 
-	if (this->mPosition.z < goal.z - 10.0f)
+	if (this->mPosition.z < goal.z)
 	{
 		this->mPosition.z += this->speed * _dt;
 	}

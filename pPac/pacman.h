@@ -23,6 +23,10 @@ public:
 	float battery;
 	float cSpeed;
 
+	void UnLoadBattery( float charge );
 	void LoadBattery( float charge );
+	void Wound( float damage );
+
+	GEC_SFX* mSfx;
 };
 

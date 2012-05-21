@@ -12,7 +12,7 @@ Node::Node()
 	pos.y = 1.0f;
 	pos.z = upperLeftZ;
 	originNode = -1;
-	totalWeight = -1;
+	totalWeight = 1;
 	weight = 1;
 	visited = false;
 	edges.clear();

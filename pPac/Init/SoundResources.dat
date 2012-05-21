@@ -24,7 +24,7 @@ CHANNEL = 0;
 #TASTY
 ID = 602 ;
 FILE = .\\Resources\\SFX\\Assets\\tasty.mp3 ;
-CHANNEL = 0 ;
+CHANNEL = 5 ;
 
 ;    game     ;
 #MUTED_NO
@@ -47,3 +47,7 @@ CHANNEL = 2;
 ID = 607 ;
 FILE = .\\Resources\\SFX\\Assets\\ghostMoan1.mp3 ;
 CHANNEL = 5;
+#STEP1
+ID = 608 ;
+FILE = .\\Resources\\SFX\\Assets\\step1.mp3 ;
+CHANNEL = 4;

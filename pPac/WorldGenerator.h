@@ -44,7 +44,7 @@ public:
 
 	void PopulateDynamics();
 	void AddPacman( float _x, float _y );
-	void AddGhost( float _x, float _y, D3DXVECTOR3 _dest );
+	void AddGhost( float _x, float _y, D3DXVECTOR3 _dest, int _mod );
 
 	void InstanceObject( GameEntity* GE );
 

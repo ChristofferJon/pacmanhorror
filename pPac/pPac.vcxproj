@@ -92,6 +92,8 @@
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="GameEntity.cpp" />
+    <ClCompile Include="GameEntityComponent.cpp" />
+    <ClCompile Include="GEC_SFX.cpp" />
     <ClCompile Include="GFS.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Graph.cpp" />
@@ -147,7 +149,10 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="FontLoader.h" />
     <ClInclude Include="GameEntity.h" />
+    <ClInclude Include="GameEntityComponent.h" />
     <ClInclude Include="GECollection.h" />
+    <ClInclude Include="GEC_Collection.h" />
+    <ClInclude Include="GEC_SFX.h" />
     <ClInclude Include="GFS.h" />
     <ClInclude Include="GFX_Asset_Collection.h" />
     <ClInclude Include="Ghost.h" />

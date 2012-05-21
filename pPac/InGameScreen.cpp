@@ -17,6 +17,7 @@ void InGameScreen::Initialize( ResourceHandler* _resources)
 	GameScreen::Initialize( _resources );
 	mGFS = new GFS( "HELLO" );
 	mGFS->md3dManager = mD3DManager;
+	mGFS->mSoundManager = mSoundManager;
 	mGFS->Initialize( _resources );
 	mGFS->mInput = mInput;
 	mResources = _resources;
